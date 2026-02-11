@@ -1,0 +1,18 @@
+:root
+{
+    --primary_color: ;
+    --background_color: rgb(0, 0, 0);  
+    --text_color: white;  
+    --eye_catcher: red;  
+    --compliment_eye_catcher: blue;  
+}
+
+.login_main_container
+{
+    background-color: var(--primary_color);
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text_color);
+}
