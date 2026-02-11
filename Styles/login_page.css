@@ -1,5 +1,6 @@
 :root
 {
+    /* Fallb back values */
     --primary_color: ;
     --background_color: rgb(0, 0, 0);  
     --text_color: white;  
