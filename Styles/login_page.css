@@ -10,10 +10,22 @@
 
 .login_main_container
 {
-    background-color: var(--primary_color);
+    background-color: var(--background_color);
     display: flex;
     flex-flow: column;
-    justify-content: center;
     align-items: center;
+    color: var(--text_color);
+    height: 1000px;
+}
+
+.title_header
+{
+    background-color: var(--primary_color);
+    width: 100%;
+    text-align: center;
+}
+
+.ppar
+{
     color: var(--text_color);
 }
