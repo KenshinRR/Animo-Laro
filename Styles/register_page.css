@@ -11,6 +11,8 @@
 .title_header{
     font-size: 80px;
     margin: 0%;
+    color: var(--primary_color);
+    filter:brightness(1.7);
 }
 
 .par{
@@ -21,7 +23,8 @@
 
 .hrLine{
     width: 100%;
-    border: 1px solid #a1b4be;
+    border: 1.5px solid white;
+    margin-top: 20px;
 }
 
 .register_main_container
@@ -42,7 +45,7 @@
     flex-flow: column;
     width: 500px;
     max-height: 500px;
-    border: 2px solid #a1b4be;
+    border: 3px solid white;
     border-radius: 10px;
 }
 
@@ -90,15 +93,20 @@
     width: 250px;
     height: 40px;
     border-radius: 20px;
-    background-color: #4567e3;
+    background-color: var(--primary_color);
+    filter:brightness(1.7);
     margin-top: 20px;
     margin-bottom: 20px;
-    align-self: center;
     outline: none;
     border: none;
     cursor: pointers;
+    align-self: center;
 }
 
 .register_button:hover{
     background-color: #3651c2; 
+}
+
+.link:active{
+    color:#121a1e;
 }
