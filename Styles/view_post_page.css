@@ -1,7 +1,6 @@
 :root
 {
-    /* Fallb back values */
-    --primary_color: ;
+    --primary_color: #444;  
     --background_color: rgb(0, 0, 0);  
     --text_color: white;  
     --eye_catcher: red;  
@@ -56,4 +55,91 @@
     width: 80vw;
     height: 50px;
     background-color: blueviolet;
+}
+
+/* ---------------- POST VOTING ---------------- */
+
+.post_vote_container {
+    display: flex;
+    flex-direction: column; /* stack children vertically */
+    gap: 5px;               /* space between likes display and buttons */
+    margin-top: 20px;
+    align-items: flex-start; /* left-align everything */
+}
+
+.vote_buttons {
+    display: flex;          /* horizontal row for buttons */
+    flex-direction: row;
+    gap: 5px;               /* space between Like and Dislike buttons */
+}
+
+
+.vote_active_like {
+    background-color: green;
+    color: var(--text_color);
+}
+
+.vote_active_dislike {
+    background-color: red;
+    color: var(--text_color);
+}
+
+
+/* ---------------- COMMENTS ---------------- */
+
+.comments_section {
+    width: 80vw;
+    color: var(--text_color);
+    margin-top: 30px;
+}
+
+#comment_form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#comment_form input[type="submit"] {
+    padding: 5px 15px;   /* controls height and width */
+    font-size: 0.9rem;   /* smaller text if desired */
+    width: auto;         /* shrink to fit content */
+    cursor: pointer;
+}
+
+
+#comment_input {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+    padding: 8px;
+}
+
+#comments_container {
+    margin-top: 20px;
+}
+
+
+.comment {
+    border-left: 3px solid var(--primary_color);
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+.comment_header {
+    font-weight: bold;
+}
+
+.comment_actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.comment_actions button {
+    cursor: pointer;
+}
+
+.reply_container {
+    margin-left: 20px;
+    margin-top: 10px;
 }
