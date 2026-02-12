@@ -112,6 +112,9 @@
     min-height: 80px;
     resize: vertical;
     padding: 8px;
+
+    background-color: #121a1e;
+    color: white;
 }
 
 #comments_container {
@@ -139,7 +142,31 @@
     cursor: pointer;
 }
 
+
 .reply_container {
     margin-left: 20px;
     margin-top: 10px;
 }
+
+.textarea
+{
+    background-color: #121a1e;
+    color: white;
+}
+
+.comment_actions button {
+    padding: 3px 8px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.comment_like_active {
+    background-color: green;
+    color: var(--text_color);
+}
+
+.comment_dislike_active {
+    background-color: red;
+    color: var(--text_color);
+}
+

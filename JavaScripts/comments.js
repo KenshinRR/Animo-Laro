@@ -133,33 +133,46 @@ function renderCommentElement(comment) {
     const replyBtn = document.createElement("button");
     replyBtn.textContent = "Reply";
 
-    likeBtn.onclick = () => {
-        if (comment.userVote === "like") {
-            comment.likes--;
-            comment.userVote = null;
-        } else {
-            if (comment.userVote === "dislike") {
-                comment.dislikes--;
-            }
-            comment.likes++;
-            comment.userVote = "like";
-        }
-        renderComments();
-    };
-
-    dislikeBtn.onclick = () => {
+likeBtn.onclick = () => {
+    if (comment.userVote === "like") {
+        comment.likes--;
+        comment.userVote = null;
+    } else {
         if (comment.userVote === "dislike") {
             comment.dislikes--;
-            comment.userVote = null;
-        } else {
-            if (comment.userVote === "like") {
-                comment.likes--;
-            }
-            comment.dislikes++;
-            comment.userVote = "dislike";
         }
-        renderComments();
-    };
+        comment.likes++;
+        comment.userVote = "like";
+    }
+    renderComments();
+};
+
+dislikeBtn.onclick = () => {
+    if (comment.userVote === "dislike") {
+        comment.dislikes--;
+        comment.userVote = null;
+    } else {
+        if (comment.userVote === "like") {
+            comment.likes--;
+        }
+        comment.dislikes++;
+        comment.userVote = "dislike";
+    }
+    renderComments();
+};
+
+// --- Update colors immediately ---
+if (comment.userVote === "like") {
+    likeBtn.classList.add("comment_like_active");
+    dislikeBtn.classList.remove("comment_dislike_active");
+} else if (comment.userVote === "dislike") {
+    dislikeBtn.classList.add("comment_dislike_active");
+    likeBtn.classList.remove("comment_like_active");
+} else {
+    likeBtn.classList.remove("comment_like_active");
+    dislikeBtn.classList.remove("comment_dislike_active");
+}
+
 
     replyBtn.onclick = () => 
     {
@@ -173,6 +186,7 @@ function renderCommentElement(comment) {
     {
     const replyInput = document.createElement("textarea");
     replyInput.placeholder = "Write a reply...";
+    replyInput.classList.add("textarea"); // <-- add this
 
     const submitReply = document.createElement("button");
     submitReply.textContent = "Post Reply";
