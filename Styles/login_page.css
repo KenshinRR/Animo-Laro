@@ -10,22 +10,87 @@
 
 .login_main_container
 {
+    min-height: 100vh;
     background-color: var(--background_color);
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
+    color: var(--text_color);
+    margin: 0;
+    box-sizing: border-box;
+    justify-content: center;
     align-items: center;
-    color: var(--text_color);
-    height: 1000px;
 }
 
-.title_header
-{
-    background-color: var(--primary_color);
+.boxContainer{
+    display: flex;
+    flex-flow: column;
+    width: 500px;
+    max-height: 500px;
+    border: 2px solid #a1b4be;
+    border-radius: 10px;
+}
+
+.box{
+    display: flex;
+    flex-flow: column;
+    /* border: 1px solid red; */
+    align-items: center;
+}
+
+input::placeholder{
+    color: #a1b4be;
+}
+
+.inputText{
+    width: 250px;
+    height: 40px;
+    border: 1px solid;  
+    padding-left: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    outline-color: #008BFF;
+    background-color: #121a1e;
+    border-color: black;
+    color: #ffffff;
+    margin-top: 15px;
+}
+/* override default browser autofill style on text box */
+.inputText:-webkit-autofill,
+.inputText:-webkit-autofill:hover,
+.inputText:-webkit-autofill:focus,
+.inputText:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #121a1e inset !important;
+    -webkit-text-fill-color: white !important;
+}
+
+.log_in_button{
+    width: 250px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #4567e3;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    outline: none;
+    border: none;
+    cursor: pointers;
+}
+
+.log_in_button:hover{
+    background-color: #3651c2; 
+}
+
+.title_header{
+    font-size: 80px;
+    margin: 0%;
+}
+
+.par{
+    color: var(--text_color);
+    /* border: 1px solid white; */
+    margin: 0%;
+}
+
+.hrLine{
     width: 100%;
-    text-align: center;
-}
-
-.ppar
-{
-    color: var(--text_color);
+    border: 1px solid #a1b4be;
 }
