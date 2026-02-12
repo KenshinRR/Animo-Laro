@@ -1,0 +1,17 @@
+[
+    {
+        "comment_id": 1,
+        "description": "This game sucks!",
+        "likes": 3
+    },
+    {
+        "comment_id": 2,
+        "description": "This game is amazing!",
+        "likes": 5
+    },
+    {
+        "comment_id": 3,
+        "description": "NO IT'S NOT!",
+        "likes": 2
+    }
+]
