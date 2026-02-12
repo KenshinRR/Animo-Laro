@@ -68,12 +68,21 @@
     padding: 10px;
 }
 
-.post
+.post_container
 {
     color: var(--text_color);
-    height: 30vh;
+    min-height: 30vh;
+    max-height: 40vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 80vw;
     border: 5px solid var(--primary_color);
     margin: 5px 0;
     padding: 10px;
+}
+
+.post_interaction_bar
+{
+    height: 5vh;
+    background-color: brown;
 }
