@@ -10,12 +10,23 @@
 
 .login_main_container
 {
+    min-height: 100vh;
     background-color: var(--background_color);
     display: flex;
-    flex-flow: column;
-    align-items: center;
+    flex-flow: row;
     color: var(--text_color);
-    height: 1000px;
+    margin: 0;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box{
+    display: flex;
+    flex-flow: column;
+    margin: 5%;
+    padding: 5%;
+    border:solid white;
 }
 
 .title_header
