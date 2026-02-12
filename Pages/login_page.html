@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Animo Laro - Log in</title>
-
+    <script src="../JavaScripts/theme_loader.js"></script>
     <link rel="stylesheet" href="../Styles/login_page.css" />
   </head>
   <body class="login_main_container">
@@ -17,13 +17,14 @@
       </div>
       <hr class="hrLine" />
       <div class="box">
-        <form>
+        <form id="log_in">
           <div>
             <input
               class="inputText"
               type="text"
-              placeholder="Email or username"
+              placeholder="Username"
               required
+              id="username"
             />
             <br />
             <input
@@ -31,15 +32,20 @@
               type="text"
               placeholder="Password"
               required
+              id="password"
             />
           </div>
           <button type="submit" class="log_in_button">Log In</button>
+          <!--button test click-->
+          <!--<button type="submit" class="log_in_button" onclick="window.open('main_feed.html')">Log In</button>-->
         </form>
         <p class="par">
           Don't have an account?
-          <a href="registration_page.html">Register</a>
+
+          <a href="registration_page.html" class="link">Register</a>
         </p>
       </div>
     </div>
+    <script src="../JavaScripts/login_in_check.js"></script>
   </body>
 </html>
