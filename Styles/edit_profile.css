@@ -43,7 +43,7 @@ nav a:hover{
 
 .user_profile{
     background-color: var(--background_color);
-    flex: 3;
+    flex: 1;
     border-right: 1px solid white; 
     display:flex;
     flex-direction: column;
@@ -52,7 +52,7 @@ nav a:hover{
 }
 
 .user_profile >* {
-    margin: 15px 20px;
+    margin: 10px 20px;
 }
 
 .user_profile > p{
@@ -63,6 +63,14 @@ nav a:hover{
     background-color: var(--eye_catcher);
     border-radius:5px;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+#bio{
+    resize: none;
 }
 
 .edit_profile{
@@ -74,32 +82,17 @@ nav a:hover{
     text-decoration: none;
 }
 
-.user_activity > *{
-    margin:15px;
-    
-}
 
-.user_activity p{
-    border-radius: 5px;
-    background-color: var(--primary_color);
-    padding: 10px;
-    margin-left: 15px;
-}
 
 .user_pic{
     height: 300px;
     width: 300px;
     border-radius: 50%;
     object-fit: cover;
-    margin:20px 20px 5px 20px;
+    margin:10px 20px 5px 20px;
     
 }
 
-.user_activity{
-    background-color: var(--background_color);
-    flex: 7;
-    
-}
 
 * {
     margin: 0;

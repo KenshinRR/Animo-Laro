@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="author" content="Jairo Jaropojop">
+        <title>Animo_Taro View Profile</title>
+        <link rel="stylesheet" href="../Styles/edit_profile.css">
+        
+        <script src="../JavaScripts/theme_loader.js"></script>
+      
+    </head>
+    <body>
+        <header>
+            <h1>Animo Taro</h1>
+            <nav>
+                <a href="main_feed.html">Back to Main Feed</a>
+                <img src="../Images/MMM Poster (1).png">
+            </nav>
+        </header>
+        <section class="user_info">
+            <section class="user_profile">
+              
+                 <section class="user_descript">
+                      <img src="../Images/MMM Poster (1).png" alt="User's profile pic." class="user_pic" > 
+                      <input type="file" id="uploadInput" accept="image/*" style="display:none">
+                      <button id="edit_photo_button">Edit Photo</button>
+                <form>
+            <fieldset>
+                <legend>Editing Profile</legend>
+                
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="UserName" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="#########" required>
+                <br><br>
+                <label for="bio">Your Bio:</label>
+                <textarea id="bio" placeholder="My Name is NOT RICK." rows="5" cols="50" required></textarea>
+            </fieldset>
+         
+        </form>
+                </section>
+                <a href="profile_view.html"class="edit_profile">Save Profile</a>
+            </section>
+   
+        
+
+
+    </body>
+</html>
