@@ -33,6 +33,24 @@
     color: var(--text_color);
 }
 
+.images_container
+{
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 10px;
+    width: 80vw;
+    height: 50vh;
+    border: 5px dotted var(--primary_color);
+}
+
+.images_container img
+{
+    width: auto;
+    height: 100%;
+}
+
 .comment_placeholder
 {
     width: 80vw;
