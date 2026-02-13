@@ -21,12 +21,38 @@
 .header_bar_container
 {
     position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     top: 0;
     left: 0;
     width: 100vw;
     background-color: var(--primary_color);
     height: 10vh;
     z-index: 2;
+}
+
+.navigation_button
+{
+    height: 100%;
+    width: auto;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.navigation_button:hover
+{
+    border: 5px solid var(--eye_catcher);
+    background-color: var(--eye_catcher);
+    border-radius: 50%;
+}
+
+.icons
+{
+    height: 100%;
+    width: auto;
 }
 
 .main_div
