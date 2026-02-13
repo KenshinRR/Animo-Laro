@@ -182,3 +182,22 @@
     height: 5vh;
     background-color: brown;
 }
+
+.vote_buttons 
+{
+    display: flex;         
+    flex-direction: row;
+    gap: 5px;          
+}
+
+.vote_active_like 
+{
+    background-color: green;
+    color: var(--text_color);
+}
+
+.vote_active_dislike 
+{
+    background-color: red;
+    color: var(--text_color);
+}
