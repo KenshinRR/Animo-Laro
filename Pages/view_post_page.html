@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../Styles/view_post_page.css">
 </head>
+
 <body class="main_body">
 
     <div class="header_container">
@@ -16,39 +17,39 @@
     </div>
 
     <div class="title_container">
-        <h1 id="post_title">Title of post here</h2> <!-- Get From Database -->
-        <h2 id="poster_name">Jane Doe</h1> <!-- Get From Database -->
+
+        <h1 id="post_title">Title of post here</h1> <!-- From Database -->
+        <h2 id="poster_name">Jane Doe</h2> <!-- From Database -->
 
         <p id="post_description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit... <!-- Get From Database -->
-        </p> 
+            Lorem ipsum dolor sit amet consectetur adipisicing elit...
+        </p>
 
-    <div class="images_container">
-        <img src="../Images/MMM Poster (1).png">
-        <img src="../Images/MMM Poster (2).png">
-        <img src="../Images/MMM Poster (1).png">
-        <img src="../Images/MMM Poster (2).png">
-    </div>
-
-
-    <div class="post_vote_container">
-        <span id="post_likes_display">Likes: 0</span>
-        <div class="vote_buttons">
-            <button id="post_like_btn">Like</button>
-            <button id="post_dislike_btn">Dislike</button>
+        <div class="images_container">
+            <img src="../Images/MMM Poster (1).png">
+            <img src="../Images/MMM Poster (2).png">
+            <img src="../Images/MMM Poster (1).png">
+            <img src="../Images/MMM Poster (2).png">
         </div>
-    </div>
+
+        <div class="post_vote_container">
+            <span id="post_likes_display">Likes: 0</span>
+            <div class="vote_buttons">
+                <button id="post_like_btn">Like</button>
+                <button id="post_dislike_btn">Dislike</button>
+            </div>
+        </div>
+
     </div>
 
     <div class="comments_section">
 
         <h2>Comments</h2>
 
-    <form id="comment_form">
-        <textarea id="comment_input" rows="3" placeholder="Write a comment..."></textarea>
-        <input type="submit" value="Post Comment">
-    </form>
-
+        <form id="comment_form">
+            <textarea id="comment_input" rows="3" placeholder="Write a comment..."></textarea>
+            <input type="submit" value="Post Comment">
+        </form>
 
         <div id="comments_container"></div>
 
@@ -57,5 +58,6 @@
     <script src="../JavaScripts/theme_loader.js"></script>
     <script src="../JavaScripts/comments.js"></script>
     <script src="../JavaScripts/view_specific_post_handler.js"></script>
+
 </body>
 </html>
