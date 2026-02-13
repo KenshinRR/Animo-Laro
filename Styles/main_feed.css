@@ -37,7 +37,15 @@
     gap: 10px;
 }
 
-.navigation_button
+.icon_button
+{
+    height: 100%;
+    width: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.icons
 {
     height: 100%;
     width: auto;
@@ -46,18 +54,18 @@
     cursor: pointer;
 }
 
-.navigation_button:hover
+.icons:hover
 {
     border: 5px solid var(--eye_catcher);
     background-color: var(--eye_catcher);
-    border-radius: 50%;
+    border-radius: 20%;
+    height: 80%;
 }
 
-.icons
+.profile_icon_button
 {
-    height: 100%;
-    width: auto;
     background-color: var(--secondary_color);
+    border-radius: 20%;
 }
 
 .search_bar
