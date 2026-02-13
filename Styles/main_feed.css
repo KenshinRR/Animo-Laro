@@ -30,7 +30,10 @@
     width: 100vw;
     background-color: var(--primary_color);
     height: 10vh;
+    min-height: 40px;
+    max-height: 50px;
     z-index: 2;
+    gap: 10px;
 }
 
 .navigation_button
@@ -53,6 +56,31 @@
 {
     height: 100%;
     width: auto;
+}
+
+.search_bar
+{
+    width: 50%;
+    height: 80%;
+    border-radius: 15px;
+    font-size: 100%;
+    border: none;
+}
+
+.login_button
+{
+    background-color: var(--compliment_eye_catcher);
+    color: var(--text_color);
+    width: 10%;
+    height: 80%;
+    border-radius: 15px;
+    font-size: 100%;
+    border: none;
+}
+
+.login_button:hover
+{
+    background-color: var(--eye_catcher);
 }
 
 .main_div
