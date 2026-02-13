@@ -7,6 +7,7 @@ fetch('/JSON files/color_palete.json')
     // Apply JSON values as CSS variables
     const root = document.documentElement;
     root.style.setProperty('--primary_color', data.primary_color);
+    root.style.setProperty('--secondary_color', data.secondary_color)
     root.style.setProperty('--background_color', data.background_color);
     root.style.setProperty('--text_color', data.text_color);
     root.style.setProperty('--eye_catcher', data.eye_catcher);
