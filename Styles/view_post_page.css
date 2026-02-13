@@ -23,6 +23,26 @@
     height: 10vh;
 }
 
+.back_button
+{
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    width: auto;
+}
+
+.back_button:hover
+{
+    border: 5px solid var(--eye_catcher);
+    border-radius: 20%;
+}
+
+.back_icon
+{
+    height: 100%;
+    width: auto;
+}
+
 .title_container
 {
     display: flex;
