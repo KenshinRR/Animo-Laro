@@ -2,6 +2,7 @@
 {
     /* Fallb back values */
     --primary_color: ;
+    --secondary_color: ;
     --background_color: rgb(0, 0, 0);  
     --text_color: white;  
     --eye_catcher: red;  
@@ -16,17 +17,84 @@
 .main_container
 {
     height: 1000px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .header_bar_container
 {
     position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     top: 0;
     left: 0;
     width: 100vw;
     background-color: var(--primary_color);
     height: 10vh;
+    min-height: 40px;
+    max-height: 50px;
     z-index: 2;
+    gap: 10px;
+}
+
+.icon_button
+{
+    height: 100%;
+    width: auto;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.icon_button:hover
+{
+    border: 5px solid var(--eye_catcher);
+    background-color: var(--eye_catcher);
+    border-radius: 20%;
+}
+
+.icons
+{
+    height: 100%;
+    width: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.profile_icon_button
+{
+    background-color: var(--secondary_color);
+    border-radius: 20%;
+}
+
+.search_bar
+{
+    width: 50%;
+    height: 80%;
+    border-radius: 15px;
+    font-size: 100%;
+    border: none;
+    background-color: var(--secondary_color);
+    color: var(--text_color);
+}
+
+.login_button
+{
+    background-color: var(--compliment_eye_catcher);
+    color: var(--text_color);
+    width: 10%;
+    height: 80%;
+    border-radius: 15px;
+    font-size: 100%;
+    border: none;
+}
+
+.login_button:hover
+{
+    background-color: var(--eye_catcher);
 }
 
 .main_div
@@ -34,8 +102,7 @@
     position: relative;
     height: 90vh;
     width: 85vw;
-    top: 10vh;
-    left: 10vw;
+    top: 5vh;
 }
 
 .left_bar_container
@@ -44,17 +111,41 @@
     top: 10vh;
     left: 0;
     height: 100vh;
-    width: 10vw;
+    width: 30vw;
+    border-top: 5px solid var(--primary_color);
     border-right: 5px solid var(--primary_color);
+    background-color: var(--background_color);
+    color: var(--text_color);
     /* background-color: blue; */
     z-index: 3;
+    font-size: medium;
 }
 
-.profile
+.profile_container
 {
-    background-color: blue;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 10vh;
+    height: 40vh;
+}
+
+.profile_container button
+{
+    background-color: var(--compliment_eye_catcher);
+    border: none;
+    color: var(--text_color);
+    font-size: 100%;
+}
+
+.profile_container button:hover
+{
+    background-color: var(--eye_catcher);
+}
+
+.left_bar_profile_icon
+{
+    height: auto;
+    width: 30%;
 }
 
 .main_feed_container

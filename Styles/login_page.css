@@ -2,6 +2,7 @@
 {
     /* Fallb back values */
     --primary_color: ;
+    --secondary_color: ;
     --background_color: rgb(0, 0, 0);  
     --text_color: white;  
     --eye_catcher: red;  
@@ -19,12 +20,13 @@
     color: var(--text_color);
     /* border: 1px solid white; */
     margin: 0%;
+    margin-bottom: 5px;
 }
 
 .hrLine{
     width: 100%;
     border: 1.5px solid white;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .login_main_container
@@ -68,7 +70,7 @@
     font-size: 15px;
     border-radius: 10px;
     outline-color: #008BFF;
-    background-color: #121a1e;
+    background-color: var(--secondary_color);
     border-color: black;
     color: #ffffff;
     margin-top: 15px;
@@ -79,7 +81,7 @@
 .inputText:-webkit-autofill:hover,
 .inputText:-webkit-autofill:focus,
 .inputText:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #121a1e inset !important;
+    -webkit-box-shadow: 0 0 0 30px var(--secondary_color) inset !important;
     -webkit-text-fill-color: white !important;
 }
 
@@ -103,12 +105,19 @@
 }
 
 .log_in_button:active{
-        background-color: var(--primary_color);
+    background-color: var(--primary_color);
     filter: brightness(1);
 }
 
 /*  */
 
 .link:active{
-    color:#121a1e;
+    color:var(--secondary_color);
+}
+
+.remember_me{
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-bottom: 0px;
 }
