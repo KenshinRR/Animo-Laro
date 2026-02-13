@@ -5,8 +5,13 @@ function createNewPost(post_id, title, poster, desc)
     newPostDiv.dataset.post_id = post_id;
 
     var h1_title = document.createElement("h1");
-    h1_title.classList.add("clickable")
+    h1_title.classList.add("post_title");
     h1_title.textContent = title;
+
+    var edit_post_icon = document.createElement("img");
+    edit_post_icon.classList.add("edit_post_icon");
+    edit_post_icon.src = "../images/System Images/Icons/Three-Dots-Horizontal.png";
+    h1_title.appendChild(edit_post_icon);
 
     var h2_title = document.createElement("h2");
     h2_title.classList.add("clickable")

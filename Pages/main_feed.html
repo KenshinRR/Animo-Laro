@@ -33,10 +33,12 @@
                 </div>
             </div>
             <div class="main_feed_container" id="main_feed_container">
-                <div class="post_container">
-                    <h1 class="clickable" id="post_view_clickable">Title</h1>
-                    <h2 class="clickable" id="poster_view_clickable">Poster</h2>
-                    <p class="clickable" id="post_view_clickable">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At repellat perferendis, quo maiores commodi hic et officia cupiditate est blanditiis ipsa quae consectetur pariatur veritatis sint facere nesciunt! Maiores, voluptatem!</p>
+                <div class="post_container" data-post_id="1">
+                    <h1 class="post_title">Let Them Cook
+                        <img class="edit_post_icon" src="../images/System Images/Icons/Three-Dots-Horizontal.png">
+                    </h1>
+                    <h2 class="clickable" id="poster_view_clickable">Untitled Studios</h2>
+                    <p class="clickable" id="post_view_clickable">A tile based strategy game</p>
                     <div class="post_interaction_bar">        
                         <span id="post_likes_display">Likes: 0</span>
                         <div class="vote_buttons">
@@ -49,9 +51,16 @@
         </div>
     </header>
 
+    <div class="edit_post_popup" id="popup">
+        <button>View Post</button>
+        <button>Edit Post</button>
+        <button>Delete Post</button>
+    </div>
+
     <script src="../JavaScripts/theme_loader.js"></script>
     <script src="../JavaScripts/main_feed_post_handler.js"></script>
     <script src="../JavaScripts/main_feed_buttons_handler.js"></script>
+    <script src="../JavaScripts/post_edit_popup_handler.js"></script>
     <script src="../JavaScripts/main_feed_likes.js"></script>
 </body>
 </html>
