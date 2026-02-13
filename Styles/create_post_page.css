@@ -12,6 +12,9 @@
 .main_body
 {
     background-color: var(--background_color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .back_button
@@ -55,4 +58,74 @@
 {
     height: 100%;
     width: auto;
+}
+
+.post_form_container
+{
+    position: relative;
+    top: 10vh;
+    height: 80%;
+    width: 90%;
+    border: 5px solid var(--primary_color);
+}
+
+.post_form
+{
+    display: flex;
+    flex-direction: column;
+    color: var(--text_color);
+}
+
+.input_title
+{
+    color: var(--text_color);
+    height: 5vh;
+    font-size: large;
+    background-color: var(--secondary_color);
+    border: 5px solid var(--background_color);
+}
+
+.input_desc
+{
+    color: var(--text_color);
+    height: 30vh;
+    font-size: medium;
+    background-color: var(--secondary_color);
+    border: 5px solid var(--background_color);
+    padding-top: 5px;
+    box-sizing: border-box;
+}
+
+.image_input_label
+{
+    cursor: pointer;
+    height: 5vh;
+    justify-content: center;
+}
+
+.image_icon
+{
+    height: 100%;
+    width: auto;
+}
+
+.image_input
+{
+    display: none;
+}
+
+.preview_images
+{
+    height: 30vh;
+    background-color: var(--secondary_color);
+    border: 5px solid var(--background_color);
+}
+
+.submit_button
+{
+    background-color: var(--compliment_eye_catcher);
+    color: var(--text_color);
+    border: 5px solid var(--background_color);
+    height: 10%;
+    font-size: medium;
 }
