@@ -1,5 +1,6 @@
 {
     "primary_color": "rgb(0,112,60)",
+    "secondary_color": "rgb(18,26,30)",
     "background_color" : "rgb(14,15,25)",
     "text_color" : "rgb(218,215,205)",
     "eye_catcher" : "rgb(198,124,116)",
