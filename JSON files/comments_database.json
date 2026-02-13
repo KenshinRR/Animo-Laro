@@ -13,5 +13,15 @@
         "comment_id": 3,
         "description": "NO IT'S NOT!",
         "likes": 2
+    },
+    {
+        "comment_id": 4,
+        "description": "Bing Chillin",
+        "likes": 2
+    },
+    {
+        "comment_id": 3,
+        "description": "I need to wash my EYES!",
+        "likes": 2
     }
 ]
