@@ -1,6 +1,4 @@
-let users = JSON.parse(localStorage.getItem("users"));
 
-let user = users[0];
 
 
 
@@ -13,7 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         document.getElementById("username").textContent = user.username;
         document.getElementById("bio").textContent = user.bio;
-        document.getElementById("user_pic").src = "../Images/" + user.avatar;
-        document.getElementById("user_pic_small").src ="../Images/" + user.avatar;
+        if(user.avatar.startsWith("data:")){
+            document.getElementById("user_pic").src = user.avatar;
+            document.getElementById("user_pic_small").src = user.avatar;
+        } else {
+            document.getElementById("user_pic").src = "../Images/" + user.avatar;
+            document.getElementById("user_pic_small").src = "../Images/" + user.avatar;
+        }
     }
 });
