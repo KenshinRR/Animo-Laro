@@ -1,4 +1,5 @@
 initializeUsers();
+checkCurrentUser();
 
 const register_form = document.getElementById("register_form");
 
@@ -62,4 +63,12 @@ function initializeUsers() {
             localStorage.setItem("users", JSON.stringify(allUsers));
         })
         .catch(error => console.error("Error loading users:", error));
+}
+
+// if on remember me, skip log in page
+function checkCurrentUser(){
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser){
+        window.location.href = "main_feed.html";
+    }
 }

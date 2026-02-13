@@ -75,7 +75,4 @@ function checkCurrentUser(){
     if(currentUser){
         window.location.href = "main_feed.html";
     }
-    else{
-        alert("Please log in");
-    }
 }
