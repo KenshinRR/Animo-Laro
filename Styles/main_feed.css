@@ -76,6 +76,7 @@
     font-size: 100%;
     border: none;
     background-color: var(--secondary_color);
+    color: var(--text_color);
 }
 
 .login_button
