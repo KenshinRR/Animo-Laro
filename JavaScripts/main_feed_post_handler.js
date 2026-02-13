@@ -9,6 +9,7 @@ function createNewPost(post_id, title, poster, desc)
     h1_title.textContent = title;
 
     var edit_post_icon = document.createElement("img");
+    edit_post_icon.dataset.post_id = post_id;
     edit_post_icon.classList.add("edit_post_icon");
     edit_post_icon.src = "../images/System Images/Icons/Three-Dots-Horizontal.png";
     h1_title.appendChild(edit_post_icon);

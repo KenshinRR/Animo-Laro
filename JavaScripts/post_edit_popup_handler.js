@@ -14,6 +14,9 @@ for (let edit_icon_index = 0; edit_icon_index < edit_post_icons.length; edit_ico
     popup.style.left = x + "px";
     popup.style.top = y + "px";
 
+    // dataset
+    popup.dataset.post_id = edit_post_icons[edit_icon_index].dataset.post_id;
+
     // Show the popup
     popup.style.display = "flex";
     });
@@ -26,4 +29,13 @@ document.addEventListener("click", (event) => {
     if (!exists) {
     popup.style.display = "none";
     }
+});
+
+// Popup buttons
+const popup_view_button = document.getElementById("popup_view");
+const popup_edit_button = document.getElementById("popup_edit");
+const popup_delete_button = document.getElementById("popup_delete");
+
+popup_view_button.addEventListener("click", () => {
+    window.location.href="/Pages/view_post_page.html?id="+popup.dataset.post_id;
 });
