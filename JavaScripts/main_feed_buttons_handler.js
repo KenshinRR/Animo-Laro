@@ -28,11 +28,13 @@ if (currentUser)
 {
     login_button.style.display = "none";
     profile_icon_button.style.display = "block";
+    create_post_button.style.display = "block";
 }
 else
 {
     login_button.style.display = "block";
     profile_icon_button.style.display = "none";
+    create_post_button.style.display = "none";
 }
 
 // Toggling of left bar
