@@ -33,7 +33,7 @@ register_form.addEventListener('submit', function(event) {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    window.location.href = "main_feed.html"
+    window.location.href = "log_in.html"
 });
 
 

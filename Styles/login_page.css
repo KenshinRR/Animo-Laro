@@ -19,12 +19,13 @@
     color: var(--text_color);
     /* border: 1px solid white; */
     margin: 0%;
+    margin-bottom: 5px;
 }
 
 .hrLine{
     width: 100%;
     border: 1.5px solid white;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .login_main_container
@@ -103,7 +104,7 @@
 }
 
 .log_in_button:active{
-        background-color: var(--primary_color);
+    background-color: var(--primary_color);
     filter: brightness(1);
 }
 
@@ -111,4 +112,11 @@
 
 .link:active{
     color:#121a1e;
+}
+
+.remember_me{
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-bottom: 0px;
 }
