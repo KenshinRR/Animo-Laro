@@ -6,6 +6,7 @@ const left_bar = document.getElementById("left_bar_container");
 const logout_button = document.getElementById("logout_button");
 const left_bar_view_profile = document.getElementById("left_bar_view_profile");
 const left_bar_edit_profile = document.getElementById("left_bar_edit_profile");
+const create_post_button = document.getElementById("create_post_button");
 
 // Adding the events
 login_button.addEventListener("click", () => window.location.href="/Pages/login_page.html");
@@ -14,6 +15,7 @@ left_bar_view_profile.addEventListener("click", ViewProfilePage);
 left_bar_edit_profile.addEventListener("click", () => window.location.href="/Pages/profile_edit.html");
 nav_button.addEventListener("click", ToggleLeftBar);
 logout_button.addEventListener("click", OnLogOutUser);
+create_post_button.addEventListener("click", () => window.location.href="/Pages/create_post_page.html");
 
 // Current user logged in
 var currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -26,11 +28,13 @@ if (currentUser)
 {
     login_button.style.display = "none";
     profile_icon_button.style.display = "block";
+    create_post_button.style.display = "block";
 }
 else
 {
     login_button.style.display = "block";
     profile_icon_button.style.display = "none";
+    create_post_button.style.display = "none";
 }
 
 // Toggling of left bar
