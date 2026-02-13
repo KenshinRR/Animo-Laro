@@ -12,5 +12,26 @@
         "poster": "SnapTurt Studios",
         "description" : "Pose, catch, and match. Join the circus. NOW!",
         "likes": 0
+    },
+    {
+        "post_id": 3,
+        "title": "TowerDef WIP",
+        "poster": "well Played Studios",
+        "description" : "A tower that DEFENDS WOO!",
+        "likes": 0
+    },
+    {
+        "post_id": 4,
+        "title": "Shooty Gang",
+        "poster": "Pixel Studios",
+        "description" : "Shooty tooty, these little guys are more than just fruity!",
+        "likes": 0
+    },
+    {
+        "post_id": 5,
+        "title": "Just Pose",
+        "poster": "Pose Posse",
+        "description" : "Pose for me Baby! Make it look GOOD!",
+        "likes": 0
     }
 ]
