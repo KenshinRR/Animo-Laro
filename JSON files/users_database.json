@@ -5,5 +5,34 @@
         "password": "Firefly",
         "bio": "I will set the seas ablaze!",
         "avatar": "WhiteDress.png"
+    },
+    {
+        "user_id": "goober26",
+        "username": "Rastaman",
+        "password": "Spaghet",
+        "bio": "Yaa mahn.",
+        "avatar": "Pehg.png"
+    },
+    {
+        "user_id": "jessa9",
+        "username": "Jess",
+        "password": "JESS",
+        "bio": "Hi I'm Jess",
+        "avatar": "ChillGuy.png"
+    },
+    {
+        "user_id": "ChillingTon08",
+        "username": "Jace",
+        "password": "stillcool",
+        "bio": "What up? I'm Jace.",
+        "avatar": "MMM Poster (1).png"
+    },
+    {
+        "user_id": "skillin35",
+        "username": "JustlikeThat",
+        "password": "gucci",
+        "bio": "Yup, I know what I'm doing.",
+        "avatar": "Shoebop.png"
     }
+    
 ]

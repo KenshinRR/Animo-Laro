@@ -172,6 +172,20 @@
     padding: 10px;
 }
 
+.post_title
+{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.edit_post_icon
+{
+    height: 80%;
+    width: 5%;
+    cursor: pointer;
+}
+
 .clickable
 {
     cursor: pointer;
@@ -200,4 +214,23 @@
 {
     background-color: red;
     color: var(--text_color);
+}
+
+.edit_post_popup
+{
+    display: none;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    width: 10vw;
+}
+
+.edit_post_popup button
+{
+    height: 33%;
+    background-color: var(--compliment_eye_catcher);
+    color: var(--text_color);
+    font-size: 100%;
+    text-align: left;
 }

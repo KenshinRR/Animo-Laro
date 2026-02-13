@@ -1,0 +1,35 @@
+:root
+{
+    /* Fallb back values */
+    --primary_color: ;
+    --secondary_color: ;
+    --background_color: rgb(0, 0, 0);  
+    --text_color: white;  
+    --eye_catcher: red;  
+    --compliment_eye_catcher: blue;  
+}
+
+.main_body
+{
+    background-color: var(--background_color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title_text
+{
+    position: relative;
+    color: var(--text_color);
+    animation: moveDown 2s ease forwards;
+}
+
+@keyframes moveDown
+{
+    from {
+        top: 0;
+      }
+      to {
+        top: 40vh; /* adjust how far down you want it */
+      }
+}

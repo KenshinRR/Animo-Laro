@@ -1,12 +1,10 @@
-let users = JSON.parse(localStorage.getItem("users"));
+const editButton = document.getElementById("edit_photo_button");
+const fileInput = document.getElementById("upload_input");
+const profileImage = document.getElementById("user_pic_edit");
+const smallImage = document.getElementById("user_pic_small");
+const saveButton = document.getElementById("save_button");
 
-let user = users[0];
 
-document.getElementById("username").value = user.username;
-document.getElementById("password").value = user.password;
-document.getElementById("bio").value = user.bio;
-document.getElementById("user_pic_edit").src = "../Images/" + user.avatar;
-document.getElementById("user_pic_small").src ="../Images/" + user.avatar;
 
 document.addEventListener("DOMContentLoaded", function() {
     let currentUserData = JSON.parse(localStorage.getItem("currentUser")) 
@@ -19,8 +17,35 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("username").value = user.username;
         document.getElementById("password").value = user.password;
         document.getElementById("bio").value = user.bio;
-        document.getElementById("user_pic_edit").src = "../Images/" + user.avatar;
-        document.getElementById("user_pic_small").src ="../Images/" + user.avatar;
+        if(user.avatar.startsWith("data:")){
+            document.getElementById("user_pic_edit").src = user.avatar;
+            document.getElementById("user_pic_small").src = user.avatar;
+        } else {
+            document.getElementById("user_pic_edit").src = "../Images/" + user.avatar;
+            document.getElementById("user_pic_small").src = "../Images/" + user.avatar;
+        }
+    }
+});
+
+editButton.addEventListener("click", function () {
+    fileInput.click();
+});
+
+fileInput.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            profileImage.src = e.target.result;
+            smallImage.src = e.target.result;
+
+            // Save temporarily so Save button will keep it
+            profileImage.dataset.newAvatar = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
     }
 });
 
@@ -30,6 +55,8 @@ document.getElementById("save_button").addEventListener("click", function() {
     let updatedUsername = document.getElementById("username").value;
     let updatedPassword = document.getElementById("password").value
     let updatedBio = document.getElementById("bio").value;
+    let newAvatar = document.getElementById("user_pic_edit").dataset.newAvatar;
+
 
     
     let currentUserData = JSON.parse(localStorage.getItem("currentUser")) 
@@ -43,7 +70,9 @@ document.getElementById("save_button").addEventListener("click", function() {
         user.username = updatedUsername;
         user.password = updatedPassword;
         user.bio = updatedBio;
-
+        if(newAvatar){
+            user.avatar = newAvatar;
+        }
         
         if(currentUserData.user){ 
             localStorage.setItem("currentUser", JSON.stringify(currentUserData));
