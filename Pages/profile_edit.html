@@ -13,14 +13,14 @@
             <h1>Animo Taro</h1>
             <nav>
                 <a href="main_feed.html">Back to Main Feed</a>
-                <img src="../Images/MMM Poster (1).png">
+                <img src="../Images/MMM Poster (1).png" id="user_pic_small">
             </nav>
         </header>
         <section class="user_info">
             <section class="user_profile">
               
                  <section class="user_descript">
-                      <img src="../Images/MMM Poster (1).png" alt="User's profile pic." class="user_pic" > 
+                      <img src="../Images/MMM Poster (1).png" alt="User's profile pic." class="user_pic" id="user_pic_edit"> 
                       <input type="file" id="uploadInput" accept="image/*" style="display:none">
                       <button id="edit_photo_button">Edit Photo</button>
                 <form>
@@ -39,11 +39,12 @@
          
         </form>
                 </section>
-                <a href="profile_view.html"class="edit_profile">Save Profile</a>
+                <button id="save_button" class="edit_profile" >Save Profile</button>
+                
             </section>
    
         
-
+        <script src="../JavaScripts/edit_profile.js"></script>
 
     </body>
 </html>

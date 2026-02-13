@@ -6,7 +6,7 @@
     <title>Animo Laro Main Feed</title>
 
     <script src="../JavaScripts/post_loader.js"></script>
-    <link rel="stylesheet" href="/Styles/main_feed.css">
+    <link rel="stylesheet" href="../Styles/main_feed.css">
 </head>
 <body class="main_body">
     <header class="main_container">
@@ -37,15 +37,22 @@
                     <h1 class="clickable" id="post_view_clickable">Title</h1>
                     <h2 class="clickable" id="poster_view_clickable">Poster</h2>
                     <p class="clickable" id="post_view_clickable">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At repellat perferendis, quo maiores commodi hic et officia cupiditate est blanditiis ipsa quae consectetur pariatur veritatis sint facere nesciunt! Maiores, voluptatem!</p>
-                    <div class="post_interaction_bar"></div>
+                    <div class="post_interaction_bar">        
+                        <span id="post_likes_display">Likes: 0</span>
+                        <div class="vote_buttons">
+                            <button id="post_like_btn">Like</button>
+                            <button id="post_dislike_btn">Dislike</button>
+                        </div>
+                    </div>
                 </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <script src="/JavaScripts/theme_loader.js"></script>
-    <script src="/JavaScripts/main_feed_post_handler.js"></script>
-    <script src="/JavaScripts/main_feed_buttons_handler.js"></script>
+    <script src="../JavaScripts/theme_loader.js"></script>
+    <script src="../JavaScripts/main_feed_buttons_handler.js"></script>
+    <script src="../JavaScripts/main_feed_post_handler.js"></script>
+    <script src="../JavaScripts/main_feed_likes.js"></script>
 </body>
 </html>

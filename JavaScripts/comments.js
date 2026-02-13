@@ -12,16 +12,20 @@ const postLikeBtn = document.getElementById("post_like_btn");
 const postDislikeBtn = document.getElementById("post_dislike_btn");
 const postLikesDisplay = document.getElementById("post_likes_display");
 
-function updatePostDisplay() {
+function updatePostDisplay() 
+{
     const netLikes = post.likes - post.dislikes;
     postLikesDisplay.textContent = "Likes: " + netLikes;
 
     postLikeBtn.classList.remove("vote_active_like");
     postDislikeBtn.classList.remove("vote_active_dislike");
 
-    if (post.userVote === "like") {
+    if (post.userVote === "like") 
+    {
         postLikeBtn.classList.add("vote_active_like");
-    } else if (post.userVote === "dislike") {
+    } 
+    else if (post.userVote === "dislike") 
+    {
         postDislikeBtn.classList.add("vote_active_dislike");
     }
 }
@@ -66,9 +70,8 @@ postDislikeBtn.onclick = () => {
     updatePostDisplay();
 };
 
-updatePostDisplay();
-
-function createCommentObject(text) {
+function createCommentObject(text) 
+{
     return {
         id: commentIdCounter++,
         username: "user", //Placeholder
@@ -81,7 +84,8 @@ function createCommentObject(text) {
 }
 
 document.getElementById("comment_form")
-.addEventListener("submit", function(e) {
+.addEventListener("submit", function(e) 
+{
     e.preventDefault();
 
     const input = document.getElementById("comment_input");
@@ -133,7 +137,8 @@ function renderCommentElement(comment) {
     const replyBtn = document.createElement("button");
     replyBtn.textContent = "Reply";
 
-likeBtn.onclick = () => {
+likeBtn.onclick = () => 
+    {
     if (comment.userVote === "like") {
         comment.likes--;
         comment.userVote = null;
