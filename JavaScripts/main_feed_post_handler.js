@@ -1,12 +1,15 @@
-function createNewPost(title, poster, desc)
+function createNewPost(post_id, title, poster, desc)
 {
     var newPostDiv = document.createElement("div");
     newPostDiv.classList.add("post_container")
+    newPostDiv.dataset.post_id = post_id;
 
     var h1_title = document.createElement("h1");
+    newPostDiv.classList.add("clickable")
     h1_title.textContent = title;
 
     var h2_title = document.createElement("h2");
+    newPostDiv.classList.add("clickable")
     h2_title.textContent = poster
 
     var desc_p = document.createElement("p");
@@ -21,5 +24,5 @@ function createNewPost(title, poster, desc)
 
 var localPosts = JSON.parse(localStorage.getItem("posts"));
 localPosts.forEach(postData => {
-  createNewPost(postData.title, postData.poster, postData.description);
+  createNewPost(postData.post_id, postData.title, postData.poster, postData.description);
 });
