@@ -172,6 +172,11 @@
     padding: 10px;
 }
 
+.clickable
+{
+    cursor: pointer;
+}
+
 .post_interaction_bar
 {
     height: 5vh;
