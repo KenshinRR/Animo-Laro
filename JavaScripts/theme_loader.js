@@ -1,6 +1,6 @@
 console.log("Fetching theme color");
 
-fetch('/JSON files/color_palete.json')
+fetch('../JSON%20files/color_palete.json')
   .then(response => response.json())
   .then(data => {
     // console.log("File found with primary color of " + data.primary_color);

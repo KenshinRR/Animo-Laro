@@ -5,23 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Post</title>
 
-    <link rel="stylesheet" href="/Styles/view_post_page.css">
+    <link rel="stylesheet" href="../Styles/view_post_page.css">
 </head>
 <body class="main_body">
-    <div class="header_container"></div>
-    <div class="title_container">
-        <h1 id="post_title">Title of post here</h1>
-        <h2 id="poster_name">Jane Doe</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis eaque cum neque, hic dolor aliquid amet, quam, ducimus repellendus vitae rerum. Consectetur ducimus tenetur voluptatem magni incidunt omnis obcaecati earum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, enim officiis maxime impedit vitae nisi eligendi incidunt voluptatum, doloribus corporis aperiam, ea repudiandae totam dignissimos reprehenderit. Id eveniet recusandae minus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos laborum cupiditate, cum nam voluptatem sint placeat dolores optio. Provident enim omnis laboriosam incidunt at fuga saepe aut odit repellendus commodi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla maxime iure unde, ex deserunt asperiores, voluptate, explicabo tempore excepturi provident dignissimos itaque ipsam sed. Enim nemo magni modi quo optio!</p>
-    </div>
-    <div class="images_container">
-        <img src="/Images/MMM Poster (1).png">
-        <img src="/Images/MMM Poster (2).png">
-        <img src="/Images/MMM Poster (1).png">
-        <img src="/Images/MMM Poster (2).png">
-    </div>
-    <div class="comment_placeholder"></div> <!-- Replace this-->
 
-    <script src="/JavaScripts/theme_loader.js"></script>
+    <div class="header_container"></div>
+
+    <div class="title_container">
+        <h1 id="poster_name">Jane Doe</h1> <!-- Get From Database -->
+        <h2 id="post_title">Title of post here</h2> <!-- Get From Database -->
+
+        <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit... <!-- Get From Database -->
+        </p> 
+
+    <div class="images_container">
+        <img src="../Images/MMM Poster (1).png">
+        <img src="../Images/MMM Poster (2).png">
+        <img src="../Images/MMM Poster (1).png">
+        <img src="../Images/MMM Poster (2).png">
+    </div>
+
+
+    <div class="post_vote_container">
+        <span id="post_likes_display">Likes: 0</span>
+        <div class="vote_buttons">
+            <button id="post_like_btn">Like</button>
+            <button id="post_dislike_btn">Dislike</button>
+        </div>
+    </div>
+    </div>
+
+    <!-- COMMENT SYSTEM -->
+    <div class="comments_section">
+
+        <h2>Comments</h2>
+
+    <form id="comment_form">
+        <textarea id="comment_input" rows="3" placeholder="Write a comment..."></textarea>
+        <input type="submit" value="Post Comment">
+    </form>
+
+
+        <div id="comments_container"></div>
+
+    </div>
+
+    <script src="../JavaScripts/theme_loader.js"></script>
+    <script src="../JavaScripts/comments.js"></script>
 </body>
 </html>
