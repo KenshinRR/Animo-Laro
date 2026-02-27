@@ -34,7 +34,7 @@ register_form.addEventListener('submit', function(event) {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    window.location.href = "log_in.html"
+    window.location.href = "login_page.html"
 });
 
 
