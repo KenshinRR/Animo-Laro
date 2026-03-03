@@ -4,15 +4,20 @@ function createNewPost(post_id, title, poster, desc)
     newPostDiv.classList.add("post_container")
     newPostDiv.dataset.post_id = post_id;
 
+    var title_bar = document.createElement("div");
+    title_bar.classList.add("post_title_bar");
+
     var h1_title = document.createElement("h1");
+    h1_title.classList.add("clickable");
     h1_title.classList.add("post_title");
     h1_title.textContent = title;
+    title_bar.appendChild(h1_title)
 
     var edit_post_icon = document.createElement("img");
     edit_post_icon.dataset.post_id = post_id;
     edit_post_icon.classList.add("edit_post_icon");
     edit_post_icon.src = "../images/System Images/Icons/Three-Dots-Horizontal.png";
-    h1_title.appendChild(edit_post_icon);
+    title_bar.appendChild(edit_post_icon)
 
     var h2_title = document.createElement("h2");
     h2_title.classList.add("clickable");
@@ -23,7 +28,7 @@ function createNewPost(post_id, title, poster, desc)
     desc_p.classList.add("post_description");
     desc_p.textContent = desc;
 
-    newPostDiv.appendChild(h1_title);
+    newPostDiv.appendChild(title_bar);
     newPostDiv.appendChild(h2_title);
     newPostDiv.appendChild(desc_p);
 
