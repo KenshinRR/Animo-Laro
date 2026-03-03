@@ -9,8 +9,6 @@ const postLikeButtons = document.getElementsByClassName("post_like_btn");
 const postDislikeButtons = document.getElementsByClassName("post_dislike_btn");
 const postLikesDisplay = document.getElementById("post_likes_display");
 
-console.log("postLikeButtons amount " + postLikeButtons)
-
 function updatePostDisplay() 
 {
     const netLikes = post.likes - post.dislikes;
