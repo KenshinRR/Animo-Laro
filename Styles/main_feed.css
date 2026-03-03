@@ -4,6 +4,7 @@
     --primary_color: ;
     --secondary_color: ;
     --background_color: rgb(0, 0, 0);  
+    --secondary_background_color: azure; 
     --text_color: white;  
     --eye_catcher: red;  
     --compliment_eye_catcher: blue;  
@@ -154,7 +155,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    /* background-color: azure; */
     min-height: 100vh;
     max-height: 300vh;
     padding: 10px;
@@ -162,6 +162,7 @@
 
 .post_container
 {
+    background-color: var(--secondary_background_color);
     color: var(--text_color);
     min-height: 20vh;
     max-height: 30vh;

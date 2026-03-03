@@ -12,4 +12,5 @@ fetch('../JSON%20files/color_palete.json')
     root.style.setProperty('--text_color', data.text_color);
     root.style.setProperty('--eye_catcher', data.eye_catcher);
     root.style.setProperty('--compliment_eye_catcher', data.compliment_eye_catcher);
+    root.style.setProperty('--secondary_background_color', data.secondary_background_color);
   });
