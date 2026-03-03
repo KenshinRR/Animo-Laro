@@ -7,8 +7,8 @@ for (let edit_icon_index = 0; edit_icon_index < edit_post_icons.length; edit_ico
     edit_post_icons[edit_icon_index].addEventListener("click", (event) => {
         // console.log("Showing popup!");
     // Get mouse coordinates from the click event
-    const x = event.clientX;
-    const y = event.clientY;
+    const x = event.pageX;
+    const y = event.pageY;
 
     // Position the popup
     popup.style.left = x + "px";
