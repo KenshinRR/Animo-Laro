@@ -5,11 +5,11 @@ let post =
     userVote: null
 };
 
-const postLikeBtn = document.getElementById("post_like_btn");
-const postDislikeBtn = document.getElementById("post_dislike_btn");
+const postLikeButtons = document.getElementsByClassName("post_like_btn");
+const postDislikeButtons = document.getElementsByClassName("post_dislike_btn");
 const postLikesDisplay = document.getElementById("post_likes_display");
 
-
+console.log("postLikeButtons amount " + postLikeButtons)
 
 function updatePostDisplay() 
 {
@@ -29,42 +29,46 @@ function updatePostDisplay()
         }
 }
 
-postLikeBtn.onclick = () => 
-{
-    if (post.userVote !== "like")
+for (const like_btn of postLikeButtons){
+    like_btn.onclick = () => 
     {
-        if (post.userVote === "dislike") 
-            {
-                post.dislikes--;
-            }
-
-        post.likes++;
-        post.userVote = "like";
-    }
-    else 
+        if (post.userVote !== "like")
         {
-            post.likes--;
-            post.userVote = null;
+            if (post.userVote === "dislike") 
+                {
+                    post.dislikes--;
+                }
+
+            post.likes++;
+            post.userVote = "like";
         }
-
-    updatePostDisplay();
-};
-
-postDislikeBtn.onclick = () => {
-    if (post.userVote !== "dislike")
-    {
-        if (post.userVote === "like") 
+        else 
             {
                 post.likes--;
+                post.userVote = null;
             }
 
-        post.dislikes++;
-        post.userVote = "dislike";
-    }
-    else 
+        updatePostDisplay();
+    };
+};
+
+for (const dislike_btn of postDislikeButtons){
+    dislike_btn.onclick = () => {
+        if (post.userVote !== "dislike")
         {
-            post.dislikes--;
-            post.userVote = null;
+            if (post.userVote === "like") 
+                {
+                    post.likes--;
+                }
+
+            post.dislikes++;
+            post.userVote = "dislike";
         }
-    updatePostDisplay();
+        else 
+            {
+                post.dislikes--;
+                post.userVote = null;
+            }
+        updatePostDisplay();
+    };
 };
