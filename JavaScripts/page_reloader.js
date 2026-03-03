@@ -1,6 +1,13 @@
 const currentUrl = window.location.href;
 
-var socket = new WebSocket(currentUrl);
+var socket;
+
+function connect()
+{
+  socket = new WebSocket(currentUrl);
+}
+
+connect();
 
 socket.onclose = (event) => {
   console.log("WebSocket closed:", event.reason);
