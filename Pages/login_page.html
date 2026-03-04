@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,35 +8,35 @@
     <link rel="stylesheet" href="../Styles/login_page.css" />
   </head>
   <body class="login_main_container">
-    <div class="boxContainer">
-      <div class="box">
+    <main class="boxContainer">
+      <section class="box">
         <h1 class="title_header">Animo-Laro</h1>
         <p class="par">
           Discover, play, and discuss games made by DLSU students.
         </p>
-      </div>
+      </section>
       <hr class="hrLine" />
-      <div class="box">
-        <form id="log_in">
-          <div>
+      <section class="box">
+        <form class ="log_in" id="log_in">
             <input
               class="inputText"
               type="text"
               placeholder="Username"
-              required
               id="username"
+              required
+              autocomplete="off"
             />
-            <br />
+
             <input
               class="inputText"
               type="password"
               placeholder="Password"
-              required
               id="password"
+              required
+              autocomplete="off"
             />
-          </div>
           <div class="remember_me" title="Stay log in for 30 days">
-            <input type="checkbox" id="remember_me"/>
+            <input type="checkbox" id="remember_me" />
             <span> Remember me</span>
           </div>
 
@@ -45,11 +45,11 @@
           <!--<button type="submit" class="log_in_button" onclick="window.open('main_feed.html')">Log In</button>-->
         </form>
         <p class="par">
-          Don't have an account?
+          <span>Don't have an account?</span>
           <a href="registration_page.html" class="link">Register</a>
         </p>
-      </div>
-    </div>
+      </section>
+    </main>
     <script src="../JavaScripts/log_in.js"></script>
   </body>
 </html>

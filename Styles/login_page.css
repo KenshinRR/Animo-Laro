@@ -46,9 +46,10 @@
     display: flex;
     flex-flow: column;
     width: 500px;
-    max-height: 500px;
+    height: 400px;
     border: 3px solid white;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .box{
@@ -56,6 +57,11 @@
     flex-flow: column;
     /* border: 1px solid red; */
     align-items: center;
+}
+
+.log_in{
+    display: flex;
+    flex-direction: column;
 }
 
 .inputText::placeholder{
