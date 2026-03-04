@@ -6,8 +6,10 @@ function createNewPost(post_id, title, poster, desc)
 
     var title_bar = document.createElement("div");
     title_bar.classList.add("post_title_bar");
+    title_bar.dataset.post_id = post_id;
 
     var h1_title = document.createElement("h1");
+    h1_title.classList.add("post_clickable");
     h1_title.classList.add("clickable");
     h1_title.classList.add("post_title");
     h1_title.textContent = title;
@@ -20,12 +22,15 @@ function createNewPost(post_id, title, poster, desc)
     title_bar.appendChild(edit_post_icon)
 
     var h2_title = document.createElement("h2");
-    h2_title.classList.add("clickable");
     h2_title.classList.add("poster_subheader");
+    h2_title.classList.add("poster_clickable");
+    h2_title.classList.add("clickable");
     h2_title.textContent = poster;
 
     var desc_p = document.createElement("p");
     desc_p.classList.add("post_description");
+    desc_p.classList.add("post_clickable");
+    desc_p.classList.add("clickable");
     desc_p.textContent = desc;
 
     newPostDiv.appendChild(title_bar);
