@@ -54,13 +54,13 @@ function createInteractionBar(post_id, parent_elem)
   new_post_like_button.id = "post_like_btn_" + post_id;
   new_post_like_button.textContent = "Like";
 
-  var new_post_dilike_button = document.createElement("button");
-  new_post_dilike_button.classList.add("post_dilike_btn");
-  new_post_dilike_button.id = "post_dislike_btn_" + post_id;
-  new_post_dilike_button.textContent = "Disike";
+  var new_post_dislike_button = document.createElement("button");
+  new_post_dislike_button.classList.add("post_dislike_btn");
+  new_post_dislike_button.id = "post_dislike_btn_" + post_id;
+  new_post_dislike_button.textContent = "Disike";
 
   vote_buttons_div.appendChild(new_post_like_button);
-  vote_buttons_div.appendChild(new_post_dilike_button);
+  vote_buttons_div.appendChild(new_post_dislike_button);
 
   parent_elem.appendChild(newLikesSpan);
   parent_elem.appendChild(vote_buttons_div);
