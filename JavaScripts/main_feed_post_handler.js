@@ -15,17 +15,19 @@ function createNewPost(post_id, title, poster, desc)
     h1_title.appendChild(edit_post_icon);
 
     var h2_title = document.createElement("h2");
-    h2_title.classList.add("clickable")
-    h2_title.textContent = poster
+    h2_title.classList.add("clickable");
+    h2_title.classList.add("poster_subheader");
+    h2_title.textContent = poster;
 
     var desc_p = document.createElement("p");
+    desc_p.classList.add("post_description");
     desc_p.textContent = desc;
 
     newPostDiv.appendChild(h1_title);
     newPostDiv.appendChild(h2_title);
     newPostDiv.appendChild(desc_p);
 
-    createInteractionBar(newPostDiv);
+    createInteractionBar(post_id, newPostDiv);
 
     document.getElementById("main_feed_container").appendChild(newPostDiv);
 }
@@ -36,10 +38,8 @@ localPosts.forEach(postData => {
 });
 
 // Creating the post interaction bar
-function createInteractionBar(parent_elem)
+function createInteractionBar(post_id, parent_elem)
 {
-  var newInteractionBar = document.createElement("div");
-  newInteractionBar.classList.add("post_interaction_bar");
 
   var newLikesSpan = document.createElement("span");
   newLikesSpan.id = "post_likes_display";
@@ -50,17 +50,18 @@ function createInteractionBar(parent_elem)
 
   // Buttons
   var new_post_like_button = document.createElement("button");
-  new_post_like_button.id = post_like_btn;
+  new_post_like_button.classList.add("post_like_btn");
+  new_post_like_button.id = "post_like_btn_" + post_id;
   new_post_like_button.textContent = "Like";
 
   var new_post_dilike_button = document.createElement("button");
-  new_post_dilike_button.id = post_dislike_btn;
+  new_post_dilike_button.classList.add("post_dilike_btn");
+  new_post_dilike_button.id = "post_dislike_btn_" + post_id;
   new_post_dilike_button.textContent = "Disike";
 
   vote_buttons_div.appendChild(new_post_like_button);
   vote_buttons_div.appendChild(new_post_dilike_button);
 
-  parent_elem.appendChild(newInteractionBar);
   parent_elem.appendChild(newLikesSpan);
   parent_elem.appendChild(vote_buttons_div);
 }
