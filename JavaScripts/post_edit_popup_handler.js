@@ -39,8 +39,13 @@ popup_view_button.addEventListener("click", () => {
     window.location.href="/Pages/view_post_page.html?id="+popup.dataset.post_id;
 });
 
-popup_delete_button.addEventListener("click", delete_post);
+// Editing a post
+popup_edit_button.addEventListener("click", (e) => {
+    window.location.href="/Pages/edit_post_page.html?id="+popup.dataset.post_id;
+});
 
+// Deleting a post
+popup_delete_button.addEventListener("click", delete_post);
 function delete_post()
 {
     // Retrieve the array from localStorage
