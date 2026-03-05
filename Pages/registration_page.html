@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="../Styles/register_page.css" />
   </head>
   <body class="register_main_container">
-    <div class="boxContainer">
-      <div class="box">
+    <main class="boxContainer">
+      <section class="box">
         <h1 class="title_header">Animo-Laro</h1>
-      </div>
+      </section>
       <hr class="hrLine" />
-      <div class="box">
+      <section class="box">
         <h1 class="par">Create a new account</h1>
         <div>
           <form class="form_box" id="register_form">
@@ -23,6 +23,7 @@
               placeholder="Username"
               id="username"
               required
+              autocomplete="off"
             />
             <input
               class="inputText"
@@ -30,15 +31,16 @@
               placeholder="Password"
               id="password"
               required
+              autocomplete="off"
             />
             <button type="submit" class="register_button">Register</button>
           </form>
-          <pre>
-          <a href="login_page.html" class="link">Go back to log in</a>
-          </pre>
+          <p class="par">
+            <a href="login_page.html" class="link">Go back to log in</a>
+          </p>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
     <script src="../JavaScripts/register.js"></script>
   </body>
 </html>
