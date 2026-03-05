@@ -2,11 +2,11 @@
 const back_button = document.getElementById("back_button");
 back_button.addEventListener("click", () => window.location.href="/Pages/main_feed.html")
 
-// Getting post ID
+// Getting post ID from Database
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id'); 
 
-// Getting the post data
+// Getting the post data from Database
 const posts_data = JSON.parse(localStorage.getItem("posts"));
 const current_post_data = posts_data.find(post => post.post_id == postId);
 
@@ -18,48 +18,52 @@ if (curr_user.username != current_post_data.poster) // change this in the future
     window.location.href="/Pages/main_feed.html";
 }
 
+// Initialize document elements
+const title_input = document.getElementById("input_title");
+const desc_input = document.getElementById("input_desc");
+
+// Getting the current data
+var curr_title = current_post_data.title;
+var curr_desc = current_post_data.description;
+
+// Setting the current data
+title_input.value = curr_title;
+desc_input.value = curr_desc;
+
 // Getting Data from form
 document.getElementById("post_form").addEventListener("submit", function(event) {
     event.preventDefault(); // prevent page reload
-
-    // Initialize document elements
-    const title_input = document.getElementById("input_title");
-    const desc_input = document.getElementById("input_desc");
-
-    // Getting the current data
-
-    // Setting the current data
 
     // Get values from inputs
     const desc = desc_input.value;
     const title = title_input.value;
 
-    // Get the poster username from storage
-    var currentUserData = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUserData) currentUserData = JSON.parse(sessionStorage.getItem("currentUser"));
-    var poster = currentUserData.username;
+    // Check if either are empty
+    if (!title || !desc) {
+        event.preventDefault(); // stop form submission
+        alert("Title and description are required!");
+        title_input.value = curr_title;
+        desc_input.value = curr_desc;
+        return;
+    }
 
     // Retrieve existing list from localStorage (or start with empty array)
     let savedPosts= JSON.parse(localStorage.getItem("posts")) || [];
 
-    // Add new values as an object (or array, depending on your preference)
-    savedPosts.push(
+    // Getting the index of the post to be edited
+    const post_index = savedPosts.findIndex(p => p.post_id == urlParams.get('id'));
+
+    // Updating the values in post
+    if (post_index != -1)
     {
-        "post_id": crypto.randomUUID(),
-        "title": title,
-        "poster": poster,
-        "description" : desc
+        savedPosts[post_index].title = title_input.value;
+        savedPosts[post_index].description = desc_input.value;
     }
-    );
 
     // Save back to localStorage
     localStorage.setItem("posts", JSON.stringify(savedPosts));
-
-    // Optional: clear inputs
-    document.getElementById("input_title").value = "";
-    document.getElementById("input_desc").value = "";
-
-    console.log("Succesfuly made");
+    
+    alert("Post Successfully Edited!");
 
     // Switch back to main feed
     window.location.href="/Pages/main_feed.html"
