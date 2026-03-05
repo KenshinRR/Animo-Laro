@@ -121,6 +121,14 @@
     border: 5px solid var(--background_color);
 }
 
+.input_link{
+    color: var(--text_color);
+    height: 5vh;
+    font-size: medium;
+    background-color: var(--secondary_color);
+    border: 5px solid var(--background_color);
+}
+
 .submit_button
 {
     background-color: var(--compliment_eye_catcher);
@@ -128,4 +136,14 @@
     border: 5px solid var(--background_color);
     height: 10%;
     font-size: medium;
+}
+
+.submit_button:hover{
+    background-color: var(--compliment_eye_catcher);
+    filter: brightness(0.8);
+}
+
+.submit_button:active{
+    background-color: var(--compliment_eye_catcher);
+    filter: brightness(0.5);
 }
