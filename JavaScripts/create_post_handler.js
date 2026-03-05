@@ -9,6 +9,18 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
   // Get values from inputs
   const desc = document.getElementById("input_desc").value;
   const title = document.getElementById("input_title").value;
+  const link = document.getElementById("input_link");
+  const linkValue = link.value;
+
+  link.addEventListener("input", function() {
+    this.setCustomValidity(''); // clears error message
+  });
+
+  if(!CheckValidURL(linkValue)){
+    link.setCustomValidity('Please enter a valid URL');
+    link.reportValidity();
+    return;
+  }
 
   // Get the poster username from storage
   var currentUserData = JSON.parse(localStorage.getItem("currentUser"));
@@ -24,7 +36,8 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
         "post_id": crypto.randomUUID(),
         "title": title,
         "poster": poster,
-        "description" : desc
+        "description" : desc,
+        "link" : linkValue
     }
   );
 
@@ -34,7 +47,24 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
   // Optional: clear inputs
   document.getElementById("input_title").value = "";
   document.getElementById("input_desc").value = "";
+  document.getElementById("input_link").value = "";
 
   console.log("Succesfuly made");
   alert("Values saved!");
 });
+
+function CheckValidURL(string){
+  try {
+    // try default
+    new URL(string);
+    return string.includes('.');  // should at least have a dot
+  } catch {
+    // add https:// to the link to check if it's still invalid
+    try {
+      new URL('https://' + string);
+      return string.includes('.');
+    } catch {
+      return false;
+    }
+  }
+}
