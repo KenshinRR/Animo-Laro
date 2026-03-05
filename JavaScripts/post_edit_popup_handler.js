@@ -7,8 +7,8 @@ for (let edit_icon_index = 0; edit_icon_index < edit_post_icons.length; edit_ico
     edit_post_icons[edit_icon_index].addEventListener("click", (event) => {
         // console.log("Showing popup!");
     // Get mouse coordinates from the click event
-    const x = event.clientX;
-    const y = event.clientY;
+    const x = event.pageX;
+    const y = event.pageY;
 
     // Position the popup
     popup.style.left = x + "px";
@@ -20,7 +20,6 @@ for (let edit_icon_index = 0; edit_icon_index < edit_post_icons.length; edit_ico
     // Show the popup
     popup.style.display = "flex";
     });
-    
 }
 
 // Optional: hide popup when clicking anywhere else
@@ -39,3 +38,28 @@ const popup_delete_button = document.getElementById("popup_delete");
 popup_view_button.addEventListener("click", () => {
     window.location.href="/Pages/view_post_page.html?id="+popup.dataset.post_id;
 });
+
+popup_delete_button.addEventListener("click", delete_post);
+
+function delete_post()
+{
+    // Retrieve the array from localStorage
+    const postArray = JSON.parse(localStorage.getItem("posts")) || [];
+    const userData = JSON.parse(sessionStorage.getItem("currentUser"));
+
+    // Find the item with the matching a_id
+    const post_found = postArray.find(selected_post => {
+        return selected_post.post_id == popup.dataset.post_id;
+    });
+    
+    console.log("Poster: " + post_found.poster + " vs " + userData.username);
+
+    if (post_found.poster == userData.username)
+    {
+        alert("Deleting post!");
+    }
+    else
+    {
+        alert("Cannot delete this post. You are not the original poster");
+    }
+}

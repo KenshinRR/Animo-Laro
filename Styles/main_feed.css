@@ -173,11 +173,12 @@
     padding: 10px;
 }
 
-.post_title
+.post_title_bar
 {
+    width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    height: 10%;
 }
 
 .poster_subheader
