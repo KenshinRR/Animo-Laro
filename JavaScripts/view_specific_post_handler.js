@@ -1,3 +1,7 @@
+// Back button
+const back_button = document.getElementById("back_button");
+back_button.addEventListener("click", () => window.location.href="/Pages/main_feed.html")
+
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id'); 
 // console.log("Loaded " + postId); // "123"

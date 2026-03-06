@@ -7,7 +7,8 @@ const logout_button = document.getElementById("logout_button");
 const left_bar_view_profile = document.getElementById("left_bar_view_profile");
 const left_bar_edit_profile = document.getElementById("left_bar_edit_profile");
 const create_post_button = document.getElementById("create_post_button");
-const clickable_elements = document.getElementsByClassName("clickable");
+const post_clickable_elements = document.getElementsByClassName("post_clickable");
+const poster_clickable_elements = document.getElementsByClassName("poster_clickable");
 
 // Adding the events
 login_button.addEventListener("click", () => window.location.href="/Pages/login_page.html");
@@ -18,9 +19,14 @@ nav_button.addEventListener("click", ToggleLeftBar);
 logout_button.addEventListener("click", OnLogOutUser);
 create_post_button.addEventListener("click", () => window.location.href="/Pages/create_post_page.html");
 
-for (let i = 0; i < clickable_elements.length; i++)
+for (let i = 0; i < post_clickable_elements.length; i++)
 {
-    clickable_elements[i].addEventListener("click", ViewSpecificPostPage);
+    post_clickable_elements[i].addEventListener("click", ViewSpecificPostPage);
+}
+
+for (let i = 0; i < poster_clickable_elements.length; i++)
+{
+    poster_clickable_elements[i].addEventListener("click", ViewSpecificPoster);
 }
 
 // Current user logged in
@@ -82,4 +88,9 @@ function ViewSpecificPostPage(e)
     var post_parent = e.target.parentNode;
     // console.log(post_parent.dataset.post_id);
     window.location.href="/Pages/view_post_page.html?id="+post_parent.dataset.post_id;
+}
+
+function ViewSpecificPoster(e)
+{
+    // To be implemented
 }

@@ -1,5 +1,3 @@
-console.log("Fetching theme color");
-
 fetch('../JSON%20files/color_palete.json')
   .then(response => response.json())
   .then(data => {
