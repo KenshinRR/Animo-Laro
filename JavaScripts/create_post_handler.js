@@ -10,14 +10,22 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
   const desc_input = document.getElementById("input_desc");
 
   // Get values from inputs
-  const desc = desc_input.value;
-  const title = title_input.value;
+  const desc = document.getElementById("input_desc").value;
+  const title = document.getElementById("input_title").value;
+  const link = document.getElementById("input_link");
+  let linkValue = link.value;
 
-  if (!title || !desc) {
-    event.preventDefault(); // stop form submission
-    alert("Title and description are required!");
-    title_input.value = "";
-    desc_input.value = "";
+  link.addEventListener("input", function() {
+    this.setCustomValidity(''); // clears error message
+  });
+
+  if(linkValue.trim() === ""){
+    linkValue = "";
+  }
+
+  if(!CheckValidURL(linkValue)){
+    link.setCustomValidity('Please enter a valid URL');
+    link.reportValidity();
     return;
   }
 
@@ -35,7 +43,9 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
         "post_id": crypto.randomUUID(),
         "title": title,
         "poster": poster,
-        "description" : desc
+        "description" : desc,
+        "likes": 0,
+        "link" : linkValue
     }
   );
 
@@ -45,9 +55,29 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
   // Optional: clear inputs
   document.getElementById("input_title").value = "";
   document.getElementById("input_desc").value = "";
+  document.getElementById("input_link").value = "";
 
   console.log("Succesfuly made");
   
   // Switch back to main feed
   window.location.href="/Pages/main_feed.html"
 });
+
+function CheckValidURL(string){
+  if(string.length === 0){
+    return true;
+  }
+  try {
+    // try default
+    new URL(string);
+    return string.includes('.');  // should at least have a dot
+  } catch {
+    // add https:// to the link to check if it's still invalid
+    try {
+      new URL('https://' + string);
+      return string.includes('.');
+    } catch {
+      return false;
+    }
+  }
+}
