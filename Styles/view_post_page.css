@@ -77,6 +77,23 @@
     background-color: blueviolet;
 }
 
+.game_link_container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--background_color);
+    filter:contrast(1.1);
+}
+
+.game_link{
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 20px;
+    color: var(--text_color);
+}
+
 .post_vote_container 
 {
     display: flex;

@@ -10,11 +10,15 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
   const desc = document.getElementById("input_desc").value;
   const title = document.getElementById("input_title").value;
   const link = document.getElementById("input_link");
-  const linkValue = link.value;
+  let linkValue = link.value;
 
   link.addEventListener("input", function() {
     this.setCustomValidity(''); // clears error message
   });
+
+  if(linkValue.trim() === ""){
+    linkValue = "";
+  }
 
   if(!CheckValidURL(linkValue)){
     link.setCustomValidity('Please enter a valid URL');
@@ -37,6 +41,7 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
         "title": title,
         "poster": poster,
         "description" : desc,
+        "likes": 0,
         "link" : linkValue
     }
   );
@@ -54,6 +59,9 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
 });
 
 function CheckValidURL(string){
+  if(string.length === 0){
+    return true;
+  }
   try {
     // try default
     new URL(string);
