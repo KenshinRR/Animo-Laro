@@ -29,7 +29,7 @@ for (let edit_icon_index = 0; edit_icon_index < edit_post_icons.length; edit_ico
 document.addEventListener("click", (event) => {
     const exists = Array.from(edit_post_icons).some(el => el === event.target);
     if (!exists) {
-    popup.style.display = "none";
+        popup.style.display = "none";
     }
 });
 
@@ -47,15 +47,15 @@ function ToggleEditDeleteButtons()
     // Getting current user data
     const curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
 
-    if (curr_user.username != current_post_data.poster) // change in future to check for IDs instread
-    {
-        popup_edit_button.style.display = "none";
-        popup_delete_button.style.display = "none";
-    }
-    else
+    if (curr_user != null && curr_user.username == current_post_data.poster) // change in future to check for IDs instread
     {
         popup_edit_button.style.display = "flex";
         popup_delete_button.style.display = "flex";
+    }
+    else
+    {
+        popup_edit_button.style.display = "none";
+        popup_delete_button.style.display = "none";
     }
 }
 
