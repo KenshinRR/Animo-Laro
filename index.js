@@ -2,13 +2,15 @@ import mongoose from "mongoose";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import { getUser} from './Contoller/DatabaseManager.js';
 
 // MongoDB Setup
 export const uri = "mongodb+srv://AnimoLaroADMIN:q9J5bTV2tKGdCcZv@animolarocluster.wou4bjm.mongodb.net/?appName=AnimoLaroCluster";
-export const dbName = "AnimoLaroCluster";
+// export const dbName = "AnimoLaroCluster";
+export const dbName = "AnimoLaroDB";
 
 const connectToMongo = async () => {
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, { dbName: "AnimoLaroDB" });
     console.log("Connecteted to MongoDB!");
 };
 
@@ -22,6 +24,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Serve all static files (HTML, JS, CSS, images) from the project folder
+app.use(express.json());
 app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
@@ -30,4 +33,21 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+});
+
+// login
+app.post('/api/login', async (req, res) => {
+    try {
+        console.log("Request body:", req.body);
+        const { username, password } = req.body;
+        const user = await getUser(username, password);
+        console.log("User found:", user);
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+        res.json({ message: 'Login successful!', user });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
 });
