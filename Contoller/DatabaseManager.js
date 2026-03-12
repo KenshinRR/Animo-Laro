@@ -6,7 +6,7 @@ const client = new MongoClient(uri);
 
 const db = client.db(dbName);
 
-export async function getAllUsers() {
-  const users = await db.collection("users").find().toArray();
-  return users;
+export async function getAllPosts() {
+  const posts = await db.collection("Posts").find().toArray();
+  return posts;
 }
