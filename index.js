@@ -4,8 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // MongoDB Setup
-const uri = "mongodb+srv://AnimoLaroADMIN:q9J5bTV2tKGdCcZv@animolarocluster.wou4bjm.mongodb.net/?appName=AnimoLaroCluster";
-const dbName = "AnimoLaroCluster";
+export const uri = "mongodb+srv://AnimoLaroADMIN:q9J5bTV2tKGdCcZv@animolarocluster.wou4bjm.mongodb.net/?appName=AnimoLaroCluster";
+export const dbName = "AnimoLaroCluster";
 
 const connectToMongo = async () => {
     await mongoose.connect(uri);
