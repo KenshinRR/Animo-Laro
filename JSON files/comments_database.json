@@ -2,26 +2,36 @@
     {
         "comment_id": 1,
         "description": "This game sucks!",
-        "likes": 3
+        "likes": 4,
+        "dislikes": 1,
+        "edited": true
     },
     {
         "comment_id": 2,
         "description": "This game is amazing!",
-        "likes": 5
+        "likes": 5,
+        "dislikes": 0,
+        "edited": false
     },
     {
         "comment_id": 3,
         "description": "NO IT'S NOT!",
-        "likes": 2
+        "likes": 8,
+        "dislikes": 6,
+        "edited": false
     },
     {
         "comment_id": 4,
         "description": "Bing Chillin",
-        "likes": 2
+        "likes": 6,
+        "dislikes": 4,
+        "edited": false
     },
     {
-        "comment_id": 3,
+        "comment_id": 5,
         "description": "I need to wash my EYES!",
-        "likes": 2
+        "likes": 102,
+        "dislikes": 100,
+        "edited": false
     }
 ]
