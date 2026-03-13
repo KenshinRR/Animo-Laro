@@ -18,10 +18,6 @@ class DatabaseManager {
     }
   }
 
-  async connect() {
-    console.log("Connecting to DB...");
-  }
-
   setData(users, posts){
     this.users = users;
     this.posts = posts;

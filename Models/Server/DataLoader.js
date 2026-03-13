@@ -37,8 +37,6 @@ export async function createUser(username, password) {
 
 export async function Initiliaze_DB_Manager()
 {
-  DatabaseManager.connect();
-
   DatabaseManager.setData(
     await getAllUsers(),
     await getAllPosts()
