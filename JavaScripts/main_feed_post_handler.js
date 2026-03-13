@@ -108,7 +108,7 @@ function updatePostDisplay(postContainer)
 }
 
 console.log("Getting posts");
-var localPosts = await DatabaseManager.getAllPosts();
+var localPosts = await DatabaseManager.posts;
 
 if (!localPosts)
 {

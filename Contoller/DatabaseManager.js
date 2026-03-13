@@ -1,4 +1,17 @@
 class DatabaseManager {
+  static instance;
+
+  constructor() {
+    if (DatabaseManager.instance) {
+      return DatabaseManager.instance;
+    }
+    DatabaseManager.instance = this;
+  }
+
+  async connect() {
+    console.log("Connecting to DB...");
+  }
+
   setData(users, posts){
     this.users = users;
     this.posts = posts;
@@ -14,5 +27,4 @@ class DatabaseManager {
   }
 }
 
-const DBManager = new DatabaseManager();
-export default DBManager;
+export default new DatabaseManager();
