@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getUser} from './Models/Server/DataLoader.js';
+import { getUser, createUser} from './Models/Server/DataLoader.js';
 import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
 
 
@@ -42,15 +42,30 @@ app.listen(PORT, () => {
 // login
 app.post('/api/login', async (req, res) => {
     try {
-        console.log("Request body:", req.body); 
+        // console.log("Request body:", req.body); 
         const { username, password } = req.body;
         const user = await getUser(username, password);
-        console.log("User found:", user);
+        // console.log("User found:", user);
         if (!user) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
         res.json({ message: 'Login successful!', user });
     } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// register
+app.post('/api/register', async (req, res) => {
+    try{
+        const {username, password} = req.body;
+        const newUser = await createUser(username, password);
+        if(!newUser){
+            return res.status(400).json({error: 'Username already exists'});
+        }
+        res.json({message: 'Registered Successfully!', user: newUser}); 
+    } catch{
         console.error(err);
         res.status(500).json({ error: err.message });
     }

@@ -19,6 +19,22 @@ export async function getUser(username, password) {
   return user;
 }
 
+export async function createUser(username, password) {
+  const existingUser = await User.findOne({ username });
+  if(existingUser) return null;
+
+  const newUser = new User({
+      user_id: crypto.randomUUID(), // generate a random id
+      username,
+      password,
+      bio: 'Add a bio...',
+      avatar: 'default_avatar'
+  });
+
+  await newUser.save();
+  return newUser;
+}
+
 export async function Initiliaze_DB_Manager()
 {
   DatabaseManager.connect();

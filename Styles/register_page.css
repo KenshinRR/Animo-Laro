@@ -46,10 +46,11 @@
     display: flex;
     flex-flow: column;
     width: 500px;
-    height: 400px;
+    min-height: 400px;
     border: 3px solid white;
     border-radius: 10px;
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .box{
@@ -91,6 +92,18 @@
 .inputText:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #121a1e inset !important;
     -webkit-text-fill-color: white !important;
+}
+
+.error-msg {
+    display: flex;
+    flex-direction: column;
+    color: red;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    padding-left: 5px;
+    /* border: 1px solid blue; */
 }
 
 .register_button{

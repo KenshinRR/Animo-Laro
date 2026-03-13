@@ -30,19 +30,28 @@ const login_form = document.getElementById('log_in');
 
         if(remember_me){
                     const user_login_data = {
-                        user: data.user,
+                        user: {
+                            _id: data.user._id,
+                            user_id: data.user.user_id,
+                            username: data.user.username,
+                            bio: data.user.bio,
+                            avatar: data.user.avatar
+                        },
                         expires: Date.now() + (30 * 24 * 60 * 60 * 1000) // 30 days
                     };
                     localStorage.setItem("currentUser", JSON.stringify(user_login_data));
         }
         else{
-            sessionStorage.setItem("currentUser", JSON.stringify(data.user));
-        }
-         window.location.href = "main_feed.html";
+            sessionStorage.setItem("currentUser", JSON.stringify({    
+                _id: data.user._id,
+                user_id: data.user.user_id,
+                username: data.user.username,
+                bio: data.user.bio,
+                avatar: data.user.avatar}));
+            }
+        window.location.href = "main_feed.html";
     }).catch(err=>console.error('Login: error:',err));
 
-    
-    
     // get the users or create a new array if null
     // const users = JSON.parse(localStorage.getItem("users"));
 
@@ -76,8 +85,14 @@ const login_form = document.getElementById('log_in');
 
 // if on remember me, skip log in page
 function checkCurrentUser(){
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if(currentUser){
+    const local = JSON.parse(localStorage.getItem("currentUser"));
+    if(!local){
+        return;
+    }
+    if(local.expires && Date.now() > localUser.expires){
+        localStorage.removeItem("currentUser");
+    }
+    else{
         window.location.href = "main_feed.html";
     }
 }
