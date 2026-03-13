@@ -7,6 +7,16 @@ class DatabaseManager {
     }
     DatabaseManager.instance = this;
   }
+  // added
+  async initialize() {
+    try {
+      const res = await fetch('/api/posts');
+      this.posts = await res.json();
+      console.log("Successfully loaded posts:", this.posts);
+    } catch (err) {
+      console.error("Failed to load posts:", err);
+    }
+  }
 
   async connect() {
     console.log("Connecting to DB...");
