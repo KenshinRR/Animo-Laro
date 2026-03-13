@@ -74,7 +74,7 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// posts
+// getting the posts
 app.get('/api/posts', async (req, res) => {
   try {
     const posts = await getAllPosts();
@@ -105,5 +105,16 @@ app.get("/getUser", async function(req,res){
         console.log(err);
         res.status(500).json({error:"Server error"});
     }
+});
 
+// Adding a new post
+app.post('/api/create_post', async (req,res) => {
+    try {
+        const {title, poster, description, likes, link} = req.body;
+        const newPost = new Post({title, poster, description, likes, link});
+        await newPost.save();
+        res.status(201).json({ message: "User saved successfully", user: newUser });
+    } catch (err){
+        res.status(500).json({ error: "Failed to save user", details: error.message });
+    }
 });

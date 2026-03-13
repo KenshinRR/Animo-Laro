@@ -1,4 +1,4 @@
-// import crypto from 'crypto';
+import DataBaseManager from '../Contoller/DatabaseManager.js';
 
 // Declaration of elements
 const back_button = document.getElementById("back_button");
@@ -36,23 +36,7 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
   if (!currentUserData) currentUserData = JSON.parse(sessionStorage.getItem("currentUser"));
   var poster = currentUserData.username;
 
-  // Retrieve existing list from localStorage (or start with empty array)
-  let savedPosts= JSON.parse(localStorage.getItem("posts")) || [];
-
-  // Add new values as an object (or array, depending on your preference)
-  savedPosts.push(
-    {
-        "post_id": crypto.randomUUID(),
-        "title": title,
-        "poster": poster,
-        "description" : desc,
-        "likes": 0,
-        "link" : linkValue
-    }
-  );
-
-  // Save back to localStorage
-  localStorage.setItem("posts", JSON.stringify(savedPosts));
+  SaveToDatabase();
 
   // Optional: clear inputs
   document.getElementById("input_title").value = "";
@@ -82,4 +66,24 @@ function CheckValidURL(string){
       return false;
     }
   }
+}
+
+function SaveToDatabase()
+{
+  // Retrieve existing list from localStorage (or start with empty array)
+  let savedPosts= JSON.parse(localStorage.getItem("posts")) || [];
+
+  // Add new values as an object (or array, depending on your preference)
+  DataBaseManager.addPost(
+    {
+        "title": title,
+        "poster": poster,
+        "description" : desc,
+        "likes": 0,
+        "link" : linkValue
+    }
+  );
+
+  // Save back to localStorage
+  localStorage.setItem("posts", JSON.stringify(savedPosts));
 }

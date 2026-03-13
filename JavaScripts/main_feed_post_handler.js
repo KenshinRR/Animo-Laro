@@ -109,7 +109,6 @@ function updatePostDisplay(postContainer)
 
 console.log("Getting posts");
 // added
-await DatabaseManager.initialize();
 var localPosts = DatabaseManager.getAllPosts();
 
 if (!localPosts)
@@ -119,7 +118,7 @@ if (!localPosts)
 else
 {
     console.log("Succesfelly gotten posts");
-    console.log("Got posts: " + localPosts);
+    // console.log("Got posts: " + localPosts);
     
     localPosts.forEach(postData => {
         createNewPost(postData.post_id, postData.title, postData.poster, postData.description);
