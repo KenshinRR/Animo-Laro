@@ -1,3 +1,5 @@
+// import crypto from 'crypto';
+
 // Declaration of elements
 const back_button = document.getElementById("back_button");
 

@@ -1,25 +1,18 @@
-// db.js
-// import { MongoClient } from "mongodb";
-import {uri, dbName} from '../index.js'
-import User from '../Models/Schemas/User.js';
-import crypto from 'crypto';
+class DatabaseManager {
+  setData(users, posts){
+    this.users = users;
+    this.posts = posts;
+    console.log("Successfuly loaded the data");
+  }
 
-// const client = new MongoClient(uri);
+  getAllPosts(){
+    return this.posts;
+  }
 
-// const db = client.db(dbName);
-// export const connectToMongo = async () => {
-//     await mongoose.connect(uri, { dbName: 'AnimoLaroDB' });
-//     console.log("Connected to MongoDB!");
-// };
-
-export async function getAllPosts() {
-  const posts = await db.collection("Posts").find().toArray();
-  return posts;
+  getAllUser(){
+    return this.users;
+  }
 }
 
-export async function getUser(username, password) {
-    const user = await User.findOne({ username, password });
-    return user;
-}
-
-
+const DBManager = new DatabaseManager();
+export default DBManager;

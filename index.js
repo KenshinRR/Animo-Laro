@@ -2,19 +2,22 @@ import mongoose from "mongoose";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getUser} from './Contoller/DatabaseManager.js';
+import { getUser} from './Models/Server/DataLoader.js';
+import { SetData} from './Models/Server/DataLoader.js';
 
 // MongoDB Setup
 export const uri = "mongodb+srv://AnimoLaroADMIN:q9J5bTV2tKGdCcZv@animolarocluster.wou4bjm.mongodb.net/?appName=AnimoLaroCluster";
 // export const dbName = "AnimoLaroCluster";
 export const dbName = "AnimoLaroDB";
 
-const connectToMongo = async () => {
+async function connectToMongo(){
     await mongoose.connect(uri, { dbName: "AnimoLaroDB" });
     console.log("Connecteted to MongoDB!");
 };
 
-connectToMongo();
+await connectToMongo();
+
+await SetData();
 
 // Express Setup
 const app = express();
@@ -38,7 +41,7 @@ app.listen(PORT, () => {
 // login
 app.post('/api/login', async (req, res) => {
     try {
-        console.log("Request body:", req.body);
+        console.log("Request body:", req.body); 
         const { username, password } = req.body;
         const user = await getUser(username, password);
         console.log("User found:", user);
