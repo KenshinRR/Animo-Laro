@@ -17,24 +17,27 @@
       </section>
       <hr class="hrLine" />
       <section class="box">
-        <form class ="log_in" id="log_in">
-            <input
-              class="inputText"
-              type="text"
-              placeholder="Username"
-              id="username"
-              required
-              autocomplete="off"
-            />
+        <form class="log_in" id="log_in" novalidate>
+          <input
+            class="inputText"
+            type="text"
+            placeholder="Username"
+            id="username"
+            required
+            autocomplete="off"
+          />
 
-            <input
-              class="inputText"
-              type="password"
-              placeholder="Password"
-              id="password"
-              required
-              autocomplete="off"
-            />
+          <input
+            class="inputText"
+            type="password"
+            placeholder="Password"
+            id="password"
+            required
+            autocomplete="off"
+          />
+          
+          <p class="error-msg" id="error-msg"></p>
+
           <div class="remember_me" title="Stay log in for 30 days">
             <input type="checkbox" id="remember_me" />
             <label for="remember_me">Remember me</label>

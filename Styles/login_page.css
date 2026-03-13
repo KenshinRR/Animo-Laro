@@ -46,10 +46,11 @@
     display: flex;
     flex-flow: column;
     width: 500px;
-    height: 400px;
+    min-height: 400px;
     border: 3px solid white;
     border-radius: 10px;
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .box{
@@ -62,6 +63,7 @@
 .log_in{
     display: flex;
     flex-direction: column;
+    /* border: 1px solid red; */
 }
 
 .inputText::placeholder{
@@ -80,6 +82,7 @@
     border-color: black;
     color: #ffffff;
     margin-top: 15px;
+    /* border: 1px solid blue; */
 }
 
 /* override default browser autofill style on text box */
@@ -121,9 +124,21 @@
     color:var(--secondary_color);
 }
 
+.error-msg {
+    display: flex;
+    flex-direction: column;
+    color: red;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    padding-left: 5px;
+    /* border: 1px solid white; */
+}
+
 .remember_me{
     display: flex;
     flex-direction: row;
-    margin-top: 15px;
+    margin-top: 5px;
     margin-bottom: 0px;
 }

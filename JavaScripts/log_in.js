@@ -1,4 +1,7 @@
 // initializeUsers();
+
+let errorMSG =  document.getElementById('error-msg');
+
 checkCurrentUser();
 
 const login_form = document.getElementById('log_in');
@@ -10,12 +13,18 @@ const login_form = document.getElementById('log_in');
     const password = document.getElementById('password').value;
     const remember_me = document.getElementById('remember_me').checked;
 
+    if(!username || !password){
+        errorMSG.textContent = 'Please fill in all fields.';
+        return;
+    }
+
     fetch('/api/login',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username,password})
     }).then(res=> res.json()).then(data=>{
         if(data.error){
+            errorMSG.textContent = data.error;
             return;
         }
 
