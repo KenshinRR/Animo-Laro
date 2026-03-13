@@ -18,7 +18,7 @@ function createNewPost(post_id, title, poster, desc)
     var edit_post_icon = document.createElement("img");
     edit_post_icon.dataset.post_id = post_id;
     edit_post_icon.classList.add("edit_post_icon");
-    edit_post_icon.src = "../images/System Images/Icons/Three-Dots-Horizontal.png";
+    edit_post_icon.src = "../View/System Images/Icons/Three-Dots-Horizontal.png";
     title_bar.appendChild(edit_post_icon);
 
     var h2_title = document.createElement("h2");

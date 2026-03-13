@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("user_pic_edit").src = user.avatar;
             document.getElementById("user_pic_small").src = user.avatar;
         } else {
-            document.getElementById("user_pic_edit").src = "../Images/" + user.avatar;
-            document.getElementById("user_pic_small").src = "../Images/" + user.avatar;
+            document.getElementById("user_pic_edit").src = "../View/" + user.avatar;
+            document.getElementById("user_pic_small").src = "../View/" + user.avatar;
         }
     }
 });
