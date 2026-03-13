@@ -1,4 +1,5 @@
-import DatabaseManager from '../Contoller/DatabaseManager.js'
+import DatabaseManager from '../Contoller/DatabaseManager.js';
+import { attachEditPopup } from './post_edit_popup_handler.js'; 
 
 function createNewPost(post) {
     const newPostDiv = document.createElement("div");
@@ -119,3 +120,5 @@ const posts = await DatabaseManager.getAllPosts();
 if (posts) {
     posts.forEach(post => createNewPost(post));
 }
+
+attachEditPopup();
