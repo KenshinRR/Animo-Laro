@@ -7,7 +7,7 @@ class DatabaseManager {
     }
     DatabaseManager.instance = this;
   }
-  // added
+
   async initialize() {
     try {
       const res = await fetch('/api/posts');
@@ -18,18 +18,26 @@ class DatabaseManager {
     }
   }
 
-  setData(users, posts){
+  setData(users, posts) {
     this.users = users;
     this.posts = posts;
-    console.log("Successfuly loaded the data");
+    console.log("Successfully loaded the data");
   }
 
-  getAllPosts(){
+  getAllPosts() {
     return this.posts;
   }
 
-  getAllUser(){
+  getAllUsers() {
     return this.users;
+  }
+
+  async getPostById(id) {
+    if (!this.posts) return null;
+
+    // MongoDB _id comes as string in the JSON from /api/posts
+    // So we just match against _id (string) instead of post_id
+    return this.posts.find(post => post._id === id) || null;
   }
 }
 
