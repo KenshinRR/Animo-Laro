@@ -16,6 +16,13 @@ export async function getAllUsers(){
 
 export async function getUser(username, password) {
   const user = await User.findOne({ username, password });
+  console.log("Looking for user:", { username, password }); // logs both
+  return user;
+}
+
+export async function getUserUseUsername(username) {
+  const user = await User.findOne({ username});
+  console.log("Looking for user:", { username}); // logs both
   return user;
 }
 

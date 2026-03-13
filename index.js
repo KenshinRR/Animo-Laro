@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getUser ,createUser} from './Models/Server/DataLoader.js';
+import { getUser ,createUser,getUserUseUsername} from './Models/Server/DataLoader.js';
 import { getAllPosts} from './Models/Server/DataLoader.js';
 import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
 // import { getUser} from './Models/Server/DataLoader.js';
@@ -83,4 +83,27 @@ app.get('/api/posts', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
+});
+
+//view profile?
+app.get("/getUser", async function(req,res){
+
+    try{
+
+        const { username} = req.query;
+
+        const user = await getUserUseUsername(username);
+
+        if(!user){
+            res.status(404).json({error:"User not found"});
+            return;
+        }
+
+        res.json(user);
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({error:"Server error"});
+    }
+
 });
