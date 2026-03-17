@@ -1,13 +1,9 @@
 // db.js
 // import { MongoClient } from "mongodb";
 import User from '../Schemas/User.js';
-import Post from '../Schemas/Post.js';
-import DatabaseManager from '../../Contoller/DatabaseManager.js';
 
-export async function getAllPosts() {
-  const posts = await Post.find();
-  return posts;
-}
+
+
 
 export async function getAllUsers(){
   const all_user = await User.find();
@@ -40,12 +36,4 @@ export async function createUser(username, password) {
 
   await newUser.save();
   return newUser;
-}
-
-export async function Initiliaze_DB_Manager()
-{
-  DatabaseManager.setData(
-    await getAllUsers(),
-    await getAllPosts()
-  );
 }

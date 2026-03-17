@@ -1,4 +1,4 @@
-import { getUser ,createUser,getUserUseUsername} from "../Models/Server/DataLoader.js"
+import { getUser ,createUser,getUserUseUsername} from "../Models/Server/UserDataLoader.js"
 
 
 // register/create

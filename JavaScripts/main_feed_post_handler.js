@@ -109,18 +109,29 @@ function updatePostDisplay(postContainer)
 
 console.log("Getting posts");
 // added
-var localPosts = DatabaseManager.getAllPosts();
+async function loadPosts() {
+    try {
+        const response = await fetch("/api/posts");
+        if (!response.ok) throw new Error("Failed to fetch posts");
 
-if (!localPosts)
-{
-    console.log("Failed to get posts");
+        const posts = await response.json();
+        console.log("Successfully fetched posts:", posts);
+
+        posts.forEach(postData => {
+            createNewPost(
+                postData._id || postData.post_id,  // _id from MongoDB
+                postData.title,
+                postData.poster,
+                postData.description
+            );
+        });
+    } catch (err) {
+        console.error("Error loading posts:", err);
+    }
 }
-else
-{
-    console.log("Succesfelly gotten posts");
-    // console.log("Got posts: " + localPosts);
-    
-    localPosts.forEach(postData => {
-        createNewPost(postData.post_id, postData.title, postData.poster, postData.description);
-    });
-}
+
+
+// Call it once the DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+    loadPosts();
+});
