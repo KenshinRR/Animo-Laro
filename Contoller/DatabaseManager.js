@@ -14,10 +14,18 @@ class DatabaseManager {
     return posts;
   }
 
-  getAllUser(){
+  getAllUsers() {
     return this.users;
   }
 
+  async getPostById(id) {
+    if (!this.posts) return null;
+
+    // MongoDB _id comes as string in the JSON from /api/posts
+    // So we just match against _id (string) instead of post_id
+    return this.posts.find(post => post._id === id) || null;
+  }
+  
   async addPost(post){
     var post_id = post_id = crypto.randomUUID();
     var title = post.title;
