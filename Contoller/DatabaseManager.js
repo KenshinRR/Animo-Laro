@@ -27,7 +27,6 @@ class DatabaseManager {
   }
   
   async addPost(post){
-    var post_id = post_id = crypto.randomUUID();
     var title = post.title;
     var poster = post.poster;
     var description = post.description;
@@ -37,7 +36,7 @@ class DatabaseManager {
     fetch('/api/create_post',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({post_id, title, poster, description, likes, link})
+        body: JSON.stringify({title, poster, description, likes, link})
     })
     .then(response => {
       response.json()
