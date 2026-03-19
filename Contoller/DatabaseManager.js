@@ -19,11 +19,16 @@ class DatabaseManager {
   }
 
   async getPostById(id) {
-    if (!this.posts) return null;
+    try{
+      const res = await fetch('/api/posts/'+id);
+      post = await res.json();
+      console.log("Successfully gotten specific post: " + post.title);
+    }
+    catch (err) {
+      console.error("Failed to load post:", err);
+    }
 
-    // MongoDB _id comes as string in the JSON from /api/posts
-    // So we just match against _id (string) instead of post_id
-    return this.posts.find(post => post._id === id) || null;
+    
   }
   
   async addPost(post){

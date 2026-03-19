@@ -7,9 +7,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id');
 
 async function loadPost() {
-    await DatabaseManager.initialize();
-    const posts = DatabaseManager.getAllPosts();
-    const post = posts.find(p => p._id === postId);
+    // Getting the post data 
+    const post = DatabaseManager.getPostById(postId);
 
     if (!post) {
         console.error("Post not found for id:", postId);
