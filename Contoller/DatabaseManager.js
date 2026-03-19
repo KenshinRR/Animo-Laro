@@ -19,16 +19,17 @@ class DatabaseManager {
   }
 
   async getPostById(id) {
+    var post_to_return = null;
     try{
       const res = await fetch('/api/posts/'+id);
-      post = await res.json();
-      console.log("Successfully gotten specific post: " + post.title);
+      post_to_return = await res.json();
+      console.log("Successfully gotten specific post: " + post_to_return.title);
     }
     catch (err) {
       console.error("Failed to load post:", err);
     }
 
-    
+    return post_to_return;
   }
   
   async addPost(post){

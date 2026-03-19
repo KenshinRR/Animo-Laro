@@ -34,7 +34,7 @@ export async function createPost(req, res) {
 
 export async function getSpecificPost(req, res) {
   try {
-    console.log("Looking for post " + req.params.id);
+    // console.log("Looking for post " + req.params.id);
     const post = await postDB.getSpecificPost(req.params.id);
     if (!post) {
       return res.status(404).json({ error: "Post not found" });

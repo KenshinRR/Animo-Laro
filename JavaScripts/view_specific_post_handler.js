@@ -8,11 +8,15 @@ const postId = urlParams.get('id');
 
 async function loadPost() {
     // Getting the post data 
-    const post = DatabaseManager.getPostById(postId);
+    const post = await DatabaseManager.getPostById(postId);
 
     if (!post) {
         console.error("Post not found for id:", postId);
         return;
+    }
+    else
+    {
+        console.log("Post found " + post._id);
     }
 
     document.getElementById("post_title").textContent = post.title;
