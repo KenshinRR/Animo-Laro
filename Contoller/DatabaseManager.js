@@ -18,10 +18,14 @@ class DatabaseManager {
     return this.users;
   }
 
-  addPost(post){
-    this.posts.push(post);
-
-    fetch('/api/create_post',{
+  async addPost(post){
+    var title = post.title;
+    var poster = post.poster;
+    var description = post.description;
+    var likes = post.likes;
+    var link = post.link;
+    
+    const response = await fetch('/api/create_post',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title, poster, description, likes, link})
@@ -33,6 +37,8 @@ class DatabaseManager {
     .catch(error => {
       console.error("Error:", error);
     });
+
+    return response;
   }
 }
 

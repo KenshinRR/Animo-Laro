@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { getUser ,createUser,getUserUseUsername} from './Models/Server/DataLoader.js';
 import { getAllPosts} from './Models/Server/DataLoader.js';
+import Post from './Models/Schemas/Post.js'
 
 // MongoDB Setup
 export const uri = "mongodb+srv://AnimoLaroADMIN:q9J5bTV2tKGdCcZv@animolarocluster.wou4bjm.mongodb.net/?appName=AnimoLaroCluster";
@@ -104,11 +105,12 @@ app.get("/getUser", async function(req,res){
 // Adding a new post
 app.post('/api/create_post', async (req,res) => {
     try {
+        const post_id = crypto.randomUUID();
         const {title, poster, description, likes, link} = req.body;
-        const newPost = new Post({title, poster, description, likes, link});
+        const newPost = new Post({post_id, title, poster, description, likes, link});
         await newPost.save();
-        res.status(201).json({ message: "User saved successfully", user: newUser });
+        res.status(201).json({ message: "User saved successfully", post: newPost });
     } catch (err){
-        res.status(500).json({ error: "Failed to save user", details: error.message });
+        res.status(500).json({ error: "Failed to save user", details: err.message });
     }
 });
