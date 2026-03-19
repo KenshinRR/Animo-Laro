@@ -7,13 +7,16 @@ const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id');
 
 async function loadPost() {
-    await DatabaseManager.initialize();
-    const posts = DatabaseManager.getAllPosts();
-    const post = posts.find(p => p._id === postId);
+    // Getting the post data 
+    const post = await DatabaseManager.getPostById(postId);
 
     if (!post) {
         console.error("Post not found for id:", postId);
         return;
+    }
+    else
+    {
+        console.log("Post found " + post._id);
     }
 
     document.getElementById("post_title").textContent = post.title;

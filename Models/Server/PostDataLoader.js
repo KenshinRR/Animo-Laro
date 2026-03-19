@@ -11,3 +11,9 @@ export async function createPost(postData) {
 
   return newPost;
 }
+
+export async function getSpecificPost(id){
+
+  const post = await Post.findById(id);
+  return post;    
+}
