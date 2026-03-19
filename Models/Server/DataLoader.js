@@ -41,11 +41,3 @@ export async function createUser(username, password) {
   await newUser.save();
   return newUser;
 }
-
-export async function Initiliaze_DB_Manager()
-{
-  DatabaseManager.setData(
-    await getAllUsers(),
-    await getAllPosts()
-  );
-}

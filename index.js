@@ -4,10 +4,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { getUser ,createUser,getUserUseUsername} from './Models/Server/DataLoader.js';
 import { getAllPosts} from './Models/Server/DataLoader.js';
-import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
-// import { getUser} from './Models/Server/DataLoader.js';
-// import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
-
 
 // MongoDB Setup
 export const uri = "mongodb+srv://AnimoLaroADMIN:q9J5bTV2tKGdCcZv@animolarocluster.wou4bjm.mongodb.net/?appName=AnimoLaroCluster";
@@ -20,8 +16,6 @@ async function connectToMongo(){
 };
 
 await connectToMongo();
-
-await Initiliaze_DB_Manager();
 
 // Express Setup
 const app = express();
