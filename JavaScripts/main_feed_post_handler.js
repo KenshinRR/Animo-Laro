@@ -111,7 +111,7 @@ console.log("Getting posts");
 // added
 var localPosts = await DatabaseManager.getAllPosts();
 
-posts.forEach(postData => {
+localPosts.forEach(postData => {
     createNewPost(
         postData._id || postData.post_id,  // _id from MongoDB
         postData.title,
