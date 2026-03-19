@@ -1,31 +1,17 @@
 class DatabaseManager {
-  static instance;
 
-  constructor() {
-    if (DatabaseManager.instance) {
-      return DatabaseManager.instance;
-    }
-    DatabaseManager.instance = this;
-  }
+  async getAllPosts(){
+    var posts = null;
 
-  async initialize() {
     try {
       const res = await fetch('/api/posts');
-      this.posts = await res.json();
-      console.log("Successfully loaded posts:", this.posts);
+      posts = await res.json();
+      console.log("Successfully loaded posts:", posts);
     } catch (err) {
       console.error("Failed to load posts:", err);
     }
-  }
 
-  setData(users, posts) {
-    this.users = users;
-    this.posts = posts;
-    console.log("Successfully loaded the data");
-  }
-
-  getAllPosts() {
-    return this.posts;
+    return posts;
   }
 
   getAllUsers() {
@@ -39,6 +25,35 @@ class DatabaseManager {
     // So we just match against _id (string) instead of post_id
     return this.posts.find(post => post._id === id) || null;
   }
+  
+  async addPost(post){
+    var post_id = post_id = crypto.randomUUID();
+    var title = post.title;
+    var poster = post.poster;
+    var description = post.description;
+    var likes = post.likes;
+    var link = post.link;
+    
+    fetch('/api/create_post',{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({post_id, title, poster, description, likes, link})
+    })
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to add!");
+      }
+    })
+    .then(data => {
+      console.log("Server response:", data);
+    })
+    .catch(err => {
+      console.error("Error:", err);
+    });
+  }
 }
 
-export default new DatabaseManager();
+const DBManager = new DatabaseManager();
+export default DBManager;
