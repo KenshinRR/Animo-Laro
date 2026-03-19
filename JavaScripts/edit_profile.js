@@ -49,47 +49,48 @@ fileInput.addEventListener("change", function () {
     }
 });
 
-document.getElementById("save_button").addEventListener("click", function() {
+saveButton.addEventListener("click", async function () {
 
-    
-    let updatedUsername = document.getElementById("username").value;
-    let updatedPassword = document.getElementById("password").value
-    let updatedBio = document.getElementById("bio").value;
-    let newAvatar = document.getElementById("user_pic_edit").dataset.newAvatar;
-
-
-    
     let currentUserData = JSON.parse(localStorage.getItem("currentUser")) 
-                       || JSON.parse(sessionStorage.getItem("currentUser"));
+                   || JSON.parse(sessionStorage.getItem("currentUser"));
 
-    if(currentUserData){
-        // Determine the object structure
-        let user = currentUserData.user ? currentUserData.user : currentUserData;
+    let currentUser = currentUserData.user ? currentUserData.user : currentUserData;
+    if (!currentUser) return;
+    let avatarValue;
 
+    if (profileImage.dataset.newAvatar) {
+       
+        avatarValue = profileImage.dataset.newAvatar;
+    } else {
         
-        user.username = updatedUsername;
-        user.password = updatedPassword;
-        user.bio = updatedBio;
-        if(newAvatar){
-            user.avatar = newAvatar;
-        }
-        
-        if(currentUserData.user){ 
-            localStorage.setItem("currentUser", JSON.stringify(currentUserData));
-        } else { 
-            sessionStorage.setItem("currentUser", JSON.stringify(user));
-        }
-
-        // Optional: also update the users array so changes persist across sessions
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        let index = users.findIndex(u => u.user_id === user.user_id);
-        if(index !== -1){
-            users[index] = user;
-            localStorage.setItem("users", JSON.stringify(users));
-        }
-        window.location.href = "profile_view.html";
-        //alert("Profile updated!");
+        const parts = profileImage.src.split("/");
+        avatarValue = parts[parts.length - 1];
     }
 
+    let updatedData = {
+    username: currentUser.username,
+    newUsername: document.getElementById("username").value,
+    password: document.getElementById("password").value, // ✅ NEW
+    bio: document.getElementById("bio").value,
+    avatar: profileImage.dataset.newAvatar || profileImage.src
+};
+    try {
+        const res = await fetch("/api/updateProfile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedData)
+        });
+
+        const updatedUser = await res.json();
+
+        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+
+        window.location.href = "profile_view.html";
+
+    } catch (err) {
+        console.error("Failed to update:", err);
+    }
 });
 
