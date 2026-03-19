@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     if(currentUser){
 
         const res = await fetch(
-            `/getUser?username=${encodeURIComponent(currentUser.username)}`
+            `/api/getUser?username=${encodeURIComponent(currentUser.username)}`
         );
         if(!res.ok){
             console.error("User fetch failed");

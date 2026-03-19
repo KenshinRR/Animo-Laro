@@ -111,16 +111,16 @@ console.log("Getting posts");
 // added
 var localPosts = await DatabaseManager.getAllPosts();
 
-if (!localPosts)
-{
-    console.log("Failed to get posts");
-}
-else
-{
-    console.log("Succesfelly gotten posts");
-    // console.log("Got posts: " + localPosts);
-    
-    localPosts.forEach(postData => {
-        createNewPost(postData.post_id, postData.title, postData.poster, postData.description);
-    });
-}
+localPosts.forEach(postData => {
+    createNewPost(
+        postData._id || postData.post_id,  // _id from MongoDB
+        postData.title,
+        postData.poster,
+        postData.description
+    );
+});
+
+// Call it once the DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+    loadPosts();
+});

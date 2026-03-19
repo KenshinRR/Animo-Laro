@@ -1,12 +1,6 @@
 // db.js
 // import { MongoClient } from "mongodb";
 import User from '../Schemas/User.js';
-import Post from '../Schemas/Post.js';
-
-export async function getAllPosts() {
-  const posts = await Post.find();
-  return posts;
-}
 
 export async function getAllUsers(){
   const all_user = await User.find();
