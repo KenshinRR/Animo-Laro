@@ -1,12 +1,50 @@
-// db.js
-import { MongoClient } from "mongodb";
-import {uri, dbName} from "./app.js"
+class DatabaseManager {
 
-const client = new MongoClient(uri);
+  async getAllPosts(){
+    var posts = null;
 
-const db = client.db(dbName);
+    try {
+      const res = await fetch('/api/posts');
+      posts = await res.json();
+      console.log("Successfully loaded posts:", posts);
+    } catch (err) {
+      console.error("Failed to load posts:", err);
+    }
 
-export async function getAllPosts() {
-  const posts = await db.collection("Posts").find().toArray();
-  return posts;
+    return posts;
+  }
+
+  getAllUser(){
+    return this.users;
+  }
+
+  async addPost(post){
+    var title = post.title;
+    var poster = post.poster;
+    var description = post.description;
+    var likes = post.likes;
+    var link = post.link;
+    
+    fetch('/api/create_post',{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({title, poster, description, likes, link})
+    })
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to add!");
+      }
+    })
+    .then(data => {
+      console.log("Server response:", data);
+    })
+    .catch(err => {
+      console.error("Error:", err);
+    });
+  }
 }
+
+const DBManager = new DatabaseManager();
+export default DBManager;

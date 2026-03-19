@@ -1,3 +1,5 @@
+import DatabaseManager from '../Contoller/DatabaseManager.js'
+
 function createNewPost(post_id, title, poster, desc)
 {
     var newPostDiv = document.createElement("div");
@@ -16,7 +18,7 @@ function createNewPost(post_id, title, poster, desc)
     var edit_post_icon = document.createElement("img");
     edit_post_icon.dataset.post_id = post_id;
     edit_post_icon.classList.add("edit_post_icon");
-    edit_post_icon.src = "../images/System Images/Icons/Three-Dots-Horizontal.png";
+    edit_post_icon.src = "../View/System Images/Icons/Three-Dots-Horizontal.png";
     title_bar.appendChild(edit_post_icon);
 
     var h2_title = document.createElement("h2");
@@ -36,11 +38,6 @@ function createNewPost(post_id, title, poster, desc)
     document.getElementById("main_feed_container").appendChild(newPostDiv);
 }
 
-var localPosts = JSON.parse(localStorage.getItem("posts")) || [];
-localPosts.forEach(postData => {
-    createNewPost(postData.post_id, postData.title, postData.poster, postData.description);
-});
-
 function createInteractionBar(post_id, parent_elem)
 {
     var newLikesSpan = document.createElement("span");
@@ -49,7 +46,7 @@ function createInteractionBar(post_id, parent_elem)
 
     var vote_buttons_div = document.createElement("div");
     vote_buttons_div.classList.add("vote_buttons");
-
+    
     var new_post_like_button = document.createElement("button");
     new_post_like_button.classList.add("post_like_btn");
     new_post_like_button.textContent = "Like";
@@ -105,7 +102,25 @@ function updatePostDisplay(postContainer)
 
     likeBtn.classList.remove("vote_active_like");
     dislikeBtn.classList.remove("vote_active_dislike");
-
+    
     if (postData.userVote === "like") likeBtn.classList.add("vote_active_like");
     else if (postData.userVote === "dislike") dislikeBtn.classList.add("vote_active_dislike");
+}
+
+console.log("Getting posts");
+// added
+var localPosts = await DatabaseManager.getAllPosts();
+
+if (!localPosts)
+{
+    console.log("Failed to get posts");
+}
+else
+{
+    console.log("Succesfelly gotten posts");
+    // console.log("Got posts: " + localPosts);
+    
+    localPosts.forEach(postData => {
+        createNewPost(postData.post_id, postData.title, postData.poster, postData.description);
+    });
 }
