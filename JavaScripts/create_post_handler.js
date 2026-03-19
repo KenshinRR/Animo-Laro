@@ -1,11 +1,11 @@
-import DataBaseManager from '../Contoller/DatabaseManager.js';
+import DataBaseManager from '../Contoller/DatabaseManager.js'
 
 // Declaration of elements
 const back_button = document.getElementById("back_button");
 
 back_button.addEventListener("click", () => window.location.href="/Pages/main_feed.html")
 
-document.getElementById("post_form").addEventListener("submit", function(event) {
+document.getElementById("post_form").addEventListener("submit", async function(event) {
   event.preventDefault(); // prevent page reload
 
   const title_input = document.getElementById("input_title");
@@ -34,17 +34,17 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
   // Get the poster username from storage
   var currentUserData = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUserData) currentUserData = JSON.parse(sessionStorage.getItem("currentUser"));
-  var poster = currentUserData.username;
+  var poster = currentUserData.user.username;
 
-  SaveToDatabase();
-
-  // Optional: clear inputs
+  await SaveToDatabase(title, poster, desc, linkValue);
+  
+  // Clear inputs
   document.getElementById("input_title").value = "";
   document.getElementById("input_desc").value = "";
   document.getElementById("input_link").value = "";
-
-  console.log("Succesfuly made");
   
+  console.log("Succesfuly made");
+
   // Switch back to main feed
   window.location.href="/Pages/main_feed.html"
 });
@@ -68,13 +68,13 @@ function CheckValidURL(string){
   }
 }
 
-function SaveToDatabase()
+async function SaveToDatabase(title, poster, desc, linkValue)
 {
   // Retrieve existing list from localStorage (or start with empty array)
   let savedPosts= JSON.parse(localStorage.getItem("posts")) || [];
 
   // Add new values as an object (or array, depending on your preference)
-  DataBaseManager.addPost(
+  await DataBaseManager.addPost(
     {
         "title": title,
         "poster": poster,
@@ -83,7 +83,4 @@ function SaveToDatabase()
         "link" : linkValue
     }
   );
-
-  // Save back to localStorage
-  localStorage.setItem("posts", JSON.stringify(savedPosts));
 }

@@ -2,9 +2,6 @@
 // import { MongoClient } from "mongodb";
 import User from '../Schemas/User.js';
 
-
-
-
 export async function getAllUsers(){
   const all_user = await User.find();
   return all_user;

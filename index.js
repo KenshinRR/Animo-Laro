@@ -23,8 +23,6 @@ async function connectToMongo(){
 
 await connectToMongo();
 
-//await Initiliaze_DB_Manager();
-
 // Express Setup
 const app = express();
 const PORT = process.env.SERVER_PORT;
@@ -46,8 +44,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
-
-
-
-
-

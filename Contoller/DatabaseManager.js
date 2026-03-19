@@ -1,47 +1,50 @@
 class DatabaseManager {
-  static instance;
 
-  constructor() {
-    if (DatabaseManager.instance) {
-      return DatabaseManager.instance;
+  async getAllPosts(){
+    var posts = null;
+
+    try {
+      const res = await fetch('/api/posts');
+      posts = await res.json();
+      console.log("Successfully loaded posts:", posts);
+    } catch (err) {
+      console.error("Failed to load posts:", err);
     }
-    DatabaseManager.instance = this;
-  }
-  // added
- 
 
-  setData(users, posts){
-    this.users = users;
-    this.posts = posts;
-    console.log("Successfuly loaded the data");
-  }
-
-  getAllPosts(){
-    return this.posts;
+    return posts;
   }
 
   getAllUser(){
     return this.users;
   }
 
-  addPost(post){
-    this.posts.push(post);
-
+  async addPost(post){
+    var title = post.title;
+    var poster = post.poster;
+    var description = post.description;
+    var likes = post.likes;
+    var link = post.link;
+    
     fetch('/api/create_post',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title, poster, description, likes, link})
     })
-    .then(response => response.json())
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to add!");
+      }
+    })
     .then(data => {
       console.log("Server response:", data);
     })
-    .catch(error => {
-      console.error("Error:", error);
+    .catch(err => {
+      console.error("Error:", err);
     });
   }
 }
 
 const DBManager = new DatabaseManager();
-
 export default DBManager;
