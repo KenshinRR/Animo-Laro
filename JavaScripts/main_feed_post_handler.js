@@ -114,22 +114,10 @@ function updatePostDisplay(postContainer) {
     else if (postData.userVote === "dislike") dislikeBtn.classList.add("vote_active_dislike");
 }
 
-console.log("Getting posts");
-// added
-var localPosts = await DatabaseManager.getAllPosts();
+const posts = await DatabaseManager.getAllPosts();
 
-localPosts.forEach(postData => {
-    createNewPost(
-        postData._id || postData.post_id,  // _id from MongoDB
-        postData.title,
-        postData.poster,
-        postData.description
-    );
-});
+if (posts) {
+    posts.forEach(post => createNewPost(post));
+}
 
 attachEditPopup();
-
-// Call it once the DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-    loadPosts();
-});
