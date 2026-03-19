@@ -25,20 +25,24 @@ class DatabaseManager {
     var likes = post.likes;
     var link = post.link;
     
-    const response = await fetch('/api/create_post',{
+    fetch('/api/create_post',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title, poster, description, likes, link})
     })
-    .then(response => response.json())
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to add!");
+      }
+    })
     .then(data => {
       console.log("Server response:", data);
     })
-    .catch(error => {
-      console.error("Error:", error);
+    .catch(err => {
+      console.error("Error:", err);
     });
-
-    return response;
   }
 }
 

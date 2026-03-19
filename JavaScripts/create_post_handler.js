@@ -45,6 +45,8 @@ document.getElementById("post_form").addEventListener("submit", async function(e
   
   console.log("Succesfuly made");
 
+  // Switch back to main feed
+  window.location.href="/Pages/main_feed.html"
 });
 
 function CheckValidURL(string){
