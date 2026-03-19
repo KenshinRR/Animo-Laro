@@ -43,7 +43,7 @@ document.getElementById("post_form").addEventListener("submit", async function(e
   document.getElementById("input_desc").value = "";
   document.getElementById("input_link").value = "";
   
-  console.log("Succesfuly made");
+  alert("Successfuly added post!");
 
   // Switch back to main feed
   window.location.href="/Pages/main_feed.html"
