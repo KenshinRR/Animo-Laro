@@ -57,7 +57,7 @@ async function toggleEditDeleteButtons() {
     const current_post = await DatabaseManager.getPostById(popup.dataset.post_id);
     var curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
     if (!curr_user) curr_user = JSON.parse(localStorage.getItem("currentUser"));
-    console.log("Current user: " + curr_user.user._id);
+    // console.log("Current user: " + curr_user.user._id);
 
     if (curr_user && current_post && curr_user.user.username === current_post.poster) { // Change this in the future to check for _id instead
         popup_edit_button.style.display = "flex";

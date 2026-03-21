@@ -1,3 +1,5 @@
+import DataBaseManager from '../Contoller/DatabaseManager.js'
+
 // Back Button
 const back_button = document.getElementById("back_button");
 back_button.addEventListener("click", () => window.location.href="/Pages/main_feed.html")
@@ -7,12 +9,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id'); 
 
 // Getting the post data from Database
-const posts_data = JSON.parse(localStorage.getItem("posts"));
-const current_post_data = posts_data.find(post => post.post_id == postId);
+const current_post_data = await DataBaseManager.getPostById(postId);
 
 // Verifying if user can edit the post
-const curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
-if (curr_user.username != current_post_data.poster) // change this in the future to check for IDs instead of names
+var curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
+if (!curr_user) curr_user = JSON.parse(localStorage.getItem("currentUser"));
+if (curr_user.user.username != current_post_data.poster) // change this in the future to check for IDs instead of names
 {
     alert("You cannot edit this post!");
     window.location.href="/Pages/main_feed.html";
