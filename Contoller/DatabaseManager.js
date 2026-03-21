@@ -6,7 +6,7 @@ class DatabaseManager {
     try {
       const res = await fetch('/api/posts');
       posts = await res.json();
-      console.log("Successfully loaded posts:", posts);
+      // console.log("Successfully loaded posts:", posts);
     } catch (err) {
       console.error("Failed to load posts:", err);
     }
@@ -23,7 +23,7 @@ class DatabaseManager {
     try{
       const res = await fetch('/api/posts/'+id);
       post_to_return = await res.json();
-      console.log("Successfully gotten specific post: " + post_to_return.title);
+      // console.log("Successfully gotten specific post: " + post_to_return.title);
     }
     catch (err) {
       console.error("Failed to load post:", err);
@@ -51,8 +51,46 @@ class DatabaseManager {
         alert("Post failed to add!");
       }
     })
-    .then(data => {
-      console.log("Server response:", data);
+    .catch(err => {
+      console.error("Error:", err);
+    });
+  }
+
+  async editPost(id, post) {
+    var title = post.title;
+    var description = post.description;
+    var link = post.link;
+
+    await fetch('/api/edit_post/' + id,{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"id": id, "post_data": {title, description, link}})
+    })
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to edit!");
+      }
+    })
+    .catch(err => {
+      console.error("Error:", err);
+    });
+  }
+
+  async deletePostByID(_id) {
+
+    fetch('/api/delete_post/' + _id,{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: _id})
+    })
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to add!");
+      }
     })
     .catch(err => {
       console.error("Error:", err);
