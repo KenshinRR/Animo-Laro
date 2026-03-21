@@ -52,11 +52,14 @@ popup_edit_button.addEventListener("click", () => {
 popup_delete_button.addEventListener("click", deletePost);
 
 async function toggleEditDeleteButtons() {
-    const posts = await DatabaseManager.getAllPosts();
-    const current_post = posts.find(p => p._id === popup.dataset.post_id);
-    const curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
+    // const posts = await DatabaseManager.getAllPosts();
+    // const current_post = posts.find(p => p._id == popup.dataset.post_id);
+    const current_post = await DatabaseManager.getPostById(popup.dataset.post_id);
+    var curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (!curr_user) curr_user = JSON.parse(localStorage.getItem("currentUser"));
+    console.log("Current user: " + curr_user.user._id);
 
-    if (curr_user && current_post && curr_user.username === current_post.poster) {
+    if (curr_user && current_post && curr_user.user.username === current_post.poster) { // Change this in the future to check for _id instead
         popup_edit_button.style.display = "flex";
         popup_delete_button.style.display = "flex";
     } else {
