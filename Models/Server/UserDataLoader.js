@@ -15,7 +15,7 @@ export async function getUser(username, password) {
 
 export async function getUserUseUsername(username) {
   const user = await User.findOne({ username});
-  console.log("Looking for user:", { username}); // logs both
+  console.log("Looking for user with only username:", { username}); // logs both
   return user;
 }
 
@@ -33,4 +33,25 @@ export async function createUser(username, password) {
 
   await newUser.save();
   return newUser;
+}
+
+export async function updateUserProfile(username, newUsername, bio, avatar, password) {
+  const updateFields = {
+    username: newUsername,
+    bio,
+    avatar
+  };
+
+  if (password && password.trim() !== "") {
+    // optionally hash it here if you want secure storage
+    updateFields.password = password;
+  }
+
+  const updatedUser = await User.findOneAndUpdate(
+    { username },
+    updateFields,
+    { new: true }
+  );
+
+  return updatedUser;
 }
