@@ -45,3 +45,16 @@ export async function getSpecificPost(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+
+export async function editPost(req, res) {
+  try {
+    const post_status = await postDB.editPost(req.body.id, req.body.post_data);
+
+    res.status(201).json(post_status);
+  }
+  catch (err) {
+    console.error("Error fetching post:", err);
+    res.status(500).json({ error: err.message });
+  }
+}

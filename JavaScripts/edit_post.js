@@ -23,25 +23,29 @@ if (curr_user.user.username != current_post_data.poster) // change this in the f
 // Initialize document elements
 const title_input = document.getElementById("input_title");
 const desc_input = document.getElementById("input_desc");
+const link_input = document.getElementById("input_link");
 
 // Getting the current data
 var curr_title = current_post_data.title;
 var curr_desc = current_post_data.description;
+var curr_link = current_post_data.link;
 
 // Setting the current data
 title_input.value = curr_title;
 desc_input.value = curr_desc;
+link_input.value = curr_link;
 
 // Getting Data from form
-document.getElementById("post_form").addEventListener("submit", function(event) {
+document.getElementById("post_form").addEventListener("submit", async function(event) {
     event.preventDefault(); // prevent page reload
 
     // Get values from inputs
-    const desc = desc_input.value;
-    const title = title_input.value;
+    const new_desc = desc_input.value;
+    const new_title = title_input.value;
+    const new_link = link_input.value;
 
     // Check if either are empty
-    if (!title || !desc) {
+    if (!new_title || !new_desc) {
         event.preventDefault(); // stop form submission
         alert("Title and description are required!");
         title_input.value = curr_title;
@@ -49,21 +53,15 @@ document.getElementById("post_form").addEventListener("submit", function(event) 
         return;
     }
 
-    // Retrieve existing list from localStorage (or start with empty array)
-    let savedPosts= JSON.parse(localStorage.getItem("posts")) || [];
-
-    // Getting the index of the post to be edited
-    const post_index = savedPosts.findIndex(p => p.post_id == urlParams.get('id'));
-
-    // Updating the values in post
-    if (post_index != -1)
-    {
-        savedPosts[post_index].title = title_input.value;
-        savedPosts[post_index].description = desc_input.value;
-    }
-
-    // Save back to localStorage
-    localStorage.setItem("posts", JSON.stringify(savedPosts));
+    // Saving the editted data to database
+    await DataBaseManager.editPost(
+        postId, 
+        {
+            title: new_title,
+            description: new_desc,
+            link: new_link
+        }
+    );
     
     alert("Post Successfully Edited!");
 
