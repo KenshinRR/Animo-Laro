@@ -31,8 +31,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Serve all static files (HTML, JS, CSS, images) from the project folder
-app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.static(__dirname))
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 app.use("/api",userRoutes);
 app.use("/api",postRoutes);

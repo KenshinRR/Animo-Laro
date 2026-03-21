@@ -1,4 +1,4 @@
-import { getUser ,createUser,getUserUseUsername} from "../Models/Server/UserDataLoader.js"
+import { getUser ,createUser,getUserUseUsername,updateUserProfile} from "../Models/Server/UserDataLoader.js"
 
 
 // register/create
@@ -51,5 +51,29 @@ export async function getProfile(req, res) {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
+    }
+}
+
+export async function updateProfile(req, res) {
+    try {
+        const { username, newUsername, bio, avatar, password } = req.body;
+
+        const updatedUser = await updateUserProfile(
+            username,
+            newUsername,
+            bio,
+            avatar,
+            password 
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.json(updatedUser);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Update failed" });
     }
 }
