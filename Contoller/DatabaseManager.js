@@ -51,9 +51,6 @@ class DatabaseManager {
         alert("Post failed to add!");
       }
     })
-    .then(data => {
-      console.log("Server response:", data);
-    })
     .catch(err => {
       console.error("Error:", err);
     });
@@ -76,8 +73,24 @@ class DatabaseManager {
         alert("Post failed to edit!");
       }
     })
-    .then(data => {
-      console.log("Server response:", data);
+    .catch(err => {
+      console.error("Error:", err);
+    });
+  }
+
+  async deletePostByID(_id) {
+
+    fetch('/api/delete_post/' + _id,{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: _id})
+    })
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to add!");
+      }
     })
     .catch(err => {
       console.error("Error:", err);

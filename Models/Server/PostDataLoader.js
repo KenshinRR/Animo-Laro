@@ -22,3 +22,9 @@ export async function editPost(id, post_data){
   const post_status = await Post.findByIdAndUpdate(id, post_data);
   return post_status;
 }
+
+export async function deletePostByID(id){
+
+  const post_status = await Post.findByIdAndDelete(id);
+  return post_status;    
+}

@@ -69,13 +69,15 @@ async function toggleEditDeleteButtons() {
 }
 
 async function deletePost() {
-    const posts = await DatabaseManager.getAllPosts();
-    const current_post = posts.find(p => p._id === popup.dataset.post_id);
-    const curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
+    const current_post = await DatabaseManager.getPostById(popup.dataset.post_id);
+    var curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (!curr_user) curr_user = JSON.parse(localStorage.getItem("currentUser"));
 
-    if (current_post && curr_user && current_post.poster === curr_user.username) {
+    if (current_post && curr_user && current_post.poster === curr_user.user.username) { //change this to check for user id instead
         alert(`Deleting post "${current_post.title}"!`);
-        // TODO: call backend API to delete post in DB
+        await DatabaseManager.deletePostByID(popup.dataset.post_id);
+        // Refresh page
+        window.location.href="/Pages/main_feed.html"
     } else {
         alert("Cannot delete this post. You are not the original poster.");
     }
