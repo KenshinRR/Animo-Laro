@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import session from "express-session"
 
 //import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
 import 'dotenv/config';
@@ -34,6 +35,16 @@ const __dirname = path.dirname(__filename);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.static(__dirname))
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie:{
+    httpOnly: true,
+    secure: false,
+  }
+}))
 
 app.use("/api",userRoutes);
 app.use("/api",postRoutes);
