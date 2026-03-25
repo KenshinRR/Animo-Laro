@@ -20,19 +20,23 @@ export async function getUserUseUsername(username) {
 }
 
 export async function createUser(username, password) {
-  const existingUser = await User.findOne({ username });
-  if(existingUser) return null;
+  try{
+    const newUser = new User({
+        username,
+        password,
+        bio: 'Add a bio...',
+        avatar: 'default_avatar'
+    });
 
-  const newUser = new User({
-      user_id: crypto.randomUUID(), // generate a random id
-      username,
-      password,
-      bio: 'Add a bio...',
-      avatar: 'default_avatar'
-  });
-
-  await newUser.save();
-  return newUser;
+    await newUser.save();
+    return newUser;
+  }
+  catch (err){
+    if(err.code === 11000){ // 11000 duplicate value 
+      return null;
+    }
+    throw err;
+  }
 }
 
 export async function updateUserProfile(username, newUsername, bio, avatar, password) {
