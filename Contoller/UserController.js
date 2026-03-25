@@ -1,9 +1,6 @@
 import { getUser ,createUser,getUserUseUsername,updateUserProfile} from "../Models/Server/UserDataLoader.js"
 
-
 // register/create
-
-
 export async function registerUser(req, res) {
     try {
         const { username, password } = req.body;
@@ -23,18 +20,40 @@ export async function registerUser(req, res) {
 // login
 export async function loginUser(req, res) {
     try {
-        const { username, password } = req.body;
-        const user = await getUser(username, password);
+        const { username, password, remember_me } = req.body;
+        const user = await getUser(username, password, remember_me);
 
         if (!user) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
+
+        if(remember_me){
+            // 30 days
+            req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
+        }
+        else{
+            req.session.cookie.expires = false;
+        }
+
+        req.session.user = {
+            username:user.username,
+            bio:user.bio,
+            avatar:user.avatar
+        };
 
         res.json({ message: 'Login successful!', user });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
     }
+}
+
+export async function logoutUser(req, res) {
+    req.session.destroy(err => {
+        if (err) return res.status(500).json({ error: 'Logout failed' });
+        res.clearCookie('connect.sid');
+        res.json({ message: 'Logged out' });
+    });
 }
 
 // get profile by username
@@ -76,4 +95,12 @@ export async function updateProfile(req, res) {
         console.error(err);
         res.status(500).json({ error: "Update failed" });
     }
+}
+
+export async function getCurrentUser(req, res){ 
+    if(!req.session.user){
+        return res.status(401).json({error: "Not logged in."})
+    }   
+
+    res.json({user: req.session.user});
 }
