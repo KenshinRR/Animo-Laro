@@ -1,3 +1,4 @@
+import User from "../Models/Schemas/User.js";
 import { getUser ,createUser,getUserUseUsername,updateUserProfile} from "../Models/Server/UserDataLoader.js"
 
 // register/create
@@ -21,11 +22,13 @@ export async function registerUser(req, res) {
 export async function loginUser(req, res) {
     try {
         const { username, password, remember_me } = req.body;
-        const user = await getUser(username, password, remember_me);
-
-        if (!user) {
+       
+        const user = await User.findOne({ username });
+        const passMatch = await user.comparePassword(password);
+        if (!user || !passMatch) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
+
 
         if(remember_me){
             // 30 days
@@ -41,15 +44,6 @@ export async function loginUser(req, res) {
             bio:user.bio,
             avatar:user.avatar
         };
-
-        // req.session.save(err => {
-        //     if (err) {
-        //         console.error("Session save error:", err);
-        //         return res.status(500).json({ error: "Session save failed" });
-        //     }
-        //     console.log("Session saved to MongoDB!");
-        //     res.json({ message: 'Login successful!', user });
-        // });
 
         res.json({ message: 'Login successful!', user });
     } catch (err) {
