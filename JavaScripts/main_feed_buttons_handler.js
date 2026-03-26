@@ -29,25 +29,27 @@ for (let i = 0; i < poster_clickable_elements.length; i++)
     poster_clickable_elements[i].addEventListener("click", ViewSpecificPoster);
 }
 
+checkCurrentUser();
+
 // Current user logged in
-var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+// var currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-// if empty check in the session log
-if (!currentUser) currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+// // if empty check in the session log
+// if (!currentUser) currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
 
-// If user logs in already, hide the login button
-if (currentUser) 
-{
-    login_button.style.display = "none";
-    profile_icon_button.style.display = "block";
-    create_post_button.style.display = "block";
-}
-else
-{
-    login_button.style.display = "block";
-    profile_icon_button.style.display = "none";
-    create_post_button.style.display = "none";
-}
+// // If user logs in already, hide the login button
+// if (currentUser) 
+// {
+//     login_button.style.display = "none";
+//     profile_icon_button.style.display = "block";
+//     create_post_button.style.display = "block";
+// }
+// else
+// {
+//     login_button.style.display = "block";
+//     profile_icon_button.style.display = "none";
+//     create_post_button.style.display = "none";
+// }
 
 // Toggling of left bar
 var left_bar_toggled = false;
@@ -68,11 +70,16 @@ function ToggleLeftBar()
 }
 
 // On log out
-function OnLogOutUser()
+async function OnLogOutUser()
 {
-    localStorage.removeItem("currentUser");
-    sessionStorage.removeItem("currentUser");
-
+    // localStorage.removeItem("currentUser");
+    // sessionStorage.removeItem("currentUser");
+    try {
+        await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+    } catch (err) {
+        console.error("Error logging out:", err);
+    }
+    
     window.location.href="/Pages/login_page.html";
 }
 
@@ -93,4 +100,35 @@ function ViewSpecificPostPage(e)
 function ViewSpecificPoster(e)
 {
     // To be implemented
+}
+
+async function checkCurrentUser() {
+    try {
+        const res = await fetch('/api/me');
+        if (!res.ok) {
+            login_button.style.display = "block";
+            profile_icon_button.style.display = "none";
+            create_post_button.style.display = "none";
+            return;
+        }
+        const data = await res.json();
+        if(!data){
+            window.location.href = "/Pages/login_page.html";
+            return;
+        }
+
+        const currentUser = data.user;
+
+        login_button.style.display = "none";
+        profile_icon_button.style.display = "block";
+        create_post_button.style.display = "block";
+
+        console.log("Logged in as:", data.user.username);
+
+    } catch (err) {
+        console.error("Error checking current user:", err);
+        login_button.style.display = "block";
+        profile_icon_button.style.display = "none";
+        create_post_button.style.display = "none";
+    }
 }

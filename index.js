@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import session from "express-session"
+import MongoStore from "connect-mongo"
 
 //import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
 import 'dotenv/config';
@@ -35,6 +37,25 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.static(__dirname))
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  path: "/",
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    dbName: "AnimoLaroDB",
+    collectionName: "Sessions",
+    ttl: 24 * 60 * 60,
+    autoRemove: "native"
+  }),
+  cookie:{
+    httpOnly: true,
+    secure: false,
+    // maxAge: 30 * 24 * 60 * 60 * 1000
+  }
+}))
+
 app.use("/api",userRoutes);
 app.use("/api",postRoutes);
 
@@ -42,6 +63,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// app.listen(PORT, () => {
-//   console.log(`Server running at http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
