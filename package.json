@@ -20,6 +20,7 @@
   "homepage": "https://github.com/KenshinRR/Animo-Taro#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",

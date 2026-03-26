@@ -112,13 +112,18 @@ async function checkCurrentUser() {
             return;
         }
         const data = await res.json();
+        if(!data){
+            window.location.href = "/Pages/login_page.html";
+            return;
+        }
+
         const currentUser = data.user;
 
         login_button.style.display = "none";
         profile_icon_button.style.display = "block";
         create_post_button.style.display = "block";
 
-        console.log("Logged in as:", currentUser.username);
+        console.log("Logged in as:", data.user.username);
 
     } catch (err) {
         console.error("Error checking current user:", err);

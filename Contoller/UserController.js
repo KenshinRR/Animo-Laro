@@ -32,7 +32,8 @@ export async function loginUser(req, res) {
             req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
         }
         else{
-            req.session.cookie.expires = false;
+            // req.session.cookie.expires = undefined;
+            req.session.cookie.maxAge = undefined;
         }
 
         req.session.user = {
@@ -40,6 +41,15 @@ export async function loginUser(req, res) {
             bio:user.bio,
             avatar:user.avatar
         };
+
+        // req.session.save(err => {
+        //     if (err) {
+        //         console.error("Session save error:", err);
+        //         return res.status(500).json({ error: "Session save failed" });
+        //     }
+        //     console.log("Session saved to MongoDB!");
+        //     res.json({ message: 'Login successful!', user });
+        // });
 
         res.json({ message: 'Login successful!', user });
     } catch (err) {

@@ -3,6 +3,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import session from "express-session"
+import MongoStore from "connect-mongo"
 
 //import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
 import 'dotenv/config';
@@ -40,9 +41,17 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    dbName: "AnimoLaroDB",
+    collectionName: "Sessions",
+    ttl: 24 * 60 * 60,
+    autoRemove: "native"
+  }),
   cookie:{
     httpOnly: true,
     secure: false,
+    // maxAge: 30 * 24 * 60 * 60 * 1000
   }
 }))
 
