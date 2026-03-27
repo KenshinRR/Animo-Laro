@@ -72,8 +72,6 @@ function ToggleLeftBar()
 // On log out
 async function OnLogOutUser()
 {
-    // localStorage.removeItem("currentUser");
-    // sessionStorage.removeItem("currentUser");
     try {
         await fetch('https://animo-laro.onrender.com/api/logout', { method: 'POST', credentials: 'include' });
     } catch (err) {
