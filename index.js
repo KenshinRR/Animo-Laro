@@ -39,7 +39,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 const allowedOrigins = [
   "http://localhost:3000",              // local dev
   "https://kenshinrr.github.io",         // GitHub Pages frontend
-  "https://animo-laro-mngd.onrender.com/"
+  "https://animo-laro-mngd.onrender.com"
 ];
 
 app.use(cors({

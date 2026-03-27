@@ -17,7 +17,7 @@ app.use("/api", itemsRoutes);
 const allowedOrigins = [
   "http://localhost:3000",              // local dev
   "https://kenshinrr.github.io",         // GitHub Pages frontend
-  "https://animo-laro-mngd.onrender.com/"
+  "https://animo-laro-mngd.onrender.com"
 ];
 
 app.use(cors({
