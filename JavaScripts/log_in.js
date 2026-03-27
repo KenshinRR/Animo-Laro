@@ -34,7 +34,14 @@ login_form.addEventListener("submit", function (event) {
 });
 
 function checkCurrentUser() {
-  fetch("https://animo-laro.onrender.com/api/me", { credentials: "include" })
+  fetch("https://animo-laro.onrender.com/api/me",  { 
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`,   // if using JWT
+      "Content-Type": "application/json"
+    },
+    credentials: "include" 
+  })
     .then((res) => {
       if (!res.ok) {
         throw new Error("Not logged in.");

@@ -102,7 +102,14 @@ function ViewSpecificPoster(e)
 
 async function checkCurrentUser() {
     try {
-        const res = await fetch('https://animo-laro.onrender.com/api/me', {credentials: 'include'});
+        const res = await fetch('https://animo-laro.onrender.com/api/me', {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,   // if using JWT
+                "Content-Type": "application/json"
+            },
+            credentials: 'include'
+        });
         if (!res.ok) {
             login_button.style.display = "block";
             profile_icon_button.style.display = "none";
