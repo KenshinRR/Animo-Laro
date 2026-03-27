@@ -36,6 +36,11 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.static(__dirname))
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
+const allowedOrigins = [
+  "http://localhost:3000",              // local dev
+  "https://kenshinrr.github.io"         // GitHub Pages frontend
+];
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -66,11 +71,6 @@ app.use(session({
     // maxAge: 30 * 24 * 60 * 60 * 1000
   }
 }))
-
-const allowedOrigins = [
-  "http://localhost:3000",              // local dev
-  "https://kenshinrr.github.io"         // GitHub Pages frontend
-];
 
 app.use("/api",userRoutes);
 app.use("/api",postRoutes);
