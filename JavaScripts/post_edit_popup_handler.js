@@ -42,11 +42,11 @@ const popup_edit_button = document.getElementById("popup_edit");
 const popup_delete_button = document.getElementById("popup_delete");
 
 popup_view_button.addEventListener("click", () => {
-    window.location.href = `/Pages/view_post_page.html?id=${popup.dataset.post_id}`;
+    window.location.href = `/Animo-Laro/Pages/view_post_page.html?id=${popup.dataset.post_id}`;
 });
 
 popup_edit_button.addEventListener("click", () => {
-    window.location.href = `/Pages/edit_post_page.html?id=${popup.dataset.post_id}`;
+    window.location.href = `/Animo-Laro/Pages/edit_post_page.html?id=${popup.dataset.post_id}`;
 });
 
 popup_delete_button.addEventListener("click", deletePost);
