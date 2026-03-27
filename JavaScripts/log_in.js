@@ -18,7 +18,7 @@ const login_form = document.getElementById('log_in');
         return;
     }
 
-    fetch('/api/login',{
+    fetch('/Animo-Laro/api/login',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username, password, remember_me})
@@ -35,7 +35,7 @@ const login_form = document.getElementById('log_in');
 
 
 function checkCurrentUser(){
-    fetch('/api/me')
+    fetch('/Animo-Laro/api/me')
     .then(res => {
         if(!res.ok){
             throw new Error('Not logged in.');

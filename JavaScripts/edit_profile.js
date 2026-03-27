@@ -75,7 +75,7 @@ saveButton.addEventListener("click", async function () {
     avatar: profileImage.dataset.newAvatar || profileImage.src
 };
     try {
-        const res = await fetch("/api/updateProfile", {
+        const res = await fetch("/Animo-Laro/api/updateProfile", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

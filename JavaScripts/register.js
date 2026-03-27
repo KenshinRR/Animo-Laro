@@ -17,7 +17,7 @@ register_form.addEventListener('submit', function(event) {
         return;
     }
 
-    fetch('/api/register',{
+    fetch('/Animo-Laro/api/register',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify ({username, password})
@@ -33,7 +33,7 @@ register_form.addEventListener('submit', function(event) {
 // if on remember me, skip log in page
 async function checkCurrentUser(){
     try {
-        const res = await fetch('/api/me');
+        const res = await fetch('/Animo-Laro/api/me');
         if (res.ok) {
             window.location.href = 'main_feed.html';
         }

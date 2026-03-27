@@ -75,7 +75,7 @@ async function OnLogOutUser()
     // localStorage.removeItem("currentUser");
     // sessionStorage.removeItem("currentUser");
     try {
-        await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+        await fetch('/Animo-Laro/api/logout', { method: 'POST', credentials: 'include' });
     } catch (err) {
         console.error("Error logging out:", err);
     }
@@ -104,7 +104,7 @@ function ViewSpecificPoster(e)
 
 async function checkCurrentUser() {
     try {
-        const res = await fetch('/api/me');
+        const res = await fetch('/Animo-Laro/api/me');
         if (!res.ok) {
             login_button.style.display = "block";
             profile_icon_button.style.display = "none";
