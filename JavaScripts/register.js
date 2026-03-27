@@ -9,23 +9,21 @@ register_form.addEventListener("submit", function (event) {
   // prevents page reloading on submit
   event.preventDefault();
 
-  console.log("test");
+  let hasErrors = false;
 
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  if (!username) {
-    userErrorMSG.textContent = "Please fill in the field.";
-    return;
-  }
-
-  if (!password) {
-    passErrorMSG.textContent = "Please fill in the field.";
-    return;
+  if (!username || username.length < 3 || username.length > 15) {
+    userErrorMSG.textContent = "Username must be 3–15 characters.";
+    hasErrors = true;
   }
 
   if (password.length < 8) {
     errorMSG.textContent = "Password must at least contain 8 characters.";
+    hasErrors = true;
+  }
+  if (hasErrors) {
     return;
   }
 

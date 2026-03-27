@@ -7,8 +7,8 @@ export async function registerUser(req, res) {
         const { username, password } = req.body;
         
         const errors = [];
-        // back up check
-
+        
+        // back-end check
         if (!username || username.length < 3 || username.length > 15) {
             errors.username = 'Username must be 3–15 characters.';
         }
