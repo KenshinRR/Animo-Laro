@@ -1,6 +1,7 @@
 checkCurrentUser();
 
-let errorMSG = document.getElementById("error-msg");
+let userErrorMSG = document.getElementById("user-error-msg");
+let passErrorMSG = document.getElementById("pass-error-msg");
 
 const register_form = document.getElementById("register_form");
 
@@ -8,19 +9,23 @@ register_form.addEventListener("submit", function (event) {
   // prevents page reloading on submit
   event.preventDefault();
 
-  console.log('test');
+  console.log("test");
 
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  if (!username || !password) {
-    errorMSG.textContent = "Please fill in all fields.";
+  if (!username) {
+    userErrorMSG.textContent = "Please fill in the field.";
     return;
   }
 
-  if (!isStrongPassword(password)) {
-    errorMSG.textContent =
-      "Password must be at least contain 8 characters, an uppercase letter, a number, and a special character.";
+  if (!password) {
+    passErrorMSG.textContent = "Please fill in the field.";
+    return;
+  }
+
+  if (password.length < 8) {
+    errorMSG.textContent = "Password must at least contain 8 characters.";
     return;
   }
 
@@ -31,23 +36,21 @@ register_form.addEventListener("submit", function (event) {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.error) {
-        errorMSG.textContent = data.error;
+      if (data.errors) {
+        if (data.errors.username) {
+          userErrorMSG.textContent = data.errors.username;
+        }
+
+        if (data.errors.password) {
+          passErrorMSG.textContent = data.errors.password;
+        }
+
         return;
       }
       window.location.href = "login_page.html";
     })
     .catch((err) => console.error("Register error:", err));
 });
-
-function isStrongPassword(password) {
-  const hasUppercase = /[A-Z]/.test(password);
-  const hasNumber = /\d/.test(password);
-  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-  const hasMinLength = password.length >= 8;
-
-  return hasUppercase && hasNumber && hasSpecialChar && hasMinLength;
-}
 
 // if on remember me, skip log in page
 async function checkCurrentUser() {

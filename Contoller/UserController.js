@@ -5,10 +5,28 @@ import { getUser ,createUser,getUserUseUsername,updateUserProfile} from "../Mode
 export async function registerUser(req, res) {
     try {
         const { username, password } = req.body;
+        
+        const errors = [];
+        // back up check
+
+        if (!username || username.length < 3 || username.length > 15) {
+            errors.username = 'Username must be 3–15 characters.';
+        }
+
+        const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+
+        if (!strongPasswordRegex.test(password)) {
+            errors.password = 'Password must at least contain 8 characters, include an uppercase letter, a number, and a special character.';
+        }
+
+        if (Object.keys(errors).length > 0) {
+            return res.status(400).json({ errors });
+        }
+
         const newUser = await createUser(username, password);
 
         if (!newUser) {
-            return res.status(400).json({ error: 'Username already exists' });
+            return res.status(400).json({ error: {username: 'Username already exists'}});
         }
 
         res.json({ message: 'Registered Successfully!', user: newUser });
@@ -32,7 +50,6 @@ export async function loginUser(req, res) {
         if (!passMatch) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
-
 
         if(remember_me){
             // 30 days
