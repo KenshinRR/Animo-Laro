@@ -4,7 +4,7 @@ class DatabaseManager {
     var posts = null;
 
     try {
-      const res = await fetch('/Animo-Laro/api/posts');
+      const res = await fetch('https://animo-laro.onrender.com/api/posts');
       posts = await res.json();
       // console.log("Successfully loaded posts:", posts);
     } catch (err) {
@@ -21,7 +21,7 @@ class DatabaseManager {
   async getPostById(id) {
     var post_to_return = null;
     try{
-      const res = await fetch('/Animo-Laro/api/posts/'+id);
+      const res = await fetch('https://animo-laro.onrender.com/api/posts/'+id);
       post_to_return = await res.json();
       // console.log("Successfully gotten specific post: " + post_to_return.title);
     }
@@ -39,7 +39,7 @@ class DatabaseManager {
     var likes = post.likes;
     var link = post.link;
     
-    fetch('/Animo-Laro/api/create_post',{
+    fetch('https://animo-laro.onrender.com/api/create_post',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title, poster, description, likes, link})
@@ -61,7 +61,7 @@ class DatabaseManager {
     var description = post.description;
     var link = post.link;
 
-    await fetch('/Animo-Laro/api/edit_post/' + id,{
+    await fetch('https://animo-laro.onrender.com/api/edit_post/' + id,{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({"id": id, "post_data": {title, description, link}})
@@ -80,7 +80,7 @@ class DatabaseManager {
 
   async deletePostByID(_id) {
 
-    fetch('/Animo-Laro/api/delete_post/' + _id,{
+    fetch('https://animo-laro.onrender.com/api/delete_post/' + _id,{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({id: _id})
