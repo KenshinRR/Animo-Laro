@@ -32,9 +32,13 @@ document.getElementById("post_form").addEventListener("submit", async function(e
   }
 
   // Get the poster username from storage
-  var currentUserData = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUserData) currentUserData = JSON.parse(sessionStorage.getItem("currentUser"));
-  var poster = currentUserData.user.username;
+  var currentUserData = await DataBaseManager.getCurrentUser();
+  if (!currentUserData)
+  {
+    alert("Not logged in!");
+    return;
+  }
+  var poster = currentUserData.username;
 
   await SaveToDatabase(title, poster, desc, linkValue);
   
