@@ -16,13 +16,12 @@
       <section class="box">
         <h1 class="par">Create a new account</h1>
         <div>
-          <form class="form_box" id="register_form">
+          <form class="form_box" id="register_form" novalidate>
             <input
               class="inputText"
               type="text"
               placeholder="Username"
               id="username"
-              required
               autocomplete="off"
             />
             <input
@@ -30,7 +29,6 @@
               type="password"
               placeholder="Password"
               id="password"
-              required
               autocomplete="off"
             />
             <p class="error-msg" id="error-msg"></p>
