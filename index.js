@@ -56,7 +56,6 @@ app.use(session({
   secret: process.env.SESSION_SECRET || "jdoiajoiejroeiwj",
   resave: false,
   saveUninitialized: false,
-  path: "/",
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
     dbName: "AnimoLaroDB",
@@ -67,7 +66,8 @@ app.use(session({
   cookie:{
     httpOnly: true,
     secure: true,
-    sameSite: "none"
+    sameSite: "none",
+    path: "/"
     // maxAge: 30 * 24 * 60 * 60 * 1000
   }
 }))
