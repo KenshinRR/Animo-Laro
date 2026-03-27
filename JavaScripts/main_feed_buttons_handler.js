@@ -104,7 +104,7 @@ function ViewSpecificPoster(e)
 
 async function checkCurrentUser() {
     try {
-        const res = await fetch('https://animo-laro.onrender.com/api/me');
+        const res = await fetch('https://animo-laro.onrender.com/api/me', {credentials: 'include'});
         if (!res.ok) {
             login_button.style.display = "block";
             profile_icon_button.style.display = "none";

@@ -33,7 +33,7 @@ register_form.addEventListener('submit', function(event) {
 // if on remember me, skip log in page
 async function checkCurrentUser(){
     try {
-        const res = await fetch('https://animo-laro.onrender.com/api/me');
+        const res = await fetch('https://animo-laro.onrender.com/api/me', {credentials: 'include'});
         if (res.ok) {
             window.location.href = 'main_feed.html';
         }

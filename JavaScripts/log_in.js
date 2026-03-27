@@ -35,7 +35,7 @@ const login_form = document.getElementById('log_in');
 
 
 function checkCurrentUser(){
-    fetch('https://animo-laro.onrender.com/api/me')
+    fetch('https://animo-laro.onrender.com/api/me', {credentials: 'include'})
     .then(res => {
         if(!res.ok){
             throw new Error('Not logged in.');
