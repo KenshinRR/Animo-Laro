@@ -11,6 +11,8 @@ jobs:
     permissions:
       pages: write
       id-token: write
+    environment:
+      name: github-pages   # 👈 this line fixes the error
 
     steps:
       - name: Checkout
@@ -22,7 +24,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .   # root of repo, adjust if your frontend files are in /Pages
+          path: .   # or ./Pages if your frontend files are in that folder
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
