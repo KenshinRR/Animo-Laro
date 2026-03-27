@@ -79,6 +79,7 @@ export async function loginUser(req, res) {
             sameSite: "strict"    // prevents CSRF
         });
         
+        console.log("Login successful!");
         res.json({ message: 'Login successful!', user });
     } catch (err) {
         console.error(err);
