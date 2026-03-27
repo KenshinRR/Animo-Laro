@@ -30,7 +30,7 @@ const login_form = document.getElementById('log_in');
             errorMSG.textContent = data.error;
             return;
         }
-        //window.location.href = "main_feed.html";
+        window.location.href = "main_feed.html";
     }).catch(err=>console.error('Login: error:',err));
 });
 
