@@ -5,13 +5,11 @@ import { fileURLToPath } from "url";
 import session from "express-session"
 import MongoStore from "connect-mongo"
 
-//import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
 import 'dotenv/config';
 import userRoutes from "./Routes/userRoutes.js"
 import postRoutes from "./Routes/postRoutes.js"
-// import { getUser} from './Models/Server/DataLoader.js';
-// import { Initiliaze_DB_Manager} from './Models/Server/DataLoader.js';
 
+import cors from "cors";
 
 // MongoDB Setup
 export const uri = process.env.MONGODB_URI;
@@ -55,6 +53,22 @@ app.use(session({
     // maxAge: 30 * 24 * 60 * 60 * 1000
   }
 }))
+
+const allowedOrigins = [
+  "http://localhost:3000",              // local dev
+  "https://kenshinrr.github.io"         // GitHub Pages frontend
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
 
 app.use("/api",userRoutes);
 app.use("/api",postRoutes);
