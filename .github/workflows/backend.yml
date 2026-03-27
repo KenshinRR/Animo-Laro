@@ -1,30 +1,30 @@
-# .github/workflows/backend.yml
-name: Deploy Backend to Render
+# # .github/workflows/backend.yml
+# name: Deploy Backend to Render
 
-on:
-  push:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20   # or 24 if you want to test future compatibility
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20   # or 24 if you want to test future compatibility
 
-      - name: Install dependencies
-        run: npm install
+#       - name: Install dependencies
+#         run: npm install
 
-      - name: Deploy to Render
-        env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: |
-          curl -X POST "https://api.render.com/deploy/srv-d72isdkhg0os738loej0" \
-          -H "Authorization: Bearer $RENDER_API_KEY"
+#       - name: Deploy to Render
+#         env:
+#           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+#           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+#         run: |
+#           curl -X POST "https://api.render.com/deploy/srv-d72isdkhg0os738loej0" \
+#           -H "Authorization: Bearer $RENDER_API_KEY"
