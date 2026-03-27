@@ -38,7 +38,7 @@ app.use(express.static(__dirname))
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || "jdoiajoiejroeiwj",
   resave: false,
   saveUninitialized: false,
   path: "/",
