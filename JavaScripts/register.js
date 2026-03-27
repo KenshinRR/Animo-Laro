@@ -20,7 +20,7 @@ register_form.addEventListener("submit", function (event) {
   }
 
   if (password.length < 8) {
-    errorMSG.textContent = "Password must at least contain 8 characters.";
+    passErrorMSG.textContent = "Password must at least contain 8 characters.";
     hasErrors = true;
   }
   if (hasErrors) {
