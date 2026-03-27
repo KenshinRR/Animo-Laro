@@ -13,10 +13,14 @@ export async function registerUser(req, res) {
             errors.username = 'Username must be 3–15 characters.';
         }
 
-        const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
-
-        if (!strongPasswordRegex.test(password) || !password) {
-            errors.password = 'Password must at least contain 8 characters, include an uppercase letter, a number, and a special character.';
+        if (!password) {
+            errors.password = 'Password must at least contain 8 characters.';
+        } 
+        else {
+            const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+            if (!strongPasswordRegex.test(password)) {
+                errors.password = 'Password must include an uppercase letter, a number, and a special character.';
+            }
         }
 
         if (Object.keys(errors).length > 0) {
