@@ -27,7 +27,7 @@ export async function loginUser(req, res) {
         if (!user) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
-        
+
         const passMatch = await user.comparePassword(password);
         if (!passMatch) {
             return res.status(401).json({ error: 'Invalid username or password' });
@@ -48,8 +48,17 @@ export async function loginUser(req, res) {
             bio:user.bio,
             avatar:user.avatar
         };
+        // debug
+        console.log("Session ID:", req.sessionID);
+        console.log("Session user:", req.session.user);
 
-        res.json({ message: 'Login successful!', user });
+        req.session.save((err) => {
+            if (err) {
+                console.error("Session save error:", err);
+                return res.status(500).json({ error: "Session save failed" });
+            }
+            res.json({ message: 'Login successful!', user });
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
