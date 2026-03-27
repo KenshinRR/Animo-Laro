@@ -19,9 +19,16 @@ register_form.addEventListener("submit", function (event) {
     hasErrors = true;
   }
 
-  if (password.length < 8) {
-    passErrorMSG.textContent = "Password must at least contain 8 characters.";
-    hasErrors = true;
+  if (!password) {
+      passErrorMSG.textContent = 'Password must at least contain 8 characters.';
+      hasErrors = true;
+  } 
+  else {
+      const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+      if (!strongPasswordRegex.test(password)) {
+          passErrorMSG.textContent = 'Password must include an uppercase letter, a number, and a special character.';
+          hasErrors = true;
+      }
   }
   
   if (hasErrors) {
