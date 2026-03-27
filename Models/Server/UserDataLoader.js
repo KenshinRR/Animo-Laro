@@ -20,6 +20,9 @@ export async function getUserUseUsername(username) {
 }
 
 export async function createUser(username, password) {
+  const existingUser = await User.findOne({ username });
+  if(existingUser) return null;
+  // back up
   try{
     const newUser = new User({
         username,
