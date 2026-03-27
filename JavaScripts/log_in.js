@@ -13,6 +13,8 @@ const login_form = document.getElementById('log_in');
     const password = document.getElementById('password').value;
     const remember_me = document.getElementById('remember_me').checked;
 
+    console.log("attempt has been made");
+
     if(!username || !password){
         errorMSG.textContent = 'Please fill in all fields.';
         return;
