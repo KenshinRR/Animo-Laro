@@ -62,6 +62,10 @@ register_form.addEventListener("submit", function (event) {
 async function checkCurrentUser() {
   try {
     const res = await fetch("https://animo-laro.onrender.com/api/me", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
       credentials: "include",
     });
     if (res.ok) {

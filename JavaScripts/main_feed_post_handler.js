@@ -14,7 +14,7 @@ function createNewPost(post) {
     h1_title.classList.add("post_clickable", "clickable", "post_title");
     h1_title.textContent = post.title;
     h1_title.addEventListener("click", () => {
-        window.location.href = `/Animo-Laro/Pages/view_post_page.html?id=${post._id}`;
+        window.location.href = `/Pages/view_post_page.html?id=${post._id}`;
     });
     title_bar.appendChild(h1_title);
 
@@ -28,14 +28,14 @@ function createNewPost(post) {
     h2_title.classList.add("poster_subheader", "clickable");
     h2_title.textContent = post.poster;
     h2_title.addEventListener("click", () => {
-        window.location.href = `/Animo-Laro/Pages/view_post_page.html?id=${post._id}`;
+        window.location.href = `/Pages/view_post_page.html?id=${post._id}`;
     });
 
     const desc_p = document.createElement("p");
     desc_p.classList.add("post_description", "post_clickable", "clickable");
     desc_p.textContent = post.description;
     desc_p.addEventListener("click", () => {
-        window.location.href = `/Animo-Laro/Pages/view_post_page.html?id=${post._id}`;
+        window.location.href = `/Pages/view_post_page.html?id=${post._id}`;
     });
 
     newPostDiv.appendChild(title_bar);
