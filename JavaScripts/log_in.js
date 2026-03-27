@@ -37,7 +37,6 @@ function checkCurrentUser() {
   fetch("https://animo-laro.onrender.com/api/me",  { 
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${token}`,   // if using JWT
       "Content-Type": "application/json"
     },
     credentials: "include" 
