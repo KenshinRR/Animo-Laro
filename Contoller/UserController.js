@@ -39,8 +39,7 @@ export async function loginUser(req, res) {
             req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
         }
         else{
-            // req.session.cookie.expires = undefined;
-            req.session.cookie.maxAge = undefined;
+            req.session.cookie.expires = undefined;
         }
 
         req.session.user = {
@@ -48,17 +47,8 @@ export async function loginUser(req, res) {
             bio:user.bio,
             avatar:user.avatar
         };
-        // debug
-        console.log("Session ID:", req.sessionID);
-        console.log("Session user:", req.session.user);
-
-        req.session.save((err) => {
-            if (err) {
-                console.error("Session save error:", err);
-                return res.status(500).json({ error: "Session save failed" });
-            }
-            res.json({ message: 'Login successful!', user });
-        });
+        
+        res.json({ message: 'Login successful!', user });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
