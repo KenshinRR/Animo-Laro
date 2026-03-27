@@ -77,7 +77,7 @@ async function deletePost() {
         alert(`Deleting post "${current_post.title}"!`);
         await DatabaseManager.deletePostByID(popup.dataset.post_id);
         // Refresh page
-        window.location.href="/Pages/main_feed.html"
+        window.location.href = "/Animo-Laro/Pages/main_feed.html"
     } else {
         alert("Cannot delete this post. You are not the original poster.");
     }

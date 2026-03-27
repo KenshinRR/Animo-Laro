@@ -2,7 +2,7 @@ import DataBaseManager from '../Contoller/DatabaseManager.js'
 
 // Back Button
 const back_button = document.getElementById("back_button");
-back_button.addEventListener("click", () => window.location.href="/Pages/main_feed.html")
+back_button.addEventListener("click", () => window.location.href = "/Animo-Laro/Pages/main_feed.html")
 
 // Getting post ID from Database
 const urlParams = new URLSearchParams(window.location.search);
@@ -17,7 +17,7 @@ if (!curr_user) curr_user = JSON.parse(localStorage.getItem("currentUser"));
 if (curr_user.user.username != current_post_data.poster) // change this in the future to check for IDs instead of names
 {
     alert("You cannot edit this post!");
-    window.location.href="/Pages/main_feed.html";
+    window.location.href = "/Animo-Laro/Pages/main_feed.html";
 }
 
 // Initialize document elements
@@ -66,5 +66,5 @@ document.getElementById("post_form").addEventListener("submit", async function(e
     alert("Post Successfully Edited!");
 
     // Switch back to main feed
-    window.location.href="/Pages/main_feed.html"
+    window.location.href = "/Animo-Laro/Pages/main_feed.html"
 });

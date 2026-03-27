@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const meRes = await fetch('/api/me');
 
     if(!meRes.ok){
-        window.location.href = "/Pages/login_page.html";
+        window.location.href = "/Animo-Laro/Pages/login_page.html";
         return;
     }
 

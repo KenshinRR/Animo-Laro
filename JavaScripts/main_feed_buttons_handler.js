@@ -11,13 +11,13 @@ const post_clickable_elements = document.getElementsByClassName("post_clickable"
 const poster_clickable_elements = document.getElementsByClassName("poster_clickable");
 
 // Adding the events
-login_button.addEventListener("click", () => window.location.href="/Pages/login_page.html");
+login_button.addEventListener("click", () => window.location.href = "/Animo-Laro/Pages/login_page.html");
 profile_icon_button.addEventListener("click", ViewProfilePage);
 left_bar_view_profile.addEventListener("click", ViewProfilePage);
-left_bar_edit_profile.addEventListener("click", () => window.location.href="/Pages/profile_edit.html");
+left_bar_edit_profile.addEventListener("click", () => window.location.href = "/Animo-Laro/Pages/profile_edit.html");
 nav_button.addEventListener("click", ToggleLeftBar);
 logout_button.addEventListener("click", OnLogOutUser);
-create_post_button.addEventListener("click", () => window.location.href="/Pages/create_post_page.html");
+create_post_button.addEventListener("click", () => window.location.href = "/Animo-Laro/Pages/create_post_page.html");
 
 for (let i = 0; i < post_clickable_elements.length; i++)
 {
@@ -80,13 +80,13 @@ async function OnLogOutUser()
         console.error("Error logging out:", err);
     }
     
-    window.location.href="/Pages/login_page.html";
+    window.location.href = "/Animo-Laro/Pages/login_page.html";
 }
 
 // ON viewing profile page
 function ViewProfilePage()
 {
-    window.location.href="/Pages/profile_view.html"
+    window.location.href = "/Animo-Laro/Pages/profile_view.html"
 }
 
 // Viewing of specific post
@@ -94,7 +94,7 @@ function ViewSpecificPostPage(e)
 {
     var post_parent = e.target.parentNode;
     // console.log(post_parent.dataset.post_id);
-    window.location.href="/Pages/view_post_page.html?id="+post_parent.dataset.post_id;
+    window.location.href = "/Animo-Laro/Pages/view_post_page.html?id="+post_parent.dataset.post_id;
 }
 
 function ViewSpecificPoster(e)
@@ -113,7 +113,7 @@ async function checkCurrentUser() {
         }
         const data = await res.json();
         if(!data){
-            window.location.href = "/Pages/login_page.html";
+            window.location.href = "/Animo-Laro/Pages/login_page.html";
             return;
         }
 
