@@ -24,8 +24,12 @@ export async function loginUser(req, res) {
         const { username, password, remember_me } = req.body;
        
         const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+        
         const passMatch = await user.comparePassword(password);
-        if (!user || !passMatch) {
+        if (!passMatch) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
 
