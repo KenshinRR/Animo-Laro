@@ -26,7 +26,7 @@ export async function registerUser(req, res) {
         const newUser = await createUser(username, password);
 
         if (!newUser) {
-            return res.status(400).json({ error: {username: 'Username already exists'}});
+            return res.status(400).json({ errors: {username: 'Username already exists'}});
         }
 
         res.json({ message: 'Registered Successfully!', user: newUser });
