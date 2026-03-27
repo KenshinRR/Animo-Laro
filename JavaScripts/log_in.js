@@ -21,6 +21,7 @@ const login_form = document.getElementById('log_in');
     fetch('https://animo-laro.onrender.com/api/login',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
+        credentials: "include",
         body: JSON.stringify({username, password, remember_me})
     })
     .then(res=> res.json())
