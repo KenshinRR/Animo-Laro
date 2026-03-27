@@ -6,7 +6,7 @@ export async function registerUser(req, res) {
     try {
         const { username, password } = req.body;
         
-        const errors = [];
+        const errors = {};
         
         // back-end check
         if (!username || username.length < 3 || username.length > 15) {
@@ -15,7 +15,7 @@ export async function registerUser(req, res) {
 
         const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
 
-        if (!strongPasswordRegex.test(password)) {
+        if (!strongPasswordRegex.test(password) || !password) {
             errors.password = 'Password must at least contain 8 characters, include an uppercase letter, a number, and a special character.';
         }
 
