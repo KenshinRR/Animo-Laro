@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const meRes = await fetch('https://animo-laro.onrender.com/api/me', {credentials: 'include'});
 
     if(!meRes.ok){
-        window.location.href = "/Animo-Laro/Pages/login_page.html";
+        window.location.href = "/Pages/login_page.html";
         return;
     }
 

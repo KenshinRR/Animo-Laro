@@ -3,7 +3,7 @@ import DataBaseManager from '../Contoller/DatabaseManager.js'
 // Declaration of elements
 const back_button = document.getElementById("back_button");
 
-back_button.addEventListener("click", () => window.location.href = "/Animo-Laro/Pages/main_feed.html")
+back_button.addEventListener("click", () => window.location.href = "/Pages/main_feed.html")
 
 document.getElementById("post_form").addEventListener("submit", async function(event) {
   event.preventDefault(); // prevent page reload
@@ -50,7 +50,7 @@ document.getElementById("post_form").addEventListener("submit", async function(e
   alert("Successfuly added post!");
 
   // Switch back to main feed
-  window.location.href = "/Animo-Laro/Pages/main_feed.html"
+  window.location.href = "/Pages/main_feed.html"
 });
 
 function CheckValidURL(string){
