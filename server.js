@@ -25,8 +25,9 @@ connectToMongo((err) => {
     const db = getDb(); // DB instance
 
     // For a webapp, app.listen could be placed here
-    app.listen(PORT, () => {
-        console.log("Server running on port " + process.env.SERVER_PORT);
-    });
+    const PORT = process.env.PORT || 3000;
 
+    app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    });
 });
