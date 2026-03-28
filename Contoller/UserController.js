@@ -3,12 +3,35 @@ import { getUser ,createUser,getUserUseUsername,updateUserProfile} from "../Mode
 
 // register/create
 export async function registerUser(req, res) {
+    return res.status(400).json({ errors: { test: "this is running" } });
     try {
         const { username, password } = req.body;
+        
+        const errors = {};
+        
+        // back-end check
+        if (!username || username.length < 3 || username.length > 15) {
+            errors.username = 'Username must be 3–15 characters.';
+        }
+
+        if (!password) {
+            errors.password = 'Password must at least contain 8 characters.';
+        } 
+        else {
+            const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+            if (!strongPasswordRegex.test(password)) {
+                errors.password = 'Password must include an uppercase letter, a number, and a special character.';
+            }
+        }
+
+        if (Object.keys(errors).length > 0) {
+            return res.status(400).json({ errors });
+        }
+
         const newUser = await createUser(username, password);
 
         if (!newUser) {
-            return res.status(400).json({ error: 'Username already exists' });
+            return res.status(400).json({ errors: {username: 'Username already exists'}});
         }
 
         res.json({ message: 'Registered Successfully!', user: newUser });
@@ -27,20 +50,18 @@ export async function loginUser(req, res) {
         if (!user) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
-        
+
         const passMatch = await user.comparePassword(password);
         if (!passMatch) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
-
 
         if(remember_me){
             // 30 days
             req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
         }
         else{
-            // req.session.cookie.expires = undefined;
-            req.session.cookie.maxAge = undefined;
+            req.session.cookie.expires = undefined;
         }
 
         req.session.user = {
@@ -48,7 +69,7 @@ export async function loginUser(req, res) {
             bio:user.bio,
             avatar:user.avatar
         };
-
+        
         res.json({ message: 'Login successful!', user });
     } catch (err) {
         console.error(err);
@@ -59,7 +80,11 @@ export async function loginUser(req, res) {
 export async function logoutUser(req, res) {
     req.session.destroy(err => {
         if (err) return res.status(500).json({ error: 'Logout failed' });
-        res.clearCookie('connect.sid');
+        res.clearCookie('connect.sid', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        });
         res.json({ message: 'Logged out' });
     });
 }
