@@ -3,7 +3,6 @@ import { getUser ,createUser,getUserUseUsername,updateUserProfile} from "../Mode
 
 // register/create
 export async function registerUser(req, res) {
-    return res.status(400).json({ errors: { test: "this is running" } });
     try {
         const { username, password } = req.body;
         
