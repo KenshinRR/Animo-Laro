@@ -80,9 +80,8 @@ saveButton.addEventListener("click", async function () {
         const updatedData = {
             username: currentUser.username,
             newUsername: document.getElementById("username").value,
-            bio: document.getElementById("bio").value,
-            avatar: profileImage.dataset.newAvatar || profileImage.src,
-            // only send password if user typed a new one
+            ...(document.getElementById("bio").value.trim() !== "" && { bio: document.getElementById("bio").value }),
+            ...(profileImage.dataset.newAvatar && { avatar: profileImage.dataset.newAvatar }),
             ...(newPassword && { password: newPassword })
         };
 
