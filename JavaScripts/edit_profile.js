@@ -63,6 +63,15 @@ fileInput.addEventListener("change", function () {
 
 saveButton.addEventListener("click", async function () {
     try {
+        const meRes = await fetch("https://animo-laro.onrender.com/api/me", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include"
+        });
+        if (!meRes.ok) {
+            window.location.href = "login_page.html";
+            return;
+        }
         const meData = await meRes.json();
         const currentUser = meData.user;
 
