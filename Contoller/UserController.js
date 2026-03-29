@@ -69,15 +69,6 @@ export async function loginUser(req, res) {
             bio:user.bio,
             avatar:user.avatar
         };
-
-        // validate user credentials...
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-        res.cookie("token", token, {
-            httpOnly: true,       // cannot be accessed by JS
-            secure: true,         // only sent over HTTPS
-            sameSite: "strict"    // prevents CSRF
-        });
         
         console.log("Login successful!");
         res.json({ message: 'Login successful!', user });
