@@ -1,10 +1,16 @@
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("GRABBING A PROFILE")
 
-    const meRes = await fetch('https://animo-laro.onrender.com/api/me', {credentials: 'include'});
+    const meRes = await fetch('https://animo-laro.onrender.com/api/me', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: 'include'
+    });
 
     if(!meRes.ok){
-        window.location.href = "/Animo-Laro/Pages/login_page.html";
+        window.location.href = "/Pages/login_page.html";
         return;
     }
 

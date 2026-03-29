@@ -38,7 +38,8 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 const allowedOrigins = [
   "http://localhost:3000",              // local dev
-  "https://kenshinrr.github.io"         // GitHub Pages frontend
+  "https://kenshinrr.github.io",         // GitHub Pages frontend
+  "https://animo-laro-mngd.onrender.com"
 ];
 
 app.use(cors({
@@ -46,6 +47,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error("Blocked by CORS:", origin);
       callback(new Error("Not allowed by CORS"));
     }
   },
