@@ -118,6 +118,5 @@ const posts = await DatabaseManager.getAllPosts();
 
 if (posts) {
     posts.forEach(post => createNewPost(post));
+    attachEditPopup();
 }
-
-attachEditPopup();

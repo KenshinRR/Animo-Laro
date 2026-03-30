@@ -48,7 +48,8 @@ class DatabaseManager {
   
   async addPost(post){
     var title = post.title;
-    var poster = post.poster;
+    var poster_name = post.poster_name;
+    var poster_id = post.poster_id;
     var description = post.description;
     var likes = post.likes;
     var link = post.link;
@@ -56,7 +57,7 @@ class DatabaseManager {
     fetch('https://animo-laro.onrender.com/api/create_post',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({title, poster, description, likes, link})
+        body: JSON.stringify({title, poster_name, poster_id, description, likes, link})
     })
     .then(response => {
       response.json()
