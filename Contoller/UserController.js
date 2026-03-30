@@ -66,6 +66,7 @@ export async function loginUser(req, res) {
 
         req.session.user = {
             username:user.username,
+            id:user._id,
             bio:user.bio,
             avatar:user.avatar
         };
