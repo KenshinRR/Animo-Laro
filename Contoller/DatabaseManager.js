@@ -17,8 +17,8 @@ class DatabaseManager {
   async getCurrentUser(){
     var curr_user = null;
     try{
-      const curr_user = await fetch(`https://animo-laro.onrender.com/api/me`);
-      curr_user = await curr_user.json();
+      const res = await fetch(`https://animo-laro.onrender.com/api/me`);
+      curr_user = await res.json();
       // console.log("Successfully gotten specific post: " + post_to_return.title);
     }
     catch (err) {
