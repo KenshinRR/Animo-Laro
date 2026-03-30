@@ -38,9 +38,9 @@ document.getElementById("post_form").addEventListener("submit", async function(e
     alert("Not logged in!");
     return;
   }
-  var poster = currentUserData.username;
+  var poster_name = currentUserData.username;
 
-  await SaveToDatabase(title, poster, desc, linkValue);
+  await SaveToDatabase(title, poster_name, currentUserData._id ,desc, linkValue);
   
   // Clear inputs
   document.getElementById("input_title").value = "";
@@ -72,16 +72,14 @@ function CheckValidURL(string){
   }
 }
 
-async function SaveToDatabase(title, poster, desc, linkValue)
+async function SaveToDatabase(title, poster_name, poster_id, desc, linkValue)
 {
-  // Retrieve existing list from localStorage (or start with empty array)
-  let savedPosts= JSON.parse(localStorage.getItem("posts")) || [];
-
   // Add new values as an object (or array, depending on your preference)
   await DataBaseManager.addPost(
     {
         "title": title,
-        "poster": poster,
+        "poster_name": poster_name,
+        "poster_id": poster_id,
         "description" : desc,
         "likes": 0,
         "link" : linkValue
