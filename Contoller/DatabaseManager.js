@@ -57,6 +57,7 @@ class DatabaseManager {
     fetch('https://animo-laro.onrender.com/api/create_post',{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
+        credentials: "include",
         body: JSON.stringify({title, poster_name, poster_id, description, likes, link})
     })
     .then(response => {
@@ -79,6 +80,7 @@ class DatabaseManager {
     await fetch('https://animo-laro.onrender.com/api/edit_post/' + id,{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
+        credentials: "include",
         body: JSON.stringify({"id": id, "post_data": {title, description, link}})
     })
     .then(response => {
@@ -98,6 +100,7 @@ class DatabaseManager {
     fetch('https://animo-laro.onrender.com/api/delete_post/' + _id,{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
+        credentials: "include",
         body: JSON.stringify({id: _id})
     })
     .then(response => {
