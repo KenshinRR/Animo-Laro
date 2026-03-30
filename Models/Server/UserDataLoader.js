@@ -43,14 +43,17 @@ export async function createUser(username, password) {
 }
 
 export async function updateUserProfile(username, newUsername, bio, avatar, password) {
+  const user = await User.findOne({ username });
+  if (!user) return null;
+
+    // keep old details if unchanged
   const updateFields = {
-    username: newUsername,
-    bio,
-    avatar
+    username: newUsername && newUsername.trim() !== "" ? newUsername : user.username,
+    bio: bio && bio.trim() !== "" ? bio : user.bio,
+    avatar: avatar && avatar.trim() !== "" ? avatar : user.avatar,
   };
 
   if (password && password.trim() !== "") {
-    // optionally hash it here if you want secure storage
     updateFields.password = password;
   }
 

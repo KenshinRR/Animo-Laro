@@ -6,24 +6,36 @@ const saveButton = document.getElementById("save_button");
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    let currentUserData = JSON.parse(localStorage.getItem("currentUser")) 
-                       || JSON.parse(sessionStorage.getItem("currentUser"));
+document.addEventListener("DOMContentLoaded", async function() {
+    try {
+        const res = await fetch("https://animo-laro.onrender.com/api/me", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include"
+        });
 
-    if(currentUserData){
-        let user = currentUserData.user ? currentUserData.user : currentUserData;
-
-        
-        document.getElementById("username").value = user.username;
-        document.getElementById("password").value = user.password;
-        document.getElementById("bio").value = user.bio;
-        if(user.avatar.startsWith("data:")){
-            document.getElementById("user_pic_edit").src = user.avatar;
-            document.getElementById("user_pic_small").src = user.avatar;
-        } else {
-            document.getElementById("user_pic_edit").src = "../View/" + user.avatar;
-            document.getElementById("user_pic_small").src = "../View/" + user.avatar;
+        if (!res.ok) {
+            window.location.href = "login_page.html";
+            return;
         }
+
+        const data = await res.json();
+        const user = data.user;
+
+        document.getElementById("username").value = user.username;
+        document.getElementById("bio").value = user.bio;
+
+        if (user.avatar && user.avatar.startsWith("data:")) {
+            profileImage.src = user.avatar;
+            smallImage.src = user.avatar;
+        } else {
+            profileImage.src = "../View/" + (user.avatar || "default_avatar");
+            smallImage.src = "../View/" + (user.avatar || "default_avatar");
+        }
+
+    } catch (err) {
+        console.error("Failed to load user:", err);
+        window.location.href = "login_page.html";
     }
 });
 
@@ -50,42 +62,40 @@ fileInput.addEventListener("change", function () {
 });
 
 saveButton.addEventListener("click", async function () {
-
-    let currentUserData = JSON.parse(localStorage.getItem("currentUser")) 
-                   || JSON.parse(sessionStorage.getItem("currentUser"));
-
-    let currentUser = currentUserData.user ? currentUserData.user : currentUserData;
-    if (!currentUser) return;
-    let avatarValue;
-
-    if (profileImage.dataset.newAvatar) {
-       
-        avatarValue = profileImage.dataset.newAvatar;
-    } else {
-        
-        const parts = profileImage.src.split("/");
-        avatarValue = parts[parts.length - 1];
-    }
-
-    let updatedData = {
-    username: currentUser.username,
-    newUsername: document.getElementById("username").value,
-    password: document.getElementById("password").value, // ✅ NEW
-    bio: document.getElementById("bio").value,
-    avatar: profileImage.dataset.newAvatar || profileImage.src
-};
     try {
+        const meRes = await fetch("https://animo-laro.onrender.com/api/me", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include"
+        });
+        if (!meRes.ok) {
+            window.location.href = "login_page.html";
+            return;
+        }
+        const meData = await meRes.json();
+        const currentUser = meData.user;
+
+        const newPassword = document.getElementById("password").value;
+
+        const updatedData = {
+            username: currentUser.username,
+            newUsername: document.getElementById("username").value,
+            ...(document.getElementById("bio").value.trim() !== "" && { bio: document.getElementById("bio").value }),
+            ...(profileImage.dataset.newAvatar && { avatar: profileImage.dataset.newAvatar }),
+            ...(newPassword && { password: newPassword })
+        };
+
         const res = await fetch("https://animo-laro.onrender.com/api/updateProfile", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify(updatedData)
         });
 
-        const updatedUser = await res.json();
-
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+        if (!res.ok) {
+            console.error("Failed to update profile");
+            return;
+        }
 
         window.location.href = "profile_view.html";
 
