@@ -19,7 +19,7 @@ class DatabaseManager {
     try{
       const res = await fetch(`https://animo-laro.onrender.com/api/me`);
       curr_user = await res.json();
-      // console.log("Successfully gotten specific post: " + post_to_return.title);
+      console.log("Fetched user: " + curr_user);
     }
     catch (err) {
       console.error("Failed to load current user:", err);
