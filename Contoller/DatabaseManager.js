@@ -17,7 +17,12 @@ class DatabaseManager {
   async getCurrentUser(){
     var curr_user = null;
     try{
-      const res = await fetch(`https://animo-laro.onrender.com/api/me`);
+      const res = await fetch(`https://animo-laro.onrender.com/api/me`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include"
+        });
+
       curr_user = await res.json();
       console.log("Fetched user: " + curr_user);
     }
