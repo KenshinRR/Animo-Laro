@@ -14,7 +14,7 @@ const poster_clickable_elements = document.getElementsByClassName("poster_clicka
 login_button.addEventListener("click", () => window.location.href = "/Pages/login_page.html");
 profile_icon_button.addEventListener("click", ViewProfilePage);
 left_bar_view_profile.addEventListener("click", ViewProfilePage);
-left_bar_edit_profile.addEventListener("click", () => window.location.href = "/Pages/profile_edit.html");
+left_bar_edit_profile.addEventListener("click", () => window.location.href = "/api/Pages/profile_edit.html");
 nav_button.addEventListener("click", ToggleLeftBar);
 logout_button.addEventListener("click", OnLogOutUser);
 create_post_button.addEventListener("click", () => window.location.href = "/Pages/create_post_page.html");
@@ -85,7 +85,7 @@ async function OnLogOutUser()
 function ViewProfilePage()
 {
     //window.location.href = "/Pages/profile_view.html"
-    window.location.href = "/profile?edit=false";
+    window.location.href = "/api/profile?edit=false";
 }
 
 // Viewing of specific post
@@ -119,7 +119,7 @@ async function checkCurrentUser() {
         }
         const data = await res.json();
         if(!data){
-            window.location.href = "/api/Pages/login_page.html";
+            window.location.href = "/Pages/login_page.html";
             return;
         }
 
