@@ -6,7 +6,7 @@ class DatabaseManager {
   async fetchJSON(url, options = {}) {
     var posts = null;
     try {
-      const res = await fetch(`${this.baseURL}/posts`);
+      const res = await fetch(url, options);
       posts = await res.json();
     } catch (err) {
       console.error("Failed to load posts:", err);
@@ -32,7 +32,11 @@ class DatabaseManager {
   }
 
   async getCurrentUser() {
-    const data = await this.fetchJSON(`${this.baseURL}/me`, { method: "GET", headers: { "Content-Type": "application/json" } });
+    const data = await this.fetchJSON(`${this.baseURL}/me`, { 
+      method: "GET", 
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
     return data?.user || null;
   }
 
