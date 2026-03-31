@@ -4,6 +4,7 @@ class DatabaseManager {
   }
 
   async fetchJSON(url, options = {}) {
+    var posts = null;
     try {
       const res = await fetch(`${this.baseURL}/posts`);
       posts = await res.json();
