@@ -5,12 +5,25 @@ class DatabaseManager {
 
   async fetchJSON(url, options = {}) {
     try {
-      const res = await fetch(url, { ...options, credentials: "include" });
-      if (!res.ok) {
-        console.error(`Request failed: ${res.status} ${res.statusText}`);
-        return null;
-      }
-      return await res.json();
+      const res = await fetch(`${this.baseURL}/posts`);
+      posts = await res.json();
+    } catch (err) {
+      console.error("Failed to load posts:", err);
+    }
+    return posts;
+  }
+
+  async addPost(post){
+    const { title, poster_name, poster_id, description, likes, link } = post;
+    try {
+      const res = await fetch(`${this.baseURL}/create_post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: "include",
+        body: JSON.stringify({ title, poster_name, poster_id, description, likes, link })
+      });
+      await res.json();
+      if (!res.ok) alert("Post failed to add!");
     } catch (err) {
       console.error("Fetch error:", err);
       return null;

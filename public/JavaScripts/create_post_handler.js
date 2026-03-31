@@ -81,7 +81,7 @@ function CheckValidURL(string){
 
 async function SaveToDatabase(title, poster_name, poster_id, desc, linkValue)
 {
-  // console.log("Saving these values ", title, poster_name, poster_id, desc, linkValue);
+  console.log("Saving these values ", title, poster_name, poster_id, desc, linkValue);
   // Add new values as an object (or array, depending on your preference)
   await DataBaseManager.addPost(
     {
