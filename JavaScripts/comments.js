@@ -90,6 +90,44 @@ function renderCommentElement(comment) {
     deleteBtn.textContent = "Delete";
     deleteBtn.style.display = currentUser && currentUser.username === comment.username ? "inline-block" : "none";
 
+    const replyBtn = document.createElement("button");
+    replyBtn.textContent = "Reply";
+    actions.appendChild(replyBtn);
+
+    replyBtn.onclick = async () => {
+        if (!currentUser) {
+            alert("You must be logged in to reply.");
+            return;
+        }
+        const replyText = prompt("Write a reply:");
+        if (!replyText || replyText.trim() === "") return;
+
+        try {
+            const newReply = await DatabaseManager.addComment({
+                description: replyText.trim(),
+                post_id: postId,
+                parent_comment_id: comment.id,
+                user_id: currentUser._id
+            });
+
+            comment.replies.push({
+                id: newReply._id,
+                username: newReply.user_id?.username || "Anonymous",
+                text: newReply.description,
+                likes: newReply.likes || 0,
+                dislikes: newReply.dislikes || 0,
+                edited: newReply.edited || false,
+                userVote: null,
+                parent_comment_id: comment.id,
+                replies: []
+            });
+
+            renderComments();
+        } catch (err) {
+            console.error("Failed to add reply:", err);
+        }
+    };
+
     const likesDisplay = document.createElement("span");
     likesDisplay.textContent = "Likes: " + (comment.likes - comment.dislikes);
 
@@ -97,6 +135,29 @@ function renderCommentElement(comment) {
     div.appendChild(actions);
 
     comment.replies.forEach(reply => div.appendChild(renderCommentElement(reply)));
+
+    editBtn.onclick = async () => {
+        const newText = prompt("Edit comment:", comment.text);
+        if (!newText || newText.trim() === "") return;
+        try {
+            await DatabaseManager.editComment(comment.id, { description: newText.trim() });
+            comment.text = newText.trim();
+            comment.edited = true;
+            renderComments();
+        } catch (err) {
+            console.error("Failed to edit comment:", err);
+        }
+    };
+
+    deleteBtn.onclick = async () => {
+        try {
+            await DatabaseManager.deleteCommentByID(comment.id);
+            deleteCommentById(comment.id, comments);
+            renderComments();
+        } catch (err) {
+            console.error("Failed to delete comment:", err);
+        }
+    };
 
     return div;
 }
@@ -133,7 +194,7 @@ document.getElementById("comment_form").addEventListener("submit", async functio
     if (!text) return;
 
     try {
-        const newComment = await DatabaseManager.createComment({
+        const newComment = await DatabaseManager.addComment({
             description: text,
             post_id: postId,
             user_id: currentUser?._id
