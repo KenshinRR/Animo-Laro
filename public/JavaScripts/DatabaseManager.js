@@ -2,7 +2,7 @@ class DatabaseManager {
   constructor() {
     // Local backend for development
     // this.baseURL = "http://localhost:3000/api"; // <-- local backend
-    this.baseURL = "https://animo-laro.onrender.com/api"; // <-- original deployed backend
+    this.baseURL = "https://animo-laro.onrender.com/api"; // <-- deployed backend
   }
 
   // POSTS
@@ -18,78 +18,60 @@ class DatabaseManager {
   }
 
   async addPost(post){
-    var title = post.title;
-    var poster_name = post.poster_name;
-    var poster_id = post.poster_id;
-    var description = post.description;
-    var likes = post.likes;
-    var link = post.link;
-    
-    fetch('https://animo-laro.onrender.com/api/create_post',{
-        method:'POST',
-        headers: {'Content-Type': 'application/json'},
+    const { title, poster_name, poster_id, description, likes, link } = post;
+    try {
+      const res = await fetch(`${this.baseURL}/create_post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         credentials: "include",
-        body: JSON.stringify({title, poster_name, poster_id, description, likes, link})
-    })
-    .then(response => {
-      response.json()
-      if (!response.ok)
-      {
-        alert("Post failed to add!");
-      }
-    })
-    .catch(err => {
-      console.error("Error:", err);
-    });
+        body: JSON.stringify({ title, poster_name, poster_id, description, likes, link })
+      });
+      await res.json();
+      if (!res.ok) alert("Post failed to add!");
+    } catch (err) {
+      console.error("Error adding post:", err);
+    }
   }
 
   async editPost(id, post) {
-    var title = post.title;
-    var description = post.description;
-    var link = post.link;
-        await fetch('https://animo-laro.onrender.com/api/edit_post/' + id,{
-        method:'POST',
-        headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({"id": id, "post_data": {title, description, link}})
-    })
-    .then(response => {
-      response.json()
-      if (!response.ok)
-      {
-        alert("Post failed to edit!");
-      }
-    })
-    .catch(err => {
-      console.error("Error:", err);
-    });
+    const { title, description, link } = post;
+    try {
+      const res = await fetch(`${this.baseURL}/edit_post/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: "include",
+        body: JSON.stringify({ id, post_data: { title, description, link } })
+      });
+      await res.json();
+      if (!res.ok) alert("Post failed to edit!");
+    } catch (err) {
+      console.error("Error editing post:", err);
+    }
   }
 
   async deletePostByID(_id) {
-    fetch('https://animo-laro.onrender.com/api/delete_post/' + _id,{
-        method:'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({id: _id})
-      })
-      .then(response => {
-        response.json()
-        if (!response.ok)
-        {
-          alert("Post failed to add!");
-        }
-      })
-      .catch(err => {
-        console.error("Error:", err);
+    try {
+      const res = await fetch(`${this.baseURL}/delete_post/${_id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: "include",
+        body: JSON.stringify({ id: _id })
       });
+      await res.json();
+      if (!res.ok) alert("Post failed to delete!");
+    } catch (err) {
+      console.error("Error deleting post:", err);
     }
+  }
 
   async getCurrentUser() {
     let curr_user = null;
     try {
       const res = await fetch(`${this.baseURL}/me`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include"
-        });
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+      });
       curr_user = await res.json();
     } catch (err) {
       console.error("Failed to load current user:", err);
@@ -112,11 +94,14 @@ class DatabaseManager {
   async getComments(postId = null) {
     let comments = null;
     try {
-      // Always use string format for postId
       const url = postId
         ? `${this.baseURL}/comments/${encodeURIComponent(postId)}`
         : `${this.baseURL}/comments`;
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+      });
       comments = await res.json();
     } catch (err) {
       console.error("Failed to load comments:", err);
@@ -173,7 +158,11 @@ class DatabaseManager {
   async getReplies(commentId) {
     let replies = null;
     try {
-      const res = await fetch(`${this.baseURL}/replies/${encodeURIComponent(commentId)}`);
+      const res = await fetch(`${this.baseURL}/replies/${encodeURIComponent(commentId)}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+      });
       replies = await res.json();
     } catch (err) {
       console.error("Failed to load replies:", err);
