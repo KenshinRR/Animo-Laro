@@ -4,9 +4,17 @@ export async function getAllPosts() {
   return await Post.find();
 }
 
-export async function createPost(postData) {
+export async function createPost(title, p_name, p_id, desc, likes, link) {
 
-  const newPost = new Post(postData);
+  const newPost = new Post({
+    title,
+    p_name,
+    p_id,
+    desc,
+    likes,
+    link
+  });
+  
   await newPost.save();
 
   return newPost;

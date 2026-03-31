@@ -20,7 +20,14 @@ export async function createPost(req, res) {
 
   try {
 
-    const post = await postDB.createPost(req.body);
+    const post = await postDB.createPost(
+      req.body.title,
+      req.body.poster_name,
+      req.body.poster_id,
+      req.body.description,
+      req.body.likes,
+      req.body.link
+    );
 
     res.status(201).json(post);
 

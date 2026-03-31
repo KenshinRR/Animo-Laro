@@ -20,7 +20,11 @@ class DatabaseManager {
   async getCurrentUser() {
     let curr_user = null;
     try {
-      const res = await fetch(`${this.baseURL}/me`);
+      const res = await fetch(`${this.baseURL}/me`) {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include"
+        });
       curr_user = await res.json();
     } catch (err) {
       console.error("Failed to load current user:", err);
