@@ -1,13 +1,9 @@
 class DatabaseManager {
   constructor() {
-    // Local backend for development
-    // this.baseURL = "http://localhost:3000/api"; // <-- local backend
-    this.baseURL = "https://animo-laro.onrender.com/api"; // <-- deployed backend
+    this.baseURL = "https://animo-laro.onrender.com/api";
   }
 
-  // POSTS
-  async getAllPosts() {
-    let posts = null;
+  async fetchJSON(url, options = {}) {
     try {
       const res = await fetch(`${this.baseURL}/posts`);
       posts = await res.json();
@@ -18,7 +14,6 @@ class DatabaseManager {
   }
 
   async addPost(post){
-    console.log("Adding " + post);
     const { title, poster_name, poster_id, description, likes, link } = post;
     try {
       const res = await fetch(`${this.baseURL}/create_post`, {
@@ -30,145 +25,95 @@ class DatabaseManager {
       await res.json();
       if (!res.ok) alert("Post failed to add!");
     } catch (err) {
-      console.error("Error adding post:", err);
-    }
-  }
-
-  async editPost(id, post) {
-    const { title, description, link } = post;
-    try {
-      const res = await fetch(`${this.baseURL}/edit_post/${id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: "include",
-        body: JSON.stringify({ id, post_data: { title, description, link } })
-      });
-      await res.json();
-      if (!res.ok) alert("Post failed to edit!");
-    } catch (err) {
-      console.error("Error editing post:", err);
-    }
-  }
-
-  async deletePostByID(_id) {
-    try {
-      const res = await fetch(`${this.baseURL}/delete_post/${_id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: "include",
-        body: JSON.stringify({ id: _id })
-      });
-      await res.json();
-      if (!res.ok) alert("Post failed to delete!");
-    } catch (err) {
-      console.error("Error deleting post:", err);
+      console.error("Fetch error:", err);
+      return null;
     }
   }
 
   async getCurrentUser() {
-    let curr_user = null;
-    try {
-      const res = await fetch(`${this.baseURL}/me`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include"
-      });
-      curr_user = await res.json();
-    } catch (err) {
-      console.error("Failed to load current user:", err);
-    }
-    return curr_user;
+    const data = await this.fetchJSON(`${this.baseURL}/me`, { method: "GET", headers: { "Content-Type": "application/json" } });
+    return data?.user || null;
+  }
+
+  async getAllPosts() {
+    return await this.fetchJSON(`${this.baseURL}/posts`);
   }
 
   async getPostById(id) {
-    let post_to_return = null;
-    try {
-      const res = await fetch(`${this.baseURL}/posts/${id}`);
-      post_to_return = await res.json();
-    } catch (err) {
-      console.error("Failed to load post:", err);
-    }
-    return post_to_return;
+    if (!id) return null;
+    return await this.fetchJSON(`${this.baseURL}/posts/${encodeURIComponent(id)}`);
   }
 
-  // COMMENTS
-  async getComments(postId = null) {
-    let comments = null;
-    try {
-      const url = postId
-        ? `${this.baseURL}/comments/${encodeURIComponent(postId)}`
-        : `${this.baseURL}/comments`;
-      const res = await fetch(url, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include"
-      });
-      comments = await res.json();
-    } catch (err) {
-      console.error("Failed to load comments:", err);
+  async addPost(post) {
+    if (!post?.poster_id) {
+      console.error("Cannot add post: poster_id is missing");
+      return null;
     }
-    return comments;
+    return await this.fetchJSON(`${this.baseURL}/create_post`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(post)
+    });
+  }
+
+  async editPost(id, post) {
+    if (!id || !post) return null;
+    return await this.fetchJSON(`${this.baseURL}/edit_post/${encodeURIComponent(id)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, post_data: post })
+    });
+  }
+
+  async deletePostByID(id) {
+    if (!id) return null;
+    return await this.fetchJSON(`${this.baseURL}/delete_post/${encodeURIComponent(id)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    });
+  }
+
+  async getComments(postId = null) {
+    const url = postId
+      ? `${this.baseURL}/comments/${encodeURIComponent(postId)}`
+      : `${this.baseURL}/comments`;
+    return await this.fetchJSON(url);
   }
 
   async addComment(comment) {
-    const { description, post_id, parent_comment_id } = comment;
-    try {
-      const res = await fetch(`${this.baseURL}/create_comment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ description, post_id, parent_comment_id }),
-      });
-      if (!res.ok) alert("Comment failed to add!");
-      return await res.json();
-    } catch (err) {
-      console.error("Error adding comment:", err);
+    if (!comment?.user_id) {
+      console.error("Cannot add comment: user is not logged in");
+      return null;
     }
+    return await this.fetchJSON(`${this.baseURL}/create_comment`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(comment)
+    });
   }
 
   async editComment(id, commentData) {
-    try {
-      const res = await fetch(`${this.baseURL}/edit_comment/${id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ id, commentData }),
-      });
-      if (!res.ok) alert("Comment failed to edit!");
-      return await res.json();
-    } catch (err) {
-      console.error("Error editing comment:", err);
-    }
+    if (!id || !commentData) return null;
+    return await this.fetchJSON(`${this.baseURL}/edit_comment/${encodeURIComponent(id)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, commentData })
+    });
   }
 
   async deleteCommentByID(id) {
-    try {
-      const res = await fetch(`${this.baseURL}/delete_comment/${id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ id }),
-      });
-      if (!res.ok) alert("Comment failed to delete!");
-      return await res.json();
-    } catch (err) {
-      console.error("Error deleting comment:", err);
-    }
+    if (!id) return null;
+    return await this.fetchJSON(`${this.baseURL}/delete_comment/${encodeURIComponent(id)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    });
   }
 
   async getReplies(commentId) {
-    let replies = null;
-    try {
-      const res = await fetch(`${this.baseURL}/replies/${encodeURIComponent(commentId)}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include"
-      });
-      replies = await res.json();
-    } catch (err) {
-      console.error("Failed to load replies:", err);
-    }
-    return replies;
+    if (!commentId) return [];
+    return await this.fetchJSON(`${this.baseURL}/replies/${encodeURIComponent(commentId)}`) || [];
   }
 }
 
