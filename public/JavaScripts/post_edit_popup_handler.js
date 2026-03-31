@@ -52,8 +52,6 @@ popup_edit_button.addEventListener("click", () => {
 popup_delete_button.addEventListener("click", deletePost);
 
 async function toggleEditDeleteButtons() {
-    // const posts = await DatabaseManager.getAllPosts();
-    // const current_post = posts.find(p => p._id == popup.dataset.post_id);
     const current_post = await DatabaseManager.getPostById(popup.dataset.post_id);
     var curr_user = DatabaseManager.getCurrentUser();
     // console.log("Current user: " + curr_user.user._id);
@@ -69,10 +67,9 @@ async function toggleEditDeleteButtons() {
 
 async function deletePost() {
     const current_post = await DatabaseManager.getPostById(popup.dataset.post_id);
-    var curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
-    if (!curr_user) curr_user = JSON.parse(localStorage.getItem("currentUser"));
+    var curr_user = DatabaseManager.getCurrentUser();
 
-    if (current_post && curr_user && current_post.poster === curr_user.user.username) { //change this to check for user id instead
+    if (current_post && curr_user && current_post.poster === curr_user.username) { //change this to check for user id instead
         alert(`Deleting post "${current_post.title}"!`);
         await DatabaseManager.deletePostByID(popup.dataset.post_id);
         // Refresh page
