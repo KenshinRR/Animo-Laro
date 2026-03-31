@@ -1,11 +1,24 @@
 // Use to show which user likes/dislikes which post
-
 import mongoose from "mongoose";
 
-const user_like_Schema = new mongoose.Schema({
-  user_id: { type: String, required: true},
-  post_id: { type: String, required: true},
-  like_Value: { type: Number, required: true} // either 1 or -1
-});
+const userLikeSchema = new mongoose.Schema({
+  user_id: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "User",
+    required: true 
+  },
+  post_id: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Post",
+    required: true 
+  },
+  like_value: { 
+    type: Number, 
+    enum: [1, -1], 
+    required: true 
+  }
+}, { timestamps: true });
 
-export default mongoose.model('User_Like', user_like_Schema, 'User_Likes');
+userLikeSchema.index({ user_id: 1, post_id: 1 }, { unique: true });
+
+export default mongoose.model('User_Like', userLikeSchema, 'User_Like');

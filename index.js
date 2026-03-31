@@ -10,7 +10,8 @@ import { renderProfilePage } from "./Contoller/UserController.js";
 import 'dotenv/config';
 import userRoutes from "./Routes/userRoutes.js"
 import postRoutes from "./Routes/postRoutes.js"
-import commentRoutes from "./Routes/commentRoutes.js"; // <-- added comment routes
+import commentRoutes from "./Routes/commentRoutes.js"; 
+import userLikeRoutes from "./Routes/userLikeRoutes.js";
 import { engine } from "express-handlebars";
 
 import cors from "cors";
@@ -79,6 +80,14 @@ app.use(session({
   }
 }))
 
+<<<<<<< Updated upstream
+=======
+app.use("/api",userRoutes);
+app.use("/api",postRoutes);
+app.use("/api",commentRoutes); 
+app.use ("/api",userLikeRoutes);
+
+>>>>>>> Stashed changes
 app.engine("hbs", engine({
   extname: "hbs",
   defaultLayout: "main",

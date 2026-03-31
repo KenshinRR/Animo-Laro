@@ -1,6 +1,23 @@
 import DatabaseManager from './DatabaseManager.js';
 import { attachEditPopup } from './post_edit_popup_handler.js'; 
 
+let currentUser = null;
+
+async function initCurrentUser() {
+    try {
+        const data = await DatabaseManager.getCurrentUser();
+        if (data) {
+            currentUser = data;
+            if (!currentUser._id && currentUser.id) currentUser._id = currentUser.id;
+            console.log("Logged in as:", currentUser.username);
+        } else {
+            console.warn("No logged-in user found in session");
+        }
+    } catch (err) {
+        console.error("Failed to fetch current user:", err);
+    }
+}
+
 function createNewPost(post) {
     const newPostDiv = document.createElement("div");
     newPostDiv.classList.add("post_container");
@@ -47,7 +64,7 @@ function createNewPost(post) {
     document.getElementById("main_feed_container").appendChild(newPostDiv);
 }
 
-function createInteractionBar(post, parent_elem) {
+async function createInteractionBar(post, parent_elem) {
     const newLikesSpan = document.createElement("span");
     newLikesSpan.classList.add("post_likes_display");
     newLikesSpan.textContent = `Likes: ${post.likes || 0}`;
@@ -69,33 +86,33 @@ function createInteractionBar(post, parent_elem) {
     parent_elem.appendChild(newLikesSpan);
     parent_elem.appendChild(vote_buttons_div);
 
-    parent_elem.postData = { likes: post.likes || 0, dislikes: 0, userVote: null };
-
-    new_post_like_button.onclick = () => {
-        const postData = parent_elem.postData;
-        if (postData.userVote === "like") {
-            postData.likes--;
-            postData.userVote = null;
-        } else {
-            if (postData.userVote === "dislike") postData.dislikes--;
-            postData.likes++;
-            postData.userVote = "like";
-        }
-        updatePostDisplay(parent_elem);
+    parent_elem.postData = {
+        likes: post.likes || 0,
+        dislikes: post.dislikes || 0,
+        userVote: post.userVote || null
     };
 
-    new_post_dislike_button.onclick = () => {
-        const postData = parent_elem.postData;
-        if (postData.userVote === "dislike") {
-            postData.dislikes--;
-            postData.userVote = null;
-        } else {
-            if (postData.userVote === "like") postData.likes--;
-            postData.dislikes++;
-            postData.userVote = "dislike";
+    const handleVote = async (type) => {
+        if (!currentUser?._id) return alert("You must be logged in to vote."); 
+        const user_id = currentUser._id; 
+        const like_Value = type === "like" ? 1 : -1;
+
+        try {
+            const res = await DatabaseManager.votePost(user_id, post._id, like_Value); 
+            const updated = await DatabaseManager.getPostVotes(post._id);
+
+            parent_elem.postData.likes = updated?.likes || 0;
+            parent_elem.postData.dislikes = updated?.dislikes || 0;
+            parent_elem.postData.userVote = res?.vote === 1 ? "like" : res?.vote === -1 ? "dislike" : null;
+
+            updatePostDisplay(parent_elem);
+        } catch (err) {
+            console.error("Vote failed:", err);
         }
-        updatePostDisplay(parent_elem);
     };
+
+    new_post_like_button.onclick = () => handleVote("like");
+    new_post_dislike_button.onclick = () => handleVote("dislike");
 }
 
 function updatePostDisplay(postContainer) {
@@ -107,13 +124,11 @@ function updatePostDisplay(postContainer) {
     const netLikes = postData.likes - postData.dislikes;
     display.textContent = "Likes: " + netLikes;
 
-    likeBtn.classList.remove("vote_active_like");
-    dislikeBtn.classList.remove("vote_active_dislike");
-
-    if (postData.userVote === "like") likeBtn.classList.add("vote_active_like");
-    else if (postData.userVote === "dislike") dislikeBtn.classList.add("vote_active_dislike");
+    likeBtn.classList.toggle("vote_active_like", postData.userVote === "like");
+    dislikeBtn.classList.toggle("vote_active_dislike", postData.userVote === "dislike");
 }
 
+<<<<<<< Updated upstream
 const posts = await DatabaseManager.getAllPosts();
 
 function showAllPosts()
@@ -154,3 +169,13 @@ function searchPostByTitle(e)
     });
 }
 }
+=======
+(async () => {
+    await initCurrentUser(); 
+    const posts = await DatabaseManager.getAllPosts();
+    if (posts) {
+        posts.forEach(post => createNewPost(post));
+        attachEditPopup();
+    }
+})();
+>>>>>>> Stashed changes

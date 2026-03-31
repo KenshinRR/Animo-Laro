@@ -156,7 +156,34 @@ async fetchJSON(url, options = {}) {
     if (!commentId) return [];
     return await this.fetchJSON(`${this.baseURL}/replies/${encodeURIComponent(commentId)}`) || [];
   }
+
+  
+// Like/Dislike Post
+async votePost(user_id, post_id, like_Value) {
+    const res = await this.fetchJSON(`${this.baseURL}/user_likes/vote`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", 
+        body: JSON.stringify({ user_id, post_id, like_Value })
+    });
+    if (!res) {
+        console.error("votePost: server returned null"); 
+        return { vote: 0 };
+    }
+
+    return res;
 }
+
+async getPostVotes(post_id) {
+    const res = await this.fetchJSON(`${this.baseURL}/user_likes/votes/${encodeURIComponent(post_id)}`, {
+        credentials: "include" 
+    });
+    if (!res) {
+        console.error("getPostVotes: server returned null");
+        return { likes: 0, dislikes: 0 };
+    }
+    return res;
+}}
 
 const DBManager = new DatabaseManager();
 export default DBManager;
