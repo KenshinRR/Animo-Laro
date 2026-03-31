@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", async function() {
             profileImage.src = user.avatar;
             smallImage.src = user.avatar;
         } else {
-            profileImage.src = "../View/" + (user.avatar || "default_avatar");
-            smallImage.src = "../View/" + (user.avatar || "default_avatar");
+            profileImage.src = "/Images/" + (user.avatar || "default_avatar");
+            smallImage.src = "/Images/" + (user.avatar || "default_avatar");
         }
 
     } catch (err) {
@@ -96,8 +96,8 @@ saveButton.addEventListener("click", async function () {
             console.error("Failed to update profile");
             return;
         }
-
-        window.location.href = "profile_view.html";
+        window.location.href = "/Pages/profile_view.html";
+        
 
     } catch (err) {
         console.error("Failed to update:", err);

@@ -34,7 +34,8 @@ const __dirname = path.dirname(__filename);
 // Serve all static files (HTML, JS, CSS, images) from the project folder
 app.set('trust proxy', 1);
 app.use(express.json({ limit: "10mb" }));
-app.use(express.static(__dirname))
+//app.use(express.static(__dirname))
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 const allowedOrigins = [

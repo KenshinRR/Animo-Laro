@@ -48,7 +48,7 @@ function checkCurrentUser() {
       return res.json();
     })
     .then((data) => {
-      window.location.href = "main_feed.html";
+      window.location.href = "/Pages/main_feed.html";
     })
     .catch((err) => {
       // not logged in → stay on login page

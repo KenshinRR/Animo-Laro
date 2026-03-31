@@ -1,5 +1,5 @@
 // Loading comments from database
-fetch("../JSON files/comments_database.json")
+fetch("/JSON files/comments_database.json")
   .then(response => response.json())
   .then(commentsData => {
 

@@ -1,4 +1,4 @@
-import DataBaseManager from '../Contoller/DatabaseManager.js'
+import DataBaseManager from './DatabaseManager.js'
 
 // Back Button
 const back_button = document.getElementById("back_button");

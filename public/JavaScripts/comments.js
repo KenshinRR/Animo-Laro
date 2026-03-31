@@ -1,4 +1,4 @@
-import DatabaseManager from '../Contoller/DatabaseManager.js';
+import DatabaseManager from './DatabaseManager.js';
 
 let comments = [];
 let currentUser = null;
@@ -45,6 +45,54 @@ async function initComments() {
         console.error("Error loading comments:", err);
     }
 }
+
+Promise.all([
+    fetch("/JSON files/comments_database.json").then(res => res.json()),
+    fetch("/JSON files/comment_comment_database.json").then(res => res.json())
+])
+.then(([commentsData, relationsData]) => {
+
+    comments = commentsData.map(comment => createCommentObject(comment));
+
+    if (comments.length > 0) commentIdCounter = Math.max(...comments.map(c => c.id)) + 1;
+
+    const commentMap = {};
+    comments.forEach(comment => commentMap[comment.id] = comment);
+
+    relationsData.forEach(relation => {
+        const parent = commentMap[relation.parent_comment_id];
+        const child = commentMap[relation.comment_under_id];
+        if (parent && child) parent.replies.push(child);
+    });
+
+    const childIds = relationsData.map(r => r.comment_under_id);
+    comments = comments.filter(c => !childIds.includes(c.id));
+
+    renderComments();
+})
+.catch(error => console.error("Error loading comments:", error));
+
+document.getElementById("comment_form")
+.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const input = document.getElementById("comment_input");
+    const text = input.value.trim();
+    if (text === "") return;
+
+    comments.push({
+        id: commentIdCounter++,
+        username: "user",
+        text: text,
+        likes: 0,
+        dislikes: 0,
+        edited: false,
+        userVote: null,
+        replies: []
+    });
+
+    input.value = "";
+    renderComments();
+});
 
 function renderComments() {
     const container = document.getElementById("comments_container");

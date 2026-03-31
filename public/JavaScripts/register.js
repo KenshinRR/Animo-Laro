@@ -53,7 +53,7 @@ register_form.addEventListener("submit", function (event) {
 
         return;
       }
-      window.location.href = "login_page.html";
+      window.location.href = "/Pages/login_page.html";
     })
     .catch((err) => console.error("Register error:", err));
 });
@@ -69,7 +69,7 @@ async function checkCurrentUser() {
       credentials: "include",
     });
     if (res.ok) {
-      window.location.href = "main_feed.html";
+      window.location.href = "/Pages/main_feed.html";
     }
   } catch (err) {
     console.error("Error checking session:", err);
