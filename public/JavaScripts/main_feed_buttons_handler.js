@@ -86,8 +86,8 @@ async function OnLogOutUser()
 // ON viewing profile page
 function ViewProfilePage()
 {
-    //window.location.href = "/Pages/profile_view.html"
-    window.location.href = "/api/profile?edit=false";
+    window.location.href = "/Pages/profile_view.html"
+    //window.location.href = "/profile?edit=false";
 }
 
 // Viewing of specific post

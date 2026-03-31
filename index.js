@@ -4,6 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import session from "express-session"
 import MongoStore from "connect-mongo"
+// in your main server file, after app.set("views") etc.
+import { renderProfilePage } from "./Contoller/UserController.js";
 
 import 'dotenv/config';
 import userRoutes from "./Routes/userRoutes.js"
@@ -77,10 +79,6 @@ app.use(session({
   }
 }))
 
-app.use("/api",userRoutes);
-app.use("/api",postRoutes);
-app.use("/api",commentRoutes); // <-- added comment routes
-
 app.engine("hbs", engine({
   extname: "hbs",
   defaultLayout: "main",
@@ -90,6 +88,13 @@ app.engine("hbs", engine({
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
+
+app.use("/api",userRoutes);
+app.use("/api",postRoutes);
+app.use("/api",commentRoutes); // <-- added comment routes
+//app.get("/profile", renderProfilePage); 
+
+
 
 
 app.get("/", (req, res) => {
