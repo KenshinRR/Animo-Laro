@@ -84,7 +84,8 @@ async function OnLogOutUser()
 // ON viewing profile page
 function ViewProfilePage()
 {
-    window.location.href = "/Pages/profile_view.html"
+    //window.location.href = "/Pages/profile_view.html"
+    window.location.href = "/profile?edit=false";
 }
 
 // Viewing of specific post
@@ -99,6 +100,7 @@ function ViewSpecificPoster(e)
 {
     // To be implemented
 }
+
 
 async function checkCurrentUser() {
     try {

@@ -1,0 +1,31 @@
+<section class="user_info">
+
+    <section class="user_profile">
+
+        {{#if isEditing}}
+            {{> profileEdit}}
+        {{else}}
+            {{> profileView}}
+        {{/if}}
+
+    </section>
+
+    {{!-- Only show Recent Activity section on view mode --}}
+    {{#unless isEditing}}
+    <section class="user_activity" id="user_activity">
+        <h1>Recent Activity:</h1>
+    </section>
+    {{/unless}}
+
+</section>
+
+<!-- Shared scripts -->
+<script src="/JavaScripts/theme_loader.js"></script>
+
+{{#if isEditing}}
+    <script src="/JavaScripts/edit_profile.js"></script>
+{{else}}
+    <script src="/JavaScripts/view_profile.js"></script>
+    <script src="/JavaScripts/user_activity.js"></script>
+    <script src="/JavaScripts/comment_loader.js"></script>
+{{/if}}

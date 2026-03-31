@@ -139,3 +139,32 @@ export async function getCurrentUser(req, res){
 
     res.json({user: req.session.user});
 }
+
+export async function renderProfilePage(req, res) {
+    try {
+        const username = req.session.user?.username;
+        if (!username) {
+            return res.redirect("/login"); // redirect if not logged in
+        }
+
+        // Fetch user data from DB
+        const user = await getUserUseUsername(username); // reuse your existing DB function
+
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+
+        // Check if edit mode is requested
+        const isEditing = req.query.edit === "true";
+
+        // Render Handlebars template
+        res.render("profile", {
+            layout: "main",
+            user,
+            isEditing
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+}
