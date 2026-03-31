@@ -119,7 +119,7 @@ async function checkCurrentUser() {
         }
         const data = await res.json();
         if(!data){
-            window.location.href = "/Pages/login_page.html";
+            window.location.href = "/api/Pages/login_page.html";
             return;
         }
 
