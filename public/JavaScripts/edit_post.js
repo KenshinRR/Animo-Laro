@@ -12,9 +12,9 @@ const postId = urlParams.get('id');
 const current_post_data = await DataBaseManager.getPostById(postId);
 
 // Verifying if user can edit the post
-var curr_user = JSON.parse(sessionStorage.getItem("currentUser"));
-if (!curr_user) curr_user = JSON.parse(localStorage.getItem("currentUser"));
-if (curr_user.user.username != current_post_data.poster) // change this in the future to check for IDs instead of names
+var curr_user = DataBaseManager.getCurrentUser();
+
+if (curr_user.username != current_post_data.poster) // change this in the future to check for IDs instead of names
 {
     alert("You cannot edit this post!");
     window.location.href = "/Pages/main_feed.html";
