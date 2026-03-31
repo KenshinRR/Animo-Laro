@@ -92,7 +92,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use("/api",userRoutes);
 app.use("/api",postRoutes);
 app.use("/api",commentRoutes); // <-- added comment routes
-app.get("/profile", renderProfilePage); 
+//app.get("/profile", renderProfilePage); 
 
 
 
