@@ -12,8 +12,8 @@ const router = express.Router();
 
 router.get("/posts", postController.getPosts);
 router.get("/posts/:id", postController.getSpecificPost);
-router.post("/create_post", requireAuth, postController.createPost);
-router.post("/edit_post/:id", requireAuth, postController.editPost);
-router.post("/delete_post/:id", requireAuth, postController.deletePostByID);
+router.post("/create_post", postController.createPost);
+router.post("/edit_post/:id", postController.editPost);
+router.post("/delete_post/:id", postController.deletePostByID);
 
 export default router;
