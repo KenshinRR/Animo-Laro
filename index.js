@@ -8,6 +8,7 @@ import MongoStore from "connect-mongo"
 import 'dotenv/config';
 import userRoutes from "./Routes/userRoutes.js"
 import postRoutes from "./Routes/postRoutes.js"
+import commentRoutes from "./Routes/commentRoutes.js"; // <-- added comment routes
 
 import cors from "cors";
 
@@ -76,6 +77,7 @@ app.use(session({
 
 app.use("/api",userRoutes);
 app.use("/api",postRoutes);
+app.use("/api",commentRoutes); // <-- added comment routes
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
