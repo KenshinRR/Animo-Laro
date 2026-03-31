@@ -5,11 +5,11 @@ const back_button = document.getElementById("back_button");
 
 back_button.addEventListener("click", () => window.location.href = "/Pages/main_feed.html")
 
+// Fetching to get session data
+
+
 document.getElementById("post_form").addEventListener("submit", async function(event) {
   event.preventDefault(); // prevent page reload
-
-  const title_input = document.getElementById("input_title");
-  const desc_input = document.getElementById("input_desc");
 
   // Get values from inputs
   const desc = document.getElementById("input_desc").value;
@@ -37,6 +37,10 @@ document.getElementById("post_form").addEventListener("submit", async function(e
   {
     alert("Not logged in!");
     return;
+  }
+  else
+  {
+    console.log("Current user " + currentUserData.username);
   }
   var poster_name = currentUserData.username;
 
@@ -74,6 +78,7 @@ function CheckValidURL(string){
 
 async function SaveToDatabase(title, poster_name, poster_id, desc, linkValue)
 {
+  console.log("Saving these values ", title, poster_name, poster_id, desc, linkValue);
   // Add new values as an object (or array, depending on your preference)
   await DataBaseManager.addPost(
     {
