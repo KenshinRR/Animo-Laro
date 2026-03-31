@@ -1,136 +1,85 @@
-let comments = [];
-let commentIdCounter = 0;
+import DatabaseManager from '../Contoller/DatabaseManager.js';
 
-let post = {
-    likes: 0,
-    dislikes: 0,
-    userVote: null
-};
+let comments = [];
+let currentUser = null;
+
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get('id');
 
 const postLikeBtn = document.getElementById("post_like_btn");
 const postDislikeBtn = document.getElementById("post_dislike_btn");
 const postLikesDisplay = document.getElementById("post_likes_display");
 
-function updatePostDisplay() {
-    const netLikes = post.likes - post.dislikes;
-    postLikesDisplay.textContent = "Likes: " + netLikes;
+// --- Initialize comments ---
+async function initComments() {
+    currentUser = await DatabaseManager.getCurrentUser();
 
-    postLikeBtn.classList.remove("vote_active_like");
-    postDislikeBtn.classList.remove("vote_active_dislike");
+    try {
+        const res = await fetch(`/api/comments/${postId}`);
+        const commentsData = await res.json();
 
-    if (post.userVote === "like") postLikeBtn.classList.add("vote_active_like");
-    else if (post.userVote === "dislike") postDislikeBtn.classList.add("vote_active_dislike");
+        const commentMap = {};
+        comments = commentsData.map(c => {
+            const obj = {
+                id: c._id,  
+                username: c.user_id?.username || "Anonymous",
+                text: c.description,
+                likes: c.likes || 0,
+                dislikes: c.dislikes || 0,
+                edited: c.edited || false,
+                userVote: null,
+                parent_comment_id: c.parent_comment_id || null,
+                replies: []
+            };
+            commentMap[obj.id] = obj;
+            return obj;
+        });
+
+        // Attach replies to parents
+        comments.forEach(c => {
+            if (c.parent_comment_id && commentMap[c.parent_comment_id]) {
+                commentMap[c.parent_comment_id].replies.push(c);
+            }
+        });
+
+        // Filter out replies from root list
+        comments = comments.filter(c => !c.parent_comment_id);
+
+        renderComments();
+    } catch (err) {
+        console.error("Error loading comments:", err);
+    }
 }
 
-postLikeBtn.onclick = () => {
-    if (post.userVote !== "like") {
-        if (post.userVote === "dislike") post.dislikes--;
-        post.likes++;
-        post.userVote = "like";
-    } else {
-        post.likes--;
-        post.userVote = null;
-    }
-    updatePostDisplay();
-};
-
-postDislikeBtn.onclick = () => {
-    if (post.userVote !== "dislike") {
-        if (post.userVote === "like") post.likes--;
-        post.dislikes++;
-        post.userVote = "dislike";
-    } else {
-        post.dislikes--;
-        post.userVote = null;
-    }
-    updatePostDisplay();
-};
-
-function createCommentObject(rawComment) {
-    return {
-        id: rawComment.comment_id,
-        username: "user",
-        text: rawComment.description,
-        likes: rawComment.likes || 0,
-        dislikes: rawComment.dislikes || 0,
-        edited: rawComment.edited || false,
-        userVote: null,
-        replies: []
-    };
-}
-
-Promise.all([
-    fetch("../JSON files/comments_database.json").then(res => res.json()),
-    fetch("../JSON files/comment_comment_database.json").then(res => res.json())
-])
-.then(([commentsData, relationsData]) => {
-
-    comments = commentsData.map(comment => createCommentObject(comment));
-
-    if (comments.length > 0) commentIdCounter = Math.max(...comments.map(c => c.id)) + 1;
-
-    const commentMap = {};
-    comments.forEach(comment => commentMap[comment.id] = comment);
-
-    relationsData.forEach(relation => {
-        const parent = commentMap[relation.parent_comment_id];
-        const child = commentMap[relation.comment_under_id];
-        if (parent && child) parent.replies.push(child);
-    });
-
-    const childIds = relationsData.map(r => r.comment_under_id);
-    comments = comments.filter(c => !childIds.includes(c.id));
-
-    renderComments();
-})
-.catch(error => console.error("Error loading comments:", error));
-
-document.getElementById("comment_form")
-.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const input = document.getElementById("comment_input");
-    const text = input.value.trim();
-    if (text === "") return;
-
-    comments.push({
-        id: commentIdCounter++,
-        username: "user",
-        text: text,
-        likes: 0,
-        dislikes: 0,
-        edited: false,
-        userVote: null,
-        replies: []
-    });
-
-    input.value = "";
-    renderComments();
-});
-
+// --- Render comments ---
 function renderComments() {
     const container = document.getElementById("comments_container");
-    container.innerHTML = "";
-    comments.forEach(comment => container.appendChild(renderCommentElement(comment)));
+    container.innerHTML = '';
+    comments.forEach(c => container.appendChild(renderCommentElement(c)));
 }
 
 function renderCommentElement(comment) {
-    const commentDiv = document.createElement("div");
-    commentDiv.className = "comment";
+    const div = document.createElement("div");
+    div.className = "comment";
 
+    // Header
     const header = document.createElement("div");
     header.className = "comment_header";
     header.textContent = comment.username;
+    div.appendChild(header);
 
+    // Text
     const text = document.createElement("div");
     text.className = "comment_text";
     text.textContent = comment.text;
-
     if (comment.edited) {
-        const editedIndicator = document.createElement("span");
-        editedIndicator.textContent = " (edited)";
-        text.appendChild(editedIndicator);
+        const editedSpan = document.createElement("span");
+        editedSpan.textContent = " (edited)";
+        text.appendChild(editedSpan);
     }
+    div.appendChild(text);
 
+    // Actions
     const actions = document.createElement("div");
     actions.className = "comment_actions";
 
@@ -144,65 +93,32 @@ function renderCommentElement(comment) {
 
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
+    editBtn.style.display = currentUser && currentUser.username === comment.username ? "inline-block" : "none";
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
+    deleteBtn.style.display = currentUser && currentUser.username === comment.username ? "inline-block" : "none";
 
     const likesDisplay = document.createElement("span");
     likesDisplay.textContent = "Likes: " + (comment.likes - comment.dislikes);
 
-    likeBtn.onclick = () => {
-        if (comment.userVote === "like") {
-            comment.likes--;
-            comment.userVote = null;
-        } else {
-            if (comment.userVote === "dislike") comment.dislikes--;
-            comment.likes++;
-            comment.userVote = "like";
-        }
-        renderComments();
-    };
+    actions.append(likeBtn, dislikeBtn, likesDisplay, editBtn, deleteBtn);
+    div.appendChild(actions);
 
-    dislikeBtn.onclick = () => {
-        if (comment.userVote === "dislike") {
-            comment.dislikes--;
-            comment.userVote = null;
-        } else {
-            if (comment.userVote === "like") comment.likes--;
-            comment.dislikes++;
-            comment.userVote = "dislike";
-        }
-        renderComments();
-    };
+    // Recursive replies
+    comment.replies.forEach(reply => div.appendChild(renderCommentElement(reply)));
 
-    editBtn.onclick = () => {
-        const newText = prompt("Edit comment:", comment.text);
-        if (!newText || newText.trim() === "") return;
-        comment.text = newText.trim();
-        comment.edited = true;
-        renderComments();
-    };
+    return div;
+}
 
-    deleteBtn.onclick = () => {
-        if(deleteCommentById(comment.id, comments)) renderComments();
-    };
-
-    actions.appendChild(likeBtn);
-    actions.appendChild(dislikeBtn);
-    actions.appendChild(likesDisplay);
-    actions.appendChild(editBtn);
-    actions.appendChild(deleteBtn);
-
-    commentDiv.appendChild(header);
-    commentDiv.appendChild(text);
-    commentDiv.appendChild(actions);
-
-    comment.replies.forEach(reply => commentDiv.appendChild(renderCommentElement(reply)));
-
-    // Placeholder for logged-in user check for edit/delete
-    // if(currentUser === comment.username) { show editBtn and deleteBtn }
-
-    return commentDiv;
+// --- Utility functions ---
+function findCommentById(id, list) {
+    for (const c of list) {
+        if (c.id === id) return c;
+        const found = findCommentById(id, c.replies);
+        if (found) return found;
+    }
+    return null;
 }
 
 function deleteCommentById(id, list) {
@@ -211,9 +127,65 @@ function deleteCommentById(id, list) {
             list.splice(i, 1);
             return true;
         } else if (list[i].replies.length > 0) {
-            const deleted = deleteCommentById(id, list[i].replies);
-            if (deleted) return true;
+            if (deleteCommentById(id, list[i].replies)) return true;
         }
     }
     return false;
 }
+
+async function voteComment(id, voteType) {
+    await fetch(`/api/comment_vote/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vote: voteType })
+    });
+}
+
+// --- Submit new comment ---
+document.getElementById("comment_form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const input = document.getElementById("comment_input");
+    const text = input.value.trim();
+    if (!text) return;
+
+    try {
+        const res = await fetch('/api/create_comment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                description: text,
+                post_id: postId,
+                user_id: currentUser?._id
+            })
+        });
+
+        const newComment = await res.json();
+        const commentObj = {
+            id: newComment._id,
+            username: newComment.user_id?.username || "Anonymous",
+            text: newComment.description,
+            likes: newComment.likes,
+            dislikes: newComment.dislikes,
+            edited: newComment.edited,
+            userVote: null,
+            parent_comment_id: newComment.parent_comment_id || null,
+            replies: []
+        };
+
+        if (commentObj.parent_comment_id) {
+            const parent = findCommentById(commentObj.parent_comment_id, comments);
+            if (parent) parent.replies.push(commentObj);
+        } else {
+            comments.push(commentObj);
+        }
+
+        input.value = '';
+        renderComments();
+
+    } catch (err) {
+        console.error("Failed to add comment:", err);
+    }
+});
+
+// --- Initialize ---
+initComments();
