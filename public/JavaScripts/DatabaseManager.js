@@ -3,17 +3,24 @@ class DatabaseManager {
     this.baseURL = "https://animo-laro.onrender.com/api";
   }
 
-  async fetchJSON(url, options = {}) {
-    var posts = null;
-    try {
-      const res = await fetch(url, options);
-      posts = await res.json();
-    } catch (err) {
-      console.error("Failed to load posts:", err);
-    }
-    return posts;
-  }
+async fetchJSON(url, options = {}) {
+  try {
+    const res = await fetch(url, {
+      credentials: "include",
+      ...options
+    });
 
+    if (!res.ok) {
+      console.error("Request failed:", res.status);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("Failed to fetch JSON:", err);
+    return null;
+  }
+}
   async addPost(post){
     const { title, poster_name, poster_id, description, likes, link } = post;
     try {
