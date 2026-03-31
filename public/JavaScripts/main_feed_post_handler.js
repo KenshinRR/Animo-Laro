@@ -126,7 +126,7 @@ if (posts) {
     showAllPosts();
 }
 
-document.getElementById("search_bar").addEventListener("keydown", searchPostByTitle(e));
+document.getElementById("search_bar").addEventListener("keydown", (e) => searchPostByTitle(e));
 
 
 function searchPostByTitle(e)
