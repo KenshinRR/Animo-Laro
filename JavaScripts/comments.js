@@ -10,18 +10,16 @@ const postLikeBtn = document.getElementById("post_like_btn");
 const postDislikeBtn = document.getElementById("post_dislike_btn");
 const postLikesDisplay = document.getElementById("post_likes_display");
 
-// --- Initialize comments ---
 async function initComments() {
     currentUser = await DatabaseManager.getCurrentUser();
 
     try {
-        const res = await fetch(`/api/comments/${postId}`);
-        const commentsData = await res.json();
+        const commentsData = await DatabaseManager.getComments(postId);
 
         const commentMap = {};
         comments = commentsData.map(c => {
             const obj = {
-                id: c._id,  
+                id: c._id,
                 username: c.user_id?.username || "Anonymous",
                 text: c.description,
                 likes: c.likes || 0,
@@ -35,23 +33,19 @@ async function initComments() {
             return obj;
         });
 
-        // Attach replies to parents
         comments.forEach(c => {
             if (c.parent_comment_id && commentMap[c.parent_comment_id]) {
                 commentMap[c.parent_comment_id].replies.push(c);
             }
         });
 
-        // Filter out replies from root list
         comments = comments.filter(c => !c.parent_comment_id);
-
         renderComments();
     } catch (err) {
         console.error("Error loading comments:", err);
     }
 }
 
-// --- Render comments ---
 function renderComments() {
     const container = document.getElementById("comments_container");
     container.innerHTML = '';
@@ -62,13 +56,11 @@ function renderCommentElement(comment) {
     const div = document.createElement("div");
     div.className = "comment";
 
-    // Header
     const header = document.createElement("div");
     header.className = "comment_header";
     header.textContent = comment.username;
     div.appendChild(header);
 
-    // Text
     const text = document.createElement("div");
     text.className = "comment_text";
     text.textContent = comment.text;
@@ -79,7 +71,6 @@ function renderCommentElement(comment) {
     }
     div.appendChild(text);
 
-    // Actions
     const actions = document.createElement("div");
     actions.className = "comment_actions";
 
@@ -105,13 +96,11 @@ function renderCommentElement(comment) {
     actions.append(likeBtn, dislikeBtn, likesDisplay, editBtn, deleteBtn);
     div.appendChild(actions);
 
-    // Recursive replies
     comment.replies.forEach(reply => div.appendChild(renderCommentElement(reply)));
 
     return div;
 }
 
-// --- Utility functions ---
 function findCommentById(id, list) {
     for (const c of list) {
         if (c.id === id) return c;
@@ -134,14 +123,9 @@ function deleteCommentById(id, list) {
 }
 
 async function voteComment(id, voteType) {
-    await fetch(`/api/comment_vote/${id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ vote: voteType })
-    });
+    await DatabaseManager.voteComment(id, voteType);
 }
 
-// --- Submit new comment ---
 document.getElementById("comment_form").addEventListener("submit", async function(e) {
     e.preventDefault();
     const input = document.getElementById("comment_input");
@@ -149,17 +133,12 @@ document.getElementById("comment_form").addEventListener("submit", async functio
     if (!text) return;
 
     try {
-        const res = await fetch('/api/create_comment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                description: text,
-                post_id: postId,
-                user_id: currentUser?._id
-            })
+        const newComment = await DatabaseManager.createComment({
+            description: text,
+            post_id: postId,
+            user_id: currentUser?._id
         });
 
-        const newComment = await res.json();
         const commentObj = {
             id: newComment._id,
             username: newComment.user_id?.username || "Anonymous",
@@ -181,11 +160,9 @@ document.getElementById("comment_form").addEventListener("submit", async functio
 
         input.value = '';
         renderComments();
-
     } catch (err) {
         console.error("Failed to add comment:", err);
     }
 });
 
-// --- Initialize ---
 initComments();
