@@ -25,7 +25,7 @@ class DatabaseManager {
       console.error("Failed to load current user:", err);
     }
 
-    return curr_user.user;
+    return curr_user;
   }
 
   getAllUsers() {

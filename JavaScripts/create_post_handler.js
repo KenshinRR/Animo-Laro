@@ -40,8 +40,11 @@ document.getElementById("post_form").addEventListener("submit", async function(e
   }
   else
   {
-    console.log("Current user " + currentUserData.username);
+    console.log("Current user " + currentUserData.user.username);
   }
+
+  currentUserData = currentUserData.user;
+  
   var poster_name = currentUserData.username;
 
   await SaveToDatabase(title, poster_name, currentUserData._id ,desc, linkValue);
