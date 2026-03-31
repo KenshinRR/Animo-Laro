@@ -116,7 +116,41 @@ function updatePostDisplay(postContainer) {
 
 const posts = await DatabaseManager.getAllPosts();
 
-if (posts) {
+function showAllPosts()
+{
     posts.forEach(post => createNewPost(post));
     attachEditPopup();
+}
+
+if (posts) {
+    showAllPosts();
+}
+
+document.getElementById("search_bar").addEventListener("keydown", (e) => searchPostByTitle(e));
+
+
+function searchPostByTitle(e)
+{
+   if (e.key === "Enter") {
+    document.getElementById("main_feed_container").innerHTML = "";
+    const searchBar = document.getElementById("search_bar");
+    const query = searchBar.value.toLowerCase();
+    // console.log("Searching for " + query);
+
+    if (query == "")
+    {
+        showAllPosts();
+        return;
+    }
+
+    const filtered = posts.filter(post =>
+    post.title.toLowerCase().includes(query)
+    );
+
+    // Display results
+    filtered.forEach(post => {
+        createNewPost(post);
+        attachEditPopup();
+    });
+}
 }
