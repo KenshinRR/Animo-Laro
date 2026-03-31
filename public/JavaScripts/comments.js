@@ -8,10 +8,10 @@ const postId = urlParams.get('id');
 
 async function initComments() {
     try {
-        const meRes = await fetch('https://animo-laro.onrender.com/api/me', {
+        const meRes = await fetch(`/api/me`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            credentials: 'include'
+            credentials: "include"
         });
 
         if (!meRes.ok) {
@@ -29,7 +29,7 @@ async function initComments() {
             }
         }
 
-        const commentsData = await DatabaseManager.getComments(postId);
+        const commentsData = await DatabaseManager.getComments(postId) || [];
         const commentMap = {};
         comments = commentsData.map(c => {
             const obj = {
