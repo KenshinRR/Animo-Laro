@@ -47,7 +47,7 @@ document.getElementById("post_form").addEventListener("submit", async function(e
   
   var poster_name = currentUserData.username;
 
-  await SaveToDatabase(title, poster_name, currentUserData._id ,desc, linkValue);
+  await SaveToDatabase(title, poster_name, currentUserData.id ,desc, linkValue);
   
   // Clear inputs
   document.getElementById("input_title").value = "";
