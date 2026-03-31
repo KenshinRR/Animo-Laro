@@ -19,7 +19,7 @@ export async function getPosts(req, res) {
 export async function createPost(req, res) {
 
   try {
-
+    console.log(req.body);
     const post = await postDB.createPost(
       req.body.title,
       req.body.poster_name,
@@ -32,7 +32,7 @@ export async function createPost(req, res) {
     res.status(201).json(post);
 
   } catch (err) {
-
+    
     res.status(500).json({ error: err.message });
 
   }
