@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", async function() {
         document.getElementById("user_pic").src = user.avatar;
         document.getElementById("user_pic_small").src = user.avatar;
     } else {
-        document.getElementById("user_pic").src = "../View/" + user.avatar;
-        document.getElementById("user_pic_small").src = "../View/" + user.avatar;
+        document.getElementById("user_pic").src = "/Images/" + user.avatar;
+        document.getElementById("user_pic_small").src = "/Images/" + user.avatar;
     }
         
 });

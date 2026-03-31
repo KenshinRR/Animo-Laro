@@ -1,4 +1,4 @@
-import DatabaseManager from '../Contoller/DatabaseManager.js';
+import DatabaseManager from './DatabaseManager.js';
 import { attachEditPopup } from './post_edit_popup_handler.js'; 
 
 function createNewPost(post) {
@@ -21,7 +21,7 @@ function createNewPost(post) {
     const edit_post_icon = document.createElement("img");
     edit_post_icon.dataset.post_id = post._id;
     edit_post_icon.classList.add("edit_post_icon");
-    edit_post_icon.src = "../View/System Images/Icons/Three-Dots-Horizontal.png";
+    edit_post_icon.src = "/Images/System Images/Icons/Three-Dots-Horizontal.png";
     title_bar.appendChild(edit_post_icon);
 
     const h2_title = document.createElement("h2");

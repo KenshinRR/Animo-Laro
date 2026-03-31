@@ -1,5 +1,5 @@
 // Loading posts from database
-fetch("../JSON files/posts_database.json")
+fetch("/JSON files/posts_database.json")
   .then(response => response.json())
   .then(postsData => {
     // get the posts from localStorage

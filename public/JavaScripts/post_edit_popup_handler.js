@@ -1,4 +1,4 @@
-import DatabaseManager from '../Contoller/DatabaseManager.js';
+import DatabaseManager from './DatabaseManager.js';
 
 const popup = document.getElementById("popup");
 popup.style.display = "none";

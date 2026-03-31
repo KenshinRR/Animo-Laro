@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", async function() {
     console.log("HelloMOFO");
   
     const [users, posts, userPosts] = await Promise.all([
-        fetch("../JSON files/users_database.json").then(res => res.json()),
-        fetch("../JSON files/posts_database.json").then(res => res.json()),
-        fetch("../JSON files/user_post_database.json").then(res => res.json())
+        fetch("/JSON files/users_database.json").then(res => res.json()),
+        fetch("/JSON files/posts_database.json").then(res => res.json()),
+        fetch("/JSON files/user_post_database.json").then(res => res.json())
     ]);
 
     let currentUserData = JSON.parse(localStorage.getItem("currentUser")) 
