@@ -144,7 +144,8 @@ export async function renderProfilePage(req, res) {
     try {
         const username = req.session.user?.username;
         if (!username) {
-            return res.redirect("/login"); // redirect if not logged in
+        
+            console.log("Error no username.");
         }
 
         // Fetch user data from DB
@@ -158,7 +159,7 @@ export async function renderProfilePage(req, res) {
         const isEditing = req.query.edit === "true";
 
         // Render Handlebars template
-        res.render("profile", {
+        res.render("user/profile", {
             layout: "main",
             user,
             isEditing
