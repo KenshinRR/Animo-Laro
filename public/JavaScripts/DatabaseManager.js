@@ -59,24 +59,44 @@ class DatabaseManager {
   // }
 
   async editPost(id, post) {
-    if (!id || !post) return null;
-    return await this.fetchJSON(`${this.baseURL}/edit_post/${encodeURIComponent(id)}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, post_data: post })
+    var title = post.title;
+    var description = post.description;
+    var link = post.link;
+        await fetch('https://animo-laro.onrender.com/api/edit_post/' + id,{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({"id": id, "post_data": {title, description, link}})
+    })
+    .then(response => {
+      response.json()
+      if (!response.ok)
+      {
+        alert("Post failed to edit!");
+      }
+    })
+    .catch(err => {
+      console.error("Error:", err);
     });
   }
 
-  async deletePostByID(id) {
-    if (!id) return null;
-    return await this.fetchJSON(`${this.baseURL}/delete_post/${encodeURIComponent(id)}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id })
-    });
-  }
+  async deletePostByID(_id) {
+    fetch('https://animo-laro.onrender.com/api/delete_post/' + _id,{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: _id})
+      })
+      .then(response => {
+        response.json()
+        if (!response.ok)
+        {
+          alert("Post failed to add!");
+        }
+      })
+      .catch(err => {
+        console.error("Error:", err);
+      });
+    }
 
-  // COMMENTS
 
   async getComments(postId = null) {
     const url = postId
