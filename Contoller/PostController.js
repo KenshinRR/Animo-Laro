@@ -67,7 +67,7 @@ export async function editPost(req, res) {
 
 export async function deletePostByID(req, res) {
   try {
-    const post_status = await postDB.deletePostByID(req.body.id);
+    const post_status = await postDB.deletePostByID(req.params.id);
 
     res.status(201).json(post_status);
   }
