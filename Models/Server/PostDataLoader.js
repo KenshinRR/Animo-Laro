@@ -4,13 +4,13 @@ export async function getAllPosts() {
   return await Post.find();
 }
 
-export async function createPost(title, p_name, p_id, desc, likes, link) {
+export async function createPost(title, poster_name, poster_id, description, likes, link) {
 
   const newPost = new Post({
     title,
-    p_name,
-    p_id,
-    desc,
+    poster_name,
+    poster_id,
+    description,
     likes,
     link
   });
