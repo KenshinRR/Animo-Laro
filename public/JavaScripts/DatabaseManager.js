@@ -86,7 +86,7 @@ class DatabaseManager {
 
   async deletePostByID(_id) {
     fetch('https://animo-laro.onrender.com/api/delete_post/' + _id,{
-        method:'POST',
+        method:'DELETE',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({id: _id})
       })
