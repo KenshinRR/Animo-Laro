@@ -9,7 +9,7 @@ class DatabaseManager {
       const res = await fetch(url, options);
       posts = await res.json();
     } catch (err) {
-      console.error("Failed to load posts:", err);
+      console.error("Failed to load data:", err);
     }
     return posts;
   }
@@ -85,21 +85,26 @@ class DatabaseManager {
   }
 
   async deletePostByID(_id) {
-    fetch('https://animo-laro.onrender.com/api/delete_post/' + _id,{
+    await this.fetchJSON(`${this.baseURL}/delete_post/${encodeURIComponent(_id)}`,{
         method:'DELETE',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({id: _id})
-      })
-      .then(response => {
-        response.json()
-        if (!response.ok)
-        {
-          alert("Post failed to add!");
-        }
-      })
-      .catch(err => {
-        console.error("Error:", err);
       });
+    // fetch('https://animo-laro.onrender.com/api/delete_post/' + _id,{
+    //     method:'DELETE',
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify({id: _id})
+    //   })
+    //   .then(response => {
+    //     response.json()
+    //     if (!response.ok)
+    //     {
+    //       alert("Post failed to delete!");
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.error("Error:", err);
+    //   });
     }
 
 
