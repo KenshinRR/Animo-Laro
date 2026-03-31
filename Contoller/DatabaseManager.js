@@ -24,7 +24,7 @@ class DatabaseManager {
         });
 
       curr_user = await res.json();
-      console.log("Fetched user: " + curr_user);
+      // console.log("Fetched user: " + curr_user);
     }
     catch (err) {
       console.error("Failed to load current user:", err);
