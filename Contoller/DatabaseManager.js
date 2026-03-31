@@ -1,8 +1,8 @@
 class DatabaseManager {
   constructor() {
     // Local backend for development
-    this.baseURL = "http://localhost:3000/api"; // <-- local backend
-    // this.baseURL = "https://animo-laro.onrender.com/api"; // <-- original deployed backend
+    // this.baseURL = "http://localhost:3000/api"; // <-- local backend
+    this.baseURL = "https://animo-laro.onrender.com/api"; // <-- original deployed backend
   }
 
   // POSTS
