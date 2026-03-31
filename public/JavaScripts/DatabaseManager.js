@@ -18,6 +18,7 @@ class DatabaseManager {
   }
 
   async addPost(post){
+    console.log("Adding " + post);
     const { title, poster_name, poster_id, description, likes, link } = post;
     try {
       const res = await fetch(`${this.baseURL}/create_post`, {
