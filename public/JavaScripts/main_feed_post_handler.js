@@ -132,9 +132,10 @@ document.getElementById("search_bar").addEventListener("keydown", (e) => searchP
 function searchPostByTitle(e)
 {
    if (e.key === "Enter") {
+    document.getElementById("main_feed_container").innerHTML = "";
     const searchBar = document.getElementById("search_bar");
     const query = searchBar.value.toLowerCase();
-    console.log("Searching for " + query);
+    // console.log("Searching for " + query);
 
     if (query == "")
     {
@@ -147,7 +148,6 @@ function searchPostByTitle(e)
     );
 
     // Display results
-    document.getElementById("main_feed_container").innerHTML = "";
     filtered.forEach(post => {
         createNewPost(post);
         attachEditPopup();
