@@ -44,17 +44,19 @@ class DatabaseManager {
     return await this.fetchJSON(`${this.baseURL}/posts/${encodeURIComponent(id)}`);
   }
 
-  async addPost(post) {
-    if (!post?.poster_id) {
-      console.error("Cannot add post: poster_id is missing");
-      return null;
-    }
-    return await this.fetchJSON(`${this.baseURL}/create_post`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(post)
-    });
-  }
+  // POSTS
+
+  // async addPost(post) {
+  //   if (!post?.poster_id) {
+  //     console.error("Cannot add post: poster_id is missing");
+  //     return null;
+  //   }
+  //   return await this.fetchJSON(`${this.baseURL}/create_post`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(post)
+  //   });
+  // }
 
   async editPost(id, post) {
     if (!id || !post) return null;
@@ -73,6 +75,8 @@ class DatabaseManager {
       body: JSON.stringify({ id })
     });
   }
+
+  // COMMENTS
 
   async getComments(postId = null) {
     const url = postId
